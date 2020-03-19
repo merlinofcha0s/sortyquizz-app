@@ -12,13 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image:  google/dart:latest
+      image: gableroux/flutter:latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Installing flutter
-      run: git clone https://github.com/flutter/flutter.git -b stable && export PATH="$PATH:`pwd`/flutter/bin"
     - name: Install dependencies
       run: flutter pub get
-    - name: Run tests
-      run: flutter pub test
