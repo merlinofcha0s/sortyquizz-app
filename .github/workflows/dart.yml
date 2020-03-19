@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image:  google/dart:latest
+      image:  gableroux/flutter:v1.9.1_hotfix.6
 
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: pub get
+      run: flutter pub get
     - name: Run tests
-      run: pub test
+      run: flutter pub test
