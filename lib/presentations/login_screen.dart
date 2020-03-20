@@ -1,4 +1,5 @@
-import 'package:SortyQuizz/presentations/quizz.dart';
+import 'package:SortyQuizz/presentations/quizz_screen.dart';
+import 'package:SortyQuizz/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,10 +24,7 @@ class LoginPage extends StatelessWidget {
               ),
               RaisedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => QuizzPage()),
-                  );
+                  Navigator.pushNamed(context, QuizzRoutes.quizz);
                 },
                 child: const Text('Start', style: TextStyle(fontSize: 20)),
               ),
