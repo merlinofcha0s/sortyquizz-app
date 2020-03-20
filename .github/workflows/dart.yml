@@ -12,11 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image:  google/dart:latest
+      image: gableroux/flutter:latest
 
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: get
-    - name: Run tests
-      run: test
+      run: flutter pub get
