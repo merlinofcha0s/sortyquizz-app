@@ -8,14 +8,12 @@ import 'package:meta/meta.dart';
 @immutable
 class AppState {
   final List<Question> questions;
-  final bool loading;
 
-  AppState({this.questions = const [], this.loading = false});
+  AppState({this.questions = const []});
 
   AppState copyWith({List<Question> questions}) {
     return AppState(
-      questions: questions ?? this.questions,
-      loading: loading ?? this.loading
+      questions: questions ?? this.questions
     );
   }
 
