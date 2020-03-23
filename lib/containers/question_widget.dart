@@ -3,10 +3,13 @@ import 'package:SortyQuizz/models/question.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+typedef OnSortAnswerCallback = void Function(Answer answer, Question question);
+
 class QuestionWidget extends StatelessWidget {
   final Question question;
+  final OnSortAnswerCallback onSortAnswerCallback;
 
-  QuestionWidget(this.question);
+  QuestionWidget(this.question, this.onSortAnswerCallback);
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +26,8 @@ class QuestionWidget extends StatelessWidget {
               onWillAccept: (track) {
                 return question.answers.indexOf(track) != index;
               },
-              onAccept: (track) {
-                setState(() {
-                  int currentIndex = question.answers.indexOf(track);
-                  question.answers.remove(track);
-                  question.answers.insert(currentIndex > index ? index : index - 1, track);
-                });
+              onAccept: (answer) {
+                this.onSortAnswerCallback(answer, question);
               },
               builder: (BuildContext context, List<Answer> candidateData, List<dynamic> rejectedData) {
                 return Draggable(

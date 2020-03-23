@@ -1,3 +1,4 @@
+import 'package:SortyQuizz/actions/actions.dart';
 import 'package:SortyQuizz/containers/question_widget.dart';
 import 'package:SortyQuizz/keys.dart';
 import 'package:SortyQuizz/models/app_state.dart';
@@ -10,7 +11,6 @@ import 'package:redux/redux.dart';
 import 'loading_indicator_widget.dart';
 
 class QuestionsWidget extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
@@ -19,7 +19,7 @@ class QuestionsWidget extends StatelessWidget {
         if (vm.questions.isEmpty) {
           return LoadingIndicator(key: QuizzKeys.loading);
         } else {
-          return QuestionWidget(vm.questions.first);
+          return QuestionWidget(vm.questions.first, vm.onSortAnswerCallback);
         }
       },
     );
@@ -28,14 +28,15 @@ class QuestionsWidget extends StatelessWidget {
 
 class _ViewModel {
   final List<Question> questions;
+  final OnSortAnswerCallback onSortAnswerCallback;
 
-  _ViewModel({
-    @required this.questions
-  });
+  _ViewModel({@required this.questions, @required this.onSortAnswerCallback});
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
-      questions: questionsSelector(store.state)
-    );
+        questions: questionsSelector(store.state),
+        onSortAnswerCallback: (answer, question) {
+          store.dispatch(SortAnswerAction(answer, question));
+        });
   }
 }

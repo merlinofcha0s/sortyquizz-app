@@ -1,3 +1,4 @@
+import 'package:SortyQuizz/models/answer.dart';
 import 'package:SortyQuizz/models/question.dart';
 
 class LoadQuestionsAction {}
@@ -22,6 +23,19 @@ class AddQuestionAction {
 
   @override
   String toString() {
-    return 'AddTodoAction{todo: $question}';
+    return 'AddQuestionAction{question: $question}';
   }
 }
+
+class SortAnswerAction {
+  final Answer answer;
+  final Question question;
+
+  SortAnswerAction(this.answer, this.question);
+
+  @override
+  String toString() {
+    return 'SortAnswerAction{answer: $answer, question: $question}';
+  }
+}
+
