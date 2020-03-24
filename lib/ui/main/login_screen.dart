@@ -1,4 +1,3 @@
-import 'package:SortyQuizz/presentations/quizz_screen.dart';
 import 'package:SortyQuizz/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ class LoginPage extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Welcome to sorty quizz',
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headline,
               ),
               RaisedButton(
                 onPressed: () {
