@@ -13,12 +13,16 @@ class QuestionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Text(question.question),
+        Text(question.question,
+            style: TextStyle(
+                color: Colors.grey[800],
+                fontWeight: FontWeight.bold,
+                fontSize: 25)),
         ListView.separated(
           shrinkWrap: true,
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(vertical: 60),
           itemCount: question.answers.length,
           itemBuilder: (BuildContext context, int index) {
             return DragTarget<Answer>(
@@ -28,7 +32,8 @@ class QuestionWidget extends StatelessWidget {
               onAccept: (answer) {
                 //this.onSortAnswerCallback(answer, question);
               },
-              builder: (BuildContext context, List<Answer> candidateData, List<dynamic> rejectedData) {
+              builder: (BuildContext context, List<Answer> candidateData,
+                  List<dynamic> rejectedData) {
                 return Draggable(
                   data: question.answers[index],
                   child: Center(child: Text(question.answers[index].answer)),
@@ -44,8 +49,9 @@ class QuestionWidget extends StatelessWidget {
               },
             );
           },
-          separatorBuilder: (BuildContext context, int index) =>
-              const Divider(),
+          separatorBuilder: (BuildContext context, int index) => const Divider(
+            height: 30,
+          ),
         ),
       ],
     );

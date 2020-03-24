@@ -7,15 +7,9 @@ import 'package:provider/provider.dart';
 
 import 'questions/questions_widget.dart';
 
-class QuizzScreen extends StatefulWidget {
+class QuizzScreen extends StatelessWidget {
 
   QuizzScreen() : super(key: QuizzKeys.quizzScreen);
-
-  @override
-  State<StatefulWidget> createState() => QuizzScreenState();
-}
-
-class QuizzScreenState extends State<QuizzScreen> {
 
   @override
   Widget build(BuildContext context) {
