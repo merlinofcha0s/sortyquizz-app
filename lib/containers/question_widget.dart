@@ -7,9 +7,8 @@ typedef OnSortAnswerCallback = void Function(Answer answer, Question question);
 
 class QuestionWidget extends StatelessWidget {
   final Question question;
-  final OnSortAnswerCallback onSortAnswerCallback;
 
-  QuestionWidget(this.question, this.onSortAnswerCallback);
+  QuestionWidget(this.question);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class QuestionWidget extends StatelessWidget {
                 return question.answers.indexOf(track) != index;
               },
               onAccept: (answer) {
-                this.onSortAnswerCallback(answer, question);
+                //this.onSortAnswerCallback(answer, question);
               },
               builder: (BuildContext context, List<Answer> candidateData, List<dynamic> rejectedData) {
                 return Draggable(

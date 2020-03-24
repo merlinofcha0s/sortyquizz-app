@@ -30,7 +30,7 @@ Middleware<AppState> _createSaveQuestions(QuestionsRepository repository) {
 
 Middleware<AppState> _createLoadQuestions(QuestionsRepository repository) {
   return (Store<AppState> store, action, NextDispatcher next) {
-    repository.loadQuestions().then(
+    /*repository.loadQuestions().then(
       (questions) {
         store.dispatch(
           QuestionsLoadedAction(
@@ -38,7 +38,7 @@ Middleware<AppState> _createLoadQuestions(QuestionsRepository repository) {
           ),
         );
       },
-    ).catchError((_) => store.dispatch(QuestionsNotLoadedAction()));
+    ).catchError((_) => store.dispatch(QuestionsNotLoadedAction()));*/
 
     next(action);
   };

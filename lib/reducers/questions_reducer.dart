@@ -7,7 +7,6 @@ final questionsReducer = combineReducers<List<Question>>([
   TypedReducer<List<Question>, AddQuestionAction>(_addQuestion),
   TypedReducer<List<Question>, QuestionsLoadedAction>(_setLoadedQuestions),
   TypedReducer<List<Question>, QuestionsNotLoadedAction>(_setNoQuestions),
-  TypedReducer<List<Question>, SortAnswerAction>(_sortAnswer),
 ]);
 
 List<Question> _addQuestion(
@@ -23,8 +22,4 @@ List<Question> _setLoadedQuestions(
 List<Question> _setNoQuestions(
     List<Question> questions, QuestionsNotLoadedAction action) {
   return [];
-}
-
-List<Answer> _sortAnswer(List<Question> questions, SortAnswerAction action) {
-  return action.answer
 }

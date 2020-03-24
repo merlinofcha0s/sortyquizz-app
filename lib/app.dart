@@ -16,26 +16,19 @@ class SortyQuizzApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreProvider(
-      store: store,
-      child: MaterialApp(
-        title: 'Sorty quizz',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
-        routes: {
-          QuizzRoutes.home: (context) {
-            return LoginPage(title: 'Sorty quizz - Login');
-          },
-          QuizzRoutes.quizz: (context) {
-            return QuizzScreen(
-                onInit: () {
-                  StoreProvider.of<AppState>(context).dispatch(LoadQuestionsAction());
-                }
-            );
-          },
-        },
+    return MaterialApp(
+      title: 'Sorty quizz',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
       ),
+      routes: {
+        QuizzRoutes.home: (context) {
+          return LoginPage(title: 'Sorty quizz - Login');
+        },
+        QuizzRoutes.quizz: (context) {
+          return QuizzScreen();
+        },
+      },
     );
   }
 }

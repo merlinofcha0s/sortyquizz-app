@@ -7,7 +7,7 @@ class QuestionsRepository {
   const QuestionsRepository([this.delay = const Duration(milliseconds: 3000)]);
 
   /// Mock that "fetches" some Todos from a "web service" after a short delay
-  Future<List<Question>> loadQuestions() async {
+  Stream<List<Question>> loadQuestions() {
     List<Answer> answers = new List();
     Answer a = new Answer("Réponse A", 1);
     Answer b = new Answer("Réponse B", 2);
@@ -18,16 +18,15 @@ class QuestionsRepository {
     answers.add(c);
     answers.add(d);
 
-    return Future.delayed(
-        delay,
-        () => [
-              Question('1', 'Whats this question a ?', 1, answers),
-              Question('2', 'Whats this question b ?', 1, answers),
-              Question('3', 'Whats this question c ?', 1, answers),
-              Question('4', 'Whats this question d ?', 1, answers),
-              Question('5', 'Whats this question e ?', 1, answers),
-              Question('6', 'Whats this question f ?', 1, answers),
-            ]);
+    return Stream.value(
+        [
+          Question('1', 'Whats this question a ?', 1, answers),
+          Question('2', 'Whats this question b ?', 1, answers),
+          Question('3', 'Whats this question c ?', 1, answers),
+          Question('4', 'Whats this question d ?', 1, answers),
+          Question('5', 'Whats this question e ?', 1, answers),
+          Question('6', 'Whats this question f ?', 1, answers),
+        ]);
   }
 
   /// Mock that returns true or false for success or failure. In this case,
