@@ -5,6 +5,7 @@ import 'package:SortyQuizz/bloc/bloc.dart';
 import 'package:SortyQuizz/directory/question_repository.dart';
 import 'package:SortyQuizz/models/answer.dart';
 import 'package:SortyQuizz/models/question.dart';
+import 'package:SortyQuizz/models/score.dart';
 
 class QuestionBloc extends Bloc {
   List<Question> questionsLoaded;
@@ -25,6 +26,7 @@ class QuestionBloc extends Bloc {
     this.questionsLoaded = await QuestionsRepository().loadQuestions();
     this.current = this.questionsLoaded.first;
     this.index = 0;
+    this.current.answers.shuffle(Random.secure());
     sink.add(this.current);
   }
 
@@ -33,9 +35,8 @@ class QuestionBloc extends Bloc {
         this.questionsLoaded.asMap()[index + 1] != null) {
       this.current = this.questionsLoaded[index + 1];
       this.index = index + 1;
+      this.current.answers.shuffle(Random.secure());
       sink.add(this.current);
-    } else {
-      sink.add(null);
     }
   }
 
@@ -44,6 +45,15 @@ class QuestionBloc extends Bloc {
     currentAnswers.remove(answer);
     currentAnswers.insert(newIndex, answer);
     sink.add(this.current);
+  }
+
+  hasNextQuestion() {
+    if (index <= questionsLoaded.length &&
+        this.questionsLoaded.asMap()[index + 1] != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
