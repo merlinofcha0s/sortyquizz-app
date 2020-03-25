@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:ffi';
+import 'dart:math';
 
 import 'package:SortyQuizz/bloc/bloc.dart';
 import 'package:SortyQuizz/directory/question_repository.dart';
 import 'package:SortyQuizz/models/answer.dart';
 import 'package:SortyQuizz/models/question.dart';
-import 'package:flutter/foundation.dart';
-import 'package:rxdart/rxdart.dart';
 
 class QuestionBloc extends Bloc {
   List<Question> questionsLoaded;
@@ -25,8 +23,9 @@ class QuestionBloc extends Bloc {
 
   fetchQuestions() async {
     this.questionsLoaded = await QuestionsRepository().loadQuestions();
-    sink.add(this.questionsLoaded.first);
+    this.current = this.questionsLoaded.first;
     this.index = 0;
+    sink.add(this.current);
   }
 
   getNextQuestion() {
@@ -38,6 +37,13 @@ class QuestionBloc extends Bloc {
     } else {
       sink.add(null);
     }
+  }
+
+  changeOrderAnswer(Answer answer, int newIndex) {
+    List<Answer> currentAnswers = current.answers;
+    currentAnswers.remove(answer);
+    currentAnswers.insert(newIndex, answer);
+    sink.add(this.current);
   }
 
   @override

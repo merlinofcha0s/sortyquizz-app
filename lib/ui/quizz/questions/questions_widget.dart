@@ -22,16 +22,16 @@ class QuestionsWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     new RaisedButton(
+                      color: Colors.deepOrange,
+                      onPressed: () => Navigator.pop(context),
+                      child:
+                      Text('Quit', style: TextStyle(fontSize: 15))
+                    ),
+                    new RaisedButton(
                       color: Colors.blue,
                       onPressed: () => bloc.getNextQuestion(),
                       child:
                           Text('Next Question', style: TextStyle(fontSize: 15)),
-                    ),
-                    new RaisedButton(
-                      color: Colors.deepOrange,
-                      onPressed: () => Navigator.pop(context),
-                      child:
-                      Text('Quit', style: TextStyle(fontSize: 15)),
                     )
                   ],
                 ),
