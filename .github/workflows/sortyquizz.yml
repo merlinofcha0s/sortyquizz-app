@@ -19,7 +19,7 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
     - name: Building APK
-      run: flutter build apk --release
+      run: flutter build apk --split-per-abi
     - name: Building APP bundle
       run: flutter build appbundle --target-platform android-arm,android-arm64,android-x64
     - name: Signing APK
@@ -28,16 +28,6 @@ jobs:
         BUILD_TOOLS_VERSION: 28.0.0
       with:
           releaseDirectory: build/app/outputs/apk
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-    - name: Signing APP Bundle
-        uses: r0adkll/sign-android-release@v1
-        env:
-          BUILD_TOOLS_VERSION: 28.0.0
-        with:
-          releaseDirectory: build/app/outputs/bundle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
