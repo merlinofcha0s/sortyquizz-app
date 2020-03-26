@@ -18,10 +18,17 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: flutter pub get
-    - name: Building app
+    - name: Building APK
+      run: flutter build apk --release
+    - name: Building app bundle
       run: flutter build appbundle --target-platform android-arm,android-arm64,android-x64
-    - name: Archive production artifacts
+    - name: Archiving APK
       uses: actions/upload-artifact@v1
       with:
-          name: Quizz-APK
+          name: SortyQuizz-apk
+          path: build/app/outputs/bundle/release
+    - name: Archiving APP Bundle
+      uses: actions/upload-artifact@v1
+      with:
+          name: SortyQuizz-bundle
           path: build/app/outputs/bundle/release
