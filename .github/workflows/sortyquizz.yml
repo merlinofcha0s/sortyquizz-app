@@ -13,6 +13,9 @@ jobs:
 
     container:
       image: gableroux/flutter:latest
+      env:
+        FLUTTER_VERSION: v1.12.13+hotfix.8
+        ANDROID_VERSION: 28
 
     steps:
     - uses: actions/checkout@v2
