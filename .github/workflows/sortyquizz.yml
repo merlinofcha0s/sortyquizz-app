@@ -20,15 +20,24 @@ jobs:
       run: flutter pub get
     - name: Building APK
       run: flutter build apk --release
-    - name: Building app bundle
+    - name: Building APP bundle
       run: flutter build appbundle --target-platform android-arm,android-arm64,android-x64
-    - name: Archiving APK
+    - name: Signing APK
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: build/app/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+    - name: Archiving APK for test
       uses: actions/upload-artifact@v1
       with:
           name: SortyQuizz-apk
           path: build/app/outputs/bundle/release
-    - name: Archiving APP Bundle
+    - name: Archiving APP Bundle for deploy
       uses: actions/upload-artifact@v1
       with:
           name: SortyQuizz-bundle
           path: build/app/outputs/bundle/release
+
