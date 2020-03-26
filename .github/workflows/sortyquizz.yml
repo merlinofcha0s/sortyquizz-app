@@ -32,14 +32,23 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-    - name: Archiving APK for test
+    - name: Signing APP Bundle
+        uses: r0adkll/sign-android-release@v1
+        env:
+          BUILD_TOOLS_VERSION: 28.0.0
+        with:
+          releaseDirectory: build/app/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+    - name: Archiving APK
       uses: actions/upload-artifact@v1
       with:
           name: SortyQuizz-apk
-          path: build/app/outputs/apk
-    - name: Archiving APP Bundle for deploy
+          path: build/app/outputs/apk/app-signed.apk
+    - name: Archiving APP Bundle
       uses: actions/upload-artifact@v1
       with:
           name: SortyQuizz-bundle
-          path: build/app/outputs/bundle/release
-
+          path: build/app/outputs/bundle/release/app-release.aab
