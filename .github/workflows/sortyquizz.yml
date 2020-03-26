@@ -23,8 +23,8 @@ jobs:
     - name: Building APP bundle
       run: flutter build appbundle --target-platform android-arm,android-arm64,android-x64
     - name: Signing APK
-        uses: r0adkll/sign-android-release@v1
-        with:
+      uses: r0adkll/sign-android-release@v1
+      with:
           releaseDirectory: build/app/outputs/bundle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.ALIAS }}
