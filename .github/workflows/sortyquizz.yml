@@ -12,10 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: gableroux/flutter:latest
-      env:
-        FLUTTER_VERSION: v1.12.13+hotfix.8
-        ANDROID_VERSION: 28
+      image: merlinofcha0s/flutter-ci:latest
 
     steps:
     - uses: actions/checkout@v2
