@@ -24,37 +24,49 @@ class QuestionWidget extends StatelessWidget {
                 color: Colors.grey[800],
                 fontWeight: FontWeight.bold,
                 fontSize: 25)),
-        ListView.separated(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(vertical: 60),
-          itemCount: question.answers.length,
-          itemBuilder: (BuildContext context, int index) {
-            Answer currentAnswer = question.answers[index];
-            return Center(
-              child: DragTarget<Answer>(
+        ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            padding: const EdgeInsets.symmetric(vertical: 60),
+            itemCount: question.answers.length,
+            itemBuilder: (BuildContext context, int index) {
+              Answer currentAnswer = question.answers[index];
+              return DragTarget<Answer>(
                 onWillAccept: (answer) {
                   return question.answers.indexOf(answer) != index;
                 },
                 onAccept: (answer) {
                   bloc.changeOrderAnswer(answer, index);
                 },
-                builder: (BuildContext context, List<Answer> candidateData, List<dynamic> rejectedData) {
+                builder: (BuildContext context, List<Answer> candidateData,
+                    List<dynamic> rejectedData) {
                   return Draggable(
                     data: currentAnswer,
-                    child: Text(currentAnswer.answer),
-                    childWhenDragging: Text(currentAnswer.answer, style: TextStyle(fontWeight: FontWeight.bold)),
-                    feedback: Text(currentAnswer.answer, style: TextStyle(fontSize: 20, color: Colors.blue, decorationStyle: TextDecorationStyle.solid, decoration: TextDecoration.none)),
+                    child: answerWidget(currentAnswer, null),
+                    childWhenDragging: answerWidget(currentAnswer, TextStyle(fontWeight: FontWeight.bold)),
+                    feedback: answerWidget(currentAnswer, TextStyle(
+                        fontSize: 20,
+                        color: Colors.blue,
+                        decorationStyle: TextDecorationStyle.solid,
+                        decoration: TextDecoration.none)),
                   );
                 },
-              ),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) => const Divider(
-            height: 30,
-          ),
-        ),
+              );
+            }),
       ],
     );
+  }
+
+  Card answerWidget(Answer answer, TextStyle style) {
+    return Card(
+        elevation: 1.0,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Center(
+              child: Text(
+            answer.answer,
+            style: style,
+          )),
+        ));
   }
 }
