@@ -19,9 +19,9 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
     - name: Building APK
-      run: flutter build -t lib/main_prod.dart apk --split-per-abi
+      run: flutter build apk -t lib/main_prod.dart --release --split-per-abi
     - name: Building APP bundle
-      run: flutter build -t lib/main_prod.dart appbundle --target-platform android-arm,android-arm64,android-x64
+      run: flutter build appbundle -t lib/main_prod.dart --target-platform android-arm,android-arm64,android-x64
     - name: Signing APK
       uses: r0adkll/sign-android-release@v1
       env:
