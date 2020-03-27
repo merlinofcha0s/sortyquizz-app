@@ -1,12 +1,22 @@
+import 'package:SortyQuizz/environement.dart';
 import 'package:SortyQuizz/models/answer.dart';
 import 'package:SortyQuizz/models/question.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' show json, jsonDecode;
 
 class QuestionsRepository {
   final Duration delay;
 
   const QuestionsRepository([this.delay = const Duration(milliseconds: 2000)]);
 
-  Future<List<Question>> loadQuestions() async {
+  Future<List<Question>> start() async {
+    final startRequest = await http.get(Constants.api + "/questions/start");
+    final body = json.decode(startRequest.body);
+    final List<dynamic> questions = body;
+    return questions;
+  }
+
+  Future<List<Question>> startMocked() async {
     List<Answer> answers = new List();
     Answer a = new Answer("Réponse A", 1);
     Answer b = new Answer("Réponse B", 2);

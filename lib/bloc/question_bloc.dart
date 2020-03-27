@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:SortyQuizz/bloc/bloc.dart';
-import 'package:SortyQuizz/directory/question_repository.dart';
 import 'package:SortyQuizz/models/answer.dart';
 import 'package:SortyQuizz/models/question.dart';
-import 'package:SortyQuizz/models/score.dart';
+import 'package:SortyQuizz/repository/question_repository.dart';
+
 
 class QuestionBloc extends Bloc {
   List<Question> questionsLoaded;
@@ -23,7 +23,7 @@ class QuestionBloc extends Bloc {
   }
 
   fetchQuestions() async {
-    this.questionsLoaded = await QuestionsRepository().loadQuestions();
+    this.questionsLoaded = await QuestionsRepository().startMocked();
     this.current = this.questionsLoaded.first;
     this.index = 0;
     this.current.answers.shuffle(Random.secure());

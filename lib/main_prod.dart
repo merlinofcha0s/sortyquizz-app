@@ -3,6 +3,6 @@ import 'package:flutter/material.dart';
 import 'app.dart';
 
 void main() {
-  Constants.setEnvironment(Environment.DEV);
+  Constants.setEnvironment(Environment.PROD);
   runApp(SortyQuizzApp());
 }
