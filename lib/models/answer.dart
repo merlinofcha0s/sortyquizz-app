@@ -1,9 +1,11 @@
-import 'package:flutter/foundation.dart';
+import 'package:dart_json_mapper/dart_json_mapper.dart';
 
-@immutable
+@jsonSerializable
 class Answer {
-  final String answer;
-  final int order;
+  @JsonProperty(name: 'answer')
+  String answer;
+  @JsonProperty(name: 'order')
+  int order;
 
   Answer(this.answer, this.order);
 

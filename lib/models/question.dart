@@ -1,12 +1,16 @@
 import 'package:SortyQuizz/models/answer.dart';
-import 'package:flutter/foundation.dart';
+import 'package:dart_json_mapper/dart_json_mapper.dart';
 
-@immutable
+@jsonSerializable
 class Question {
-  final String id;
-  final String question;
-  final int level;
-  final List<Answer> answers;
+  @JsonProperty(name: 'id')
+  int id;
+  @JsonProperty(name: 'question')
+  String question;
+  @JsonProperty(name: 'level')
+  int level;
+  @JsonProperty(name: 'answers')
+  List<Answer> answers;
 
   Question(this.id, this.question, this.level, this.answers);
 

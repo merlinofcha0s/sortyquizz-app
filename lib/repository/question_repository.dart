@@ -1,41 +1,17 @@
 import 'package:SortyQuizz/environement.dart';
-import 'package:SortyQuizz/models/answer.dart';
 import 'package:SortyQuizz/models/question.dart';
+import 'package:SortyQuizz/repository/http_utils.dart';
+import 'package:dart_json_mapper/dart_json_mapper.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' show json, jsonDecode;
+import 'dart:convert' show json;
 
 class QuestionsRepository {
-  final Duration delay;
+  QuestionsRepository();
 
-  const QuestionsRepository([this.delay = const Duration(milliseconds: 2000)]);
-
-  Future<List<Question>> start() async {
-    final startRequest = await http.get(Constants.api + "/questions/start");
-    final body = json.decode(startRequest.body);
-    final List<dynamic> questions = body;
-    return questions;
-  }
-
-  Future<List<Question>> startMocked() async {
-    List<Answer> answers = new List();
-    Answer a = new Answer("Réponse A", 1);
-    Answer b = new Answer("Réponse B", 2);
-    Answer c = new Answer("Réponse C", 3);
-    Answer d = new Answer("Réponse D", 4);
-    answers.add(a);
-    answers.add(b);
-    answers.add(c);
-    answers.add(d);
-
-    return Future.delayed(
-        delay,
-            () => [
-          Question('1', 'Whats this question a ?', 1, answers.toList()),
-          Question('2', 'Whats this question b ?', 1, answers.toList()),
-          Question('3', 'Whats this question c ?', 1, answers.toList()),
-          Question('4', 'Whats this question d ?', 1, answers.toList()),
-          Question('5', 'Whats this question e ?', 1, answers.toList()),
-          Question('6', 'Whats this question f ?', 1, answers.toList()),
-        ]);
+  Future<List<Question>> start(int lvl) async {
+    final startRequest =
+        await http.get(Constants.api + "/questions/start/$lvl");
+    final body = json.decode(HttpUtils.encodeUTF8(startRequest.body));
+    return JsonMapper.deserialize<List<Question>>(body);
   }
 }

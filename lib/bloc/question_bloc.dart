@@ -23,7 +23,7 @@ class QuestionBloc extends Bloc {
   }
 
   fetchQuestions() async {
-    this.questionsLoaded = await QuestionsRepository().startMocked();
+    this.questionsLoaded = await QuestionsRepository().start(1);
     this.current = this.questionsLoaded.first;
     this.index = 0;
     this.current.answers.shuffle(Random.secure());

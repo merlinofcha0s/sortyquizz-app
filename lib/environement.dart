@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 enum Environment { DEV, PROD }
 
 class Constants {
@@ -8,7 +6,7 @@ class Constants {
   static void setEnvironment(Environment env) {
     switch (env) {
       case Environment.DEV:
-        _config = _Config.debugConstants;
+        _config = _Config.devConstants;
         break;
       case Environment.PROD:
         _config = _Config.prodConstants;
@@ -22,13 +20,13 @@ class Constants {
 }
 
 class _Config {
-  static const API = "SERVER_ONE";
+  static const API = "API";
 
-  static Map<String, dynamic> debugConstants = {
-    API: "http://localhost:8080/",
+  static Map<String, dynamic> devConstants = {
+    API: "http://192.168.56.1:8080/api",
   };
 
   static Map<String, dynamic> prodConstants = {
-    API: "https://itsallwidgets.com/",
+    API: "https://itsallwidgets.com",
   };
 }
