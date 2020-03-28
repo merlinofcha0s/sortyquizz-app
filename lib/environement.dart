@@ -27,6 +27,6 @@ class _Config {
   };
 
   static Map<String, dynamic> prodConstants = {
-    API: "https://itsallwidgets.com",
+    API: "https://sortyquizz.cleverapps.io/api",
   };
 }
