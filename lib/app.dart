@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:SortyQuizz/environement.dart';
 import 'package:SortyQuizz/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +14,7 @@ class SortyQuizzApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("API : ${Constants.api}");
     return MaterialApp(
       title: 'Sorty quizz',
       theme: ThemeData(
