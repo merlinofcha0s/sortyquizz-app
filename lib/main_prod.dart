@@ -8,5 +8,6 @@ void main() {
   initializeReflectable();
   configMapper();
   Constants.setEnvironment(Environment.PROD);
+  debugPrint("STARTING IN PROD MODE !!!!!!!");
   runApp(SortyQuizzApp());
 }
