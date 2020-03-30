@@ -10,7 +10,6 @@ class QuestionsRepository {
   QuestionsRepository();
 
   Future<List<Question>> start(int lvl) async {
-    debugPrint("Calling the API for getting questions.............");
     final startRequest = await http.get(Constants.api + "/questions/start/$lvl");
     final body = json.decode(HttpUtils.encodeUTF8(startRequest.body));
     return JsonMapper.deserialize<List<Question>>(body);

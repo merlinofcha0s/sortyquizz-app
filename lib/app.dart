@@ -15,8 +15,6 @@ class SortyQuizzApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("STARTING ROOT WIDGET");
-    debugPrint("API : ${Constants.api}");
     return MaterialApp(
       title: 'Sorty quizz',
       theme: ThemeData(
