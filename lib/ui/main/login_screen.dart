@@ -27,6 +27,12 @@ class LoginPage extends StatelessWidget {
                 },
                 child: const Text('Start', style: TextStyle(fontSize: 20)),
               ),
+              RaisedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, QuizzRoutes.register);
+                },
+                child: const Text('Register', style: TextStyle(fontSize: 20)),
+              ),
             ],
           ),
         )

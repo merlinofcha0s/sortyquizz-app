@@ -1,15 +1,12 @@
 import 'package:SortyQuizz/bloc/bloc_provider.dart';
 import 'package:SortyQuizz/bloc/question_bloc.dart';
-import 'package:SortyQuizz/environement.dart';
 import 'package:SortyQuizz/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
 
 import 'questions/questions_widget.dart';
 
 class QuizzScreen extends StatelessWidget {
-
   QuizzScreen() : super(key: QuizzKeys.quizzScreen);
 
   @override
@@ -18,7 +15,7 @@ class QuizzScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text("Quizz"),
         ),
-        body: BlocProvider<QuestionBloc>(bloc: QuestionBloc(), child: QuestionsWidget())
-    );
+        body: BlocProvider<QuestionBloc>(
+            bloc: QuestionBloc(), child: QuestionsWidget()));
   }
 }

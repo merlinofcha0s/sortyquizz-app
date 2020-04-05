@@ -5,4 +5,5 @@
 class QuizzRoutes {
   static final home = '/';
   static final quizz = '/quizz';
+  static final register = '/register';
 }
