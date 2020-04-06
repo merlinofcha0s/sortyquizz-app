@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class RegisterScreen extends StatelessWidget {
-  final formRegisterState = GlobalKey<FormState>();
-
   RegisterScreen() : super(key: QuizzKeys.registerScreen);
 
   @override
@@ -24,17 +22,25 @@ class RegisterScreen extends StatelessWidget {
               fallbackHeight: 150,
             ),
             Padding(padding: EdgeInsets.symmetric(vertical: 20)),
-            Form(
-              key: formRegisterState,
-              child: Wrap(runSpacing: 15, children: <Widget>[
-                loginField(registerBloc),
-                emailField(registerBloc),
-                passwordField(registerBloc),
-                confirmPasswordField(registerBloc),
-                termsAndConditionsField(registerBloc),
-                validationZone(registerBloc),
-                submit(registerBloc)
-              ]),
+            successZone(registerBloc),
+            StreamBuilder<bool>(
+              stream: registerBloc.successRegister,
+              builder: (context, snapshot) {
+                return Visibility(
+                  visible: !snapshot.hasData || !snapshot.data,
+                  child: Form(
+                    child: Wrap(runSpacing: 15, children: <Widget>[
+                      loginField(registerBloc),
+                      emailField(registerBloc),
+                      passwordField(registerBloc),
+                      confirmPasswordField(registerBloc),
+                      termsAndConditionsField(registerBloc),
+                      validationZone(registerBloc),
+                      submit(registerBloc)
+                    ]),
+                  ),
+                );
+              }
             )
           ]),
         ));
@@ -160,7 +166,19 @@ class RegisterScreen extends StatelessWidget {
             child: Container(
                 width: MediaQuery.of(context).size.width,
                 child: Center(child: Text('Sign up'))),
-            onPressed: snapshot.hasData ? registerBloc.submit : null,
+            onPressed:
+                snapshot.hasData ? registerBloc.submit : null,
+          );
+        });
+  }
+
+  Widget successZone(RegisterBloc registerBloc) {
+    return StreamBuilder<bool>(
+        stream: registerBloc.successRegister,
+        builder: (context, snapshot) {
+          return Visibility(
+            visible: snapshot.hasData && snapshot.data,
+            child: Text('ALRIGHT !!!!!!'),
           );
         });
   }

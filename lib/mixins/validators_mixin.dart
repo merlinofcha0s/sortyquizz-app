@@ -3,7 +3,7 @@ import 'dart:async';
 class ValidatorMixin {
   final validateLogin =
       StreamTransformer<String, String>.fromHandlers(handleData: (login, sink) {
-    int min = 8;
+    int min = 3;
     if (login.length >= min) {
       sink.add(login);
     } else {

@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:SortyQuizz/bloc/bloc.dart';
 import 'package:SortyQuizz/mixins/validators_mixin.dart';
+import 'package:SortyQuizz/models/user.dart';
+import 'package:SortyQuizz/repository/account_repository.dart';
+import 'package:SortyQuizz/repository/http_utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 class RegisterBloc extends Bloc with ValidatorMixin {
@@ -11,6 +14,9 @@ class RegisterBloc extends Bloc with ValidatorMixin {
   final _confirmPassword = BehaviorSubject<String>();
   final _termsAndConditions = BehaviorSubject<bool>();
   final _generalValidation = BehaviorSubject<bool>();
+  final _successRegister = BehaviorSubject<bool>();
+
+  final accountRepository = AccountRepository();
 
   Stream<String> get loginStream => _login.stream.transform(validateLogin);
 
@@ -26,6 +32,8 @@ class RegisterBloc extends Bloc with ValidatorMixin {
 
   Stream<bool> get generalValidationStream => _generalValidation.stream;
 
+  Stream<bool> get successRegister => _successRegister.stream;
+
   Function(String) get changeLogin => _login.sink.add;
 
   Function(String) get changeEmail => _email.sink.add;
@@ -38,6 +46,8 @@ class RegisterBloc extends Bloc with ValidatorMixin {
 
   Function(bool) get changeGeneralValidation => _generalValidation.sink.add;
 
+  Function(bool) get changeSuccessRegister => _successRegister.sink.add;
+
   Stream<bool> get submitValid => Rx.combineLatest5(
       loginStream,
       emailStream,
@@ -48,13 +58,14 @@ class RegisterBloc extends Bloc with ValidatorMixin {
 
   RegisterBloc() {}
 
-  submit() {
+  submit() async {
     final String login = _login.value;
     final String email = _email.value;
     final String password = _password.value;
     final String confirmPassword = _confirmPassword.value;
 
     bool validationOk = true;
+    bool registerSuccess = false;
 
     if (password.compareTo(confirmPassword) != 0) {
       validationOk = false;
@@ -65,9 +76,16 @@ class RegisterBloc extends Bloc with ValidatorMixin {
     }
 
     if (validationOk) {
-      print(
-          'The login is $login, The email is $email, the password is $password, Calling API.................');
+      User newUser = new User(login, email, password, 'en');
+      String result = await accountRepository.register(newUser);
+      if (result.compareTo(HttpUtils.successResult) != 0) {
+        _generalValidation.addError(result);
+      } else {
+        registerSuccess = true;
+      }
     }
+
+    _successRegister.sink.add(registerSuccess);
   }
 
   @override
@@ -78,5 +96,6 @@ class RegisterBloc extends Bloc with ValidatorMixin {
         _confirmPassword.close();
         _termsAndConditions.close();
         _generalValidation.close();
+        _successRegister.close();
       };
 }
