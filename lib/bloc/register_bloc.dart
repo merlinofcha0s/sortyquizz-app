@@ -10,16 +10,21 @@ class RegisterBloc extends Bloc with ValidatorMixin {
   final _password = BehaviorSubject<String>();
   final _confirmPassword = BehaviorSubject<String>();
   final _termsAndConditions = BehaviorSubject<bool>();
+  final _generalValidation = BehaviorSubject<bool>();
 
   Stream<String> get loginStream => _login.stream.transform(validateLogin);
 
   Stream<String> get emailStream => _email.stream.transform(validateEmail);
 
-  Stream<String> get passwordStream => _password.stream.transform(validatePassword);
+  Stream<String> get passwordStream =>
+      _password.stream.transform(validatePassword);
 
   Stream<String> get confirmPasswordStream => _confirmPassword.stream;
 
-  Stream<bool> get termsAndConditionsStream => _termsAndConditions.stream.transform(validateTermsAndCondition);
+  Stream<bool> get termsAndConditionsStream =>
+      _termsAndConditions.stream.transform(validateTermsAndCondition);
+
+  Stream<bool> get generalValidationStream => _generalValidation.stream;
 
   Function(String) get changeLogin => _login.sink.add;
 
@@ -31,18 +36,38 @@ class RegisterBloc extends Bloc with ValidatorMixin {
 
   Function(bool) get changeTermsAndConditions => _termsAndConditions.sink.add;
 
-  Stream<bool> get submitValid =>  Rx.combineLatest5(loginStream, emailStream, passwordStream,
-      confirmPasswordStream, termsAndConditionsStream, (l, e, p, cp, tc) => true);
+  Function(bool) get changeGeneralValidation => _generalValidation.sink.add;
 
-  RegisterBloc() {
-    _termsAndConditions.sink.add(false);
-  }
+  Stream<bool> get submitValid => Rx.combineLatest5(
+      loginStream,
+      emailStream,
+      passwordStream,
+      confirmPasswordStream,
+      termsAndConditionsStream,
+      (l, e, p, cp, tc) => true);
+
+  RegisterBloc() {}
 
   submit() {
     final String login = _login.value;
     final String email = _email.value;
     final String password = _password.value;
-    print('The login is $login, The email is $email, the password is $password, Calling API.................');
+    final String confirmPassword = _confirmPassword.value;
+
+    bool validationOk = true;
+
+    if (password.compareTo(confirmPassword) != 0) {
+      validationOk = false;
+      _generalValidation.addError('The passwords are not identical');
+    } else {
+      validationOk = true;
+      _generalValidation.add(true);
+    }
+
+    if (validationOk) {
+      print(
+          'The login is $login, The email is $email, the password is $password, Calling API.................');
+    }
   }
 
   @override
@@ -52,5 +77,6 @@ class RegisterBloc extends Bloc with ValidatorMixin {
         _password.close();
         _confirmPassword.close();
         _termsAndConditions.close();
+        _generalValidation.close();
       };
 }

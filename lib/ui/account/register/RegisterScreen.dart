@@ -32,6 +32,7 @@ class RegisterScreen extends StatelessWidget {
                 passwordField(registerBloc),
                 confirmPasswordField(registerBloc),
                 termsAndConditionsField(registerBloc),
+                validationZone(registerBloc),
                 submit(registerBloc)
               ]),
             )
@@ -98,29 +99,56 @@ class RegisterScreen extends StatelessWidget {
   }
 
   Widget termsAndConditionsField(RegisterBloc registerBloc) {
-    return Row(children: <Widget>[
-      StreamBuilder<bool>(
-          stream: registerBloc.termsAndConditionsStream,
-          builder: (context, snapshot) {
-            return Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Checkbox(
+    return StreamBuilder<bool>(
+        stream: registerBloc.termsAndConditionsStream,
+        builder: (context, snapshot) {
+          return Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 24,
+                    width: 24,
+                    child: Checkbox(
                         onChanged: registerBloc.changeTermsAndConditions,
                         value: snapshot.hasData ? snapshot.data : false),
-                    Text('I accept the term of use'),
-                  ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 5),
+                  ),
+                  Text('I accept the term of use'),
+                ],
+              ),
+              Visibility(
+                visible: snapshot.hasError,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Text(
+                    'Please accept the terms and conditions',
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
-                Visibility(
-                  visible: snapshot.hasError,
-                  child: Text('Please accept the terms and conditions', style: TextStyle(color: Colors.red),),
-                )
-              ],
-            );
-          }),
-    ]);
+              )
+            ],
+          );
+        });
+  }
+
+  Widget validationZone(RegisterBloc registerBloc) {
+    return StreamBuilder<bool>(
+        stream: registerBloc.generalValidationStream,
+        builder: (context, snapshot) {
+          return Visibility(
+              visible: snapshot.hasError,
+              child: Center(
+                child: Text(
+                  snapshot.hasError ? snapshot.error : '',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ));
+        });
   }
 
   Widget submit(RegisterBloc registerBloc) {
