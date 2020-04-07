@@ -15,6 +15,7 @@ class RegisterBloc extends Bloc with ValidatorMixin {
   final _termsAndConditions = BehaviorSubject<bool>();
   final _generalValidation = BehaviorSubject<bool>();
   final _successRegister = BehaviorSubject<bool>();
+  final _isLoading = BehaviorSubject<bool>();
 
   final accountRepository = AccountRepository();
 
@@ -32,7 +33,9 @@ class RegisterBloc extends Bloc with ValidatorMixin {
 
   Stream<bool> get generalValidationStream => _generalValidation.stream;
 
-  Stream<bool> get successRegister => _successRegister.stream;
+  Stream<bool> get successRegisterStream => _successRegister.stream;
+
+  Stream<bool> get isLoadingStream => _isLoading.stream;
 
   Function(String) get changeLogin => _login.sink.add;
 
@@ -56,9 +59,12 @@ class RegisterBloc extends Bloc with ValidatorMixin {
       termsAndConditionsStream,
       (l, e, p, cp, tc) => true);
 
-  RegisterBloc() {}
+  RegisterBloc() {
+    _isLoading.sink.add(false);
+  }
 
   submit() async {
+    _isLoading.sink.add(true);
     final String login = _login.value;
     final String email = _email.value;
     final String password = _password.value;
@@ -86,6 +92,7 @@ class RegisterBloc extends Bloc with ValidatorMixin {
     }
 
     _successRegister.sink.add(registerSuccess);
+    _isLoading.sink.add(false);
   }
 
   @override

@@ -4,6 +4,8 @@ import 'package:SortyQuizz/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../routes.dart';
+
 class RegisterScreen extends StatelessWidget {
   RegisterScreen() : super(key: QuizzKeys.registerScreen);
 
@@ -17,33 +19,44 @@ class RegisterScreen extends StatelessWidget {
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(15.0),
           child: Column(children: <Widget>[
-            Placeholder(
-              color: Colors.blue,
-              fallbackHeight: 150,
-            ),
-            Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+            header(),
             successZone(registerBloc),
-            StreamBuilder<bool>(
-              stream: registerBloc.successRegister,
-              builder: (context, snapshot) {
-                return Visibility(
-                  visible: !snapshot.hasData || !snapshot.data,
-                  child: Form(
-                    child: Wrap(runSpacing: 15, children: <Widget>[
-                      loginField(registerBloc),
-                      emailField(registerBloc),
-                      passwordField(registerBloc),
-                      confirmPasswordField(registerBloc),
-                      termsAndConditionsField(registerBloc),
-                      validationZone(registerBloc),
-                      submit(registerBloc)
-                    ]),
-                  ),
-                );
-              }
-            )
+            registerForm(registerBloc)
           ]),
         ));
+  }
+
+  Widget header() {
+    return Column(
+      children: <Widget>[
+        Placeholder(
+          color: Colors.blue,
+          fallbackHeight: 150,
+        ),
+        Padding(padding: EdgeInsets.symmetric(vertical: 20))
+      ],
+    );
+  }
+
+  Widget registerForm(RegisterBloc registerBloc) {
+    return StreamBuilder<bool>(
+        stream: registerBloc.successRegisterStream,
+        builder: (context, snapshot) {
+          return Visibility(
+            visible: !snapshot.hasData || !snapshot.data,
+            child: Form(
+              child: Wrap(runSpacing: 15, children: <Widget>[
+                loginField(registerBloc),
+                emailField(registerBloc),
+                passwordField(registerBloc),
+                confirmPasswordField(registerBloc),
+                termsAndConditionsField(registerBloc),
+                validationZone(registerBloc),
+                submit(registerBloc)
+              ]),
+            ),
+          );
+        });
   }
 
   Widget loginField(RegisterBloc registerBloc) {
@@ -160,25 +173,67 @@ class RegisterScreen extends StatelessWidget {
   Widget submit(RegisterBloc registerBloc) {
     return StreamBuilder(
         stream: registerBloc.submitValid,
-        builder: (context, snapshot) {
+        builder: (context, snapshotSubmit) {
           return RaisedButton(
             color: Colors.blue,
             child: Container(
                 width: MediaQuery.of(context).size.width,
-                child: Center(child: Text('Sign up'))),
-            onPressed:
-                snapshot.hasData ? registerBloc.submit : null,
+                height: 50,
+                child: StreamBuilder<bool>(
+                  stream: registerBloc.isLoadingStream,
+                  builder: (context, snapshotLoading) {
+                    return Center(
+                      child: Visibility(
+                        replacement: CircularProgressIndicator(value: null),
+                        visible: !snapshotLoading.data,
+                        child: Text('Sign up'.toUpperCase(), style: TextStyle(fontSize: 15),),
+                      ),
+                    );
+                  }
+                )),
+            onPressed: snapshotSubmit.hasData ? registerBloc.submit : null,
           );
         });
   }
 
   Widget successZone(RegisterBloc registerBloc) {
+//    check_circle
     return StreamBuilder<bool>(
-        stream: registerBloc.successRegister,
+        stream: registerBloc.successRegisterStream,
         builder: (context, snapshot) {
           return Visibility(
             visible: snapshot.hasData && snapshot.data,
-            child: Text('ALRIGHT !!!!!!'),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.check_circle,
+                  color: Colors.indigoAccent,
+                  size: 125.0,
+                  semanticLabel: 'Register success',
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                ),
+                Text('Congratulation'.toUpperCase(),
+                    style: TextStyle(fontSize: 30, color: Colors.indigoAccent)),
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                ),
+                Text('You have successfuly registered'),
+                Padding(
+                  padding: EdgeInsets.only(top: 30),
+                ),
+                RaisedButton(
+                  color: Colors.blue,
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: Center(child: Text('Sign in'))),
+                  onPressed: () =>
+                      Navigator.pushNamed(context, QuizzRoutes.home),
+                )
+              ],
+            ),
           );
         });
   }
