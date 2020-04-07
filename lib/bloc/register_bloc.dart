@@ -59,6 +59,10 @@ class RegisterBloc extends Bloc with ValidatorMixin {
       termsAndConditionsStream,
       (l, e, p, cp, tc) => true);
 
+  static final String passwordNotIdenticalKey = 'error.passwordnotidentical';
+  static final String loginExistKey = 'error.userexists';
+  static final String emailExistKey = 'error.emailexists';
+
   RegisterBloc() {
     _isLoading.sink.add(false);
   }
@@ -75,7 +79,7 @@ class RegisterBloc extends Bloc with ValidatorMixin {
 
     if (password.compareTo(confirmPassword) != 0) {
       validationOk = false;
-      _generalValidation.addError('The passwords are not identical');
+      _generalValidation.addError(passwordNotIdenticalKey);
     } else {
       validationOk = true;
       _generalValidation.add(true);
@@ -104,5 +108,6 @@ class RegisterBloc extends Bloc with ValidatorMixin {
         _termsAndConditions.close();
         _generalValidation.close();
         _successRegister.close();
+        _isLoading.close();
       };
 }

@@ -1,5 +1,6 @@
 import 'package:SortyQuizz/bloc/bloc_provider.dart';
 import 'package:SortyQuizz/bloc/register_bloc.dart';
+import 'package:SortyQuizz/generated/l10n.dart';
 import 'package:SortyQuizz/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,7 +15,7 @@ class RegisterScreen extends StatelessWidget {
     final registerBloc = BlocProvider.of<RegisterBloc>(context);
     return Scaffold(
         appBar: AppBar(
-          title: Text("Register"),
+          title: Text(S.of(context).pageRegisterTitle),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(15.0),
@@ -68,7 +69,7 @@ class RegisterScreen extends StatelessWidget {
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Login',
+                  labelText: S.of(context).pageRegisterFormLogin,
                   errorText: snapshot.error));
         });
   }
@@ -82,8 +83,8 @@ class RegisterScreen extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Email',
-                hintText: 'you@example.com',
+                labelText: S.of(context).pageRegisterFormEmail,
+                hintText: S.of(context).pageRegisterFormEmailHint,
                 errorText: snapshot.error),
           );
         });
@@ -98,7 +99,7 @@ class RegisterScreen extends StatelessWidget {
               obscureText: true,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Password',
+                  labelText: S.of(context).pageRegisterFormPassword,
                   errorText: snapshot.error));
         });
   }
@@ -112,7 +113,7 @@ class RegisterScreen extends StatelessWidget {
               obscureText: true,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Confirm password',
+                  labelText: S.of(context).pageRegisterFormConfirmPassword,
                   errorText: snapshot.error));
         });
   }
@@ -137,7 +138,7 @@ class RegisterScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(right: 5),
                   ),
-                  Text('I accept the term of use'),
+                  Text(S.of(context).pageRegisterFormTermsConditions),
                 ],
               ),
               Visibility(
@@ -145,7 +146,7 @@ class RegisterScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text(
-                    'Please accept the terms and conditions',
+                    S.of(context).pageRegisterFormTermsConditionsNotChecked,
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
@@ -163,11 +164,24 @@ class RegisterScreen extends StatelessWidget {
               visible: snapshot.hasError,
               child: Center(
                 child: Text(
-                  snapshot.hasError ? snapshot.error : '',
+                  generateError(snapshot, context),
                   style: TextStyle(color: Colors.red),
                 ),
               ));
         });
+  }
+
+  String generateError(AsyncSnapshot<bool> snapshot, BuildContext context) {
+    String errorTranslated = '';
+    if(snapshot.error.toString().compareTo(RegisterBloc.passwordNotIdenticalKey) == 0){
+      errorTranslated = S.of(context).pageRegisterErrorPasswordNotIdentical;
+    } else if(snapshot.error.toString().compareTo(RegisterBloc.emailExistKey) == 0) {
+      errorTranslated = S.of(context).pageRegisterErrorMailExist;
+    } else if (snapshot.error.toString().compareTo(RegisterBloc.loginExistKey) == 0){
+      errorTranslated = S.of(context).pageRegisterErrorLoginExist;
+    }
+
+    return errorTranslated;
   }
 
   Widget submit(RegisterBloc registerBloc) {
@@ -180,17 +194,19 @@ class RegisterScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 50,
                 child: StreamBuilder<bool>(
-                  stream: registerBloc.isLoadingStream,
-                  builder: (context, snapshotLoading) {
-                    return Center(
-                      child: Visibility(
-                        replacement: CircularProgressIndicator(value: null),
-                        visible: !snapshotLoading.data,
-                        child: Text('Sign up'.toUpperCase(), style: TextStyle(fontSize: 15),),
-                      ),
-                    );
-                  }
-                )),
+                    stream: registerBloc.isLoadingStream,
+                    builder: (context, snapshotLoading) {
+                      return Center(
+                        child: Visibility(
+                          replacement: CircularProgressIndicator(value: null),
+                          visible: !snapshotLoading.data,
+                          child: Text(
+                            S.of(context).pageRegisterFormSubmit.toUpperCase(),
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      );
+                    })),
             onPressed: snapshotSubmit.hasData ? registerBloc.submit : null,
           );
         });
@@ -210,17 +226,17 @@ class RegisterScreen extends StatelessWidget {
                   Icons.check_circle,
                   color: Colors.indigoAccent,
                   size: 125.0,
-                  semanticLabel: 'Register success',
+                  semanticLabel: S.of(context).pageRegisterSuccessAltImg,
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                 ),
-                Text('Congratulation'.toUpperCase(),
+                Text(S.of(context).pageRegisterSuccess.toUpperCase(),
                     style: TextStyle(fontSize: 30, color: Colors.indigoAccent)),
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                 ),
-                Text('You have successfuly registered'),
+                Text(S.of(context).pageRegisterSuccessSub),
                 Padding(
                   padding: EdgeInsets.only(top: 30),
                 ),
@@ -228,7 +244,8 @@ class RegisterScreen extends StatelessWidget {
                   color: Colors.blue,
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: Center(child: Text('Sign in'))),
+                      child: Center(
+                          child: Text(S.of(context).pageRegisterFormLogin))),
                   onPressed: () =>
                       Navigator.pushNamed(context, QuizzRoutes.home),
                 )
