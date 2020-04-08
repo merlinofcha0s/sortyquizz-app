@@ -1,21 +1,13 @@
-import 'package:SortyQuizz/shared/models/user.dart';
+import 'package:SortyQuizz/shared/models/jwt_token.dart';
+import 'package:SortyQuizz/shared/models/user_jwt.dart';
 import 'package:SortyQuizz/shared/repository/http_utils.dart';
+import 'package:dart_json_mapper/dart_json_mapper.dart';
 
 class LoginRepository {
   LoginRepository();
 
-  Future<String> authenticate(User newUser) async {
-    final registerRequest =
-    await HttpUtils.postRequest<User>("/register", newUser);
-
-    String result;
-
-    if (registerRequest.statusCode == 400) {
-      result = registerRequest.headers[HttpUtils.errorHeader];
-    } else {
-      result = HttpUtils.successResult;
-    }
-
-    return result;
+  Future<JWTToken> authenticate(UserJWT userJWT) async {
+    final authenticateRequest = await HttpUtils.postRequest<UserJWT>("/authenticate", userJWT);
+    return JsonMapper.deserialize<JWTToken>(authenticateRequest.body);
   }
 }

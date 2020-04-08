@@ -64,6 +64,15 @@ class S {
     );
   }
 
+  String get pageLoginErrorAuthentication {
+    return Intl.message(
+      'Problem when authenticate, verify your credential',
+      name: 'pageLoginErrorAuthentication',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get pageRegisterTitle {
     return Intl.message(
       'Register',

@@ -3,6 +3,7 @@
   "pageLoginTitle": "Bienvenue sur SortyQuizz",
   "pageLoginLoginButton": "S'identifier",
   "pageLoginRegisterButton": "Créer un compte",
+  "pageLoginErrorAuthentication": "Un problème est survenu, veuillez vérifier vos identifiants",
   "pageRegisterTitle": "Créer un compte",
   "pageRegisterFormLogin": "Login",
   "pageRegisterFormEmail": "Email",

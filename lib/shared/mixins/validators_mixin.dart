@@ -22,7 +22,7 @@ class ValidatorMixin {
 
   final validatePassword = StreamTransformer<String, String>.fromHandlers(
       handleData: (password, sink) {
-    int min = 8;
+    int min = 4;
     if (password.length >= min) {
       sink.add(password);
     } else {

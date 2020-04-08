@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 
-class RegisterPage extends StatelessWidget {
-  RegisterPage() : super(key: QuizzKeys.registerScreen);
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen() : super(key: QuizzKeys.registerScreen);
 
   @override
   Widget build(BuildContext context) {

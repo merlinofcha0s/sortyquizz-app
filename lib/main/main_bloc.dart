@@ -9,7 +9,7 @@ import 'package:SortyQuizz/shared/repository/http_utils.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rxdart/rxdart.dart';
 
-class LoginBloc extends Bloc with ValidatorMixin {
+class MainBloc extends Bloc with ValidatorMixin {
   final _username = BehaviorSubject<String>();
   final _password = BehaviorSubject<String>();
   final _generalValidation = BehaviorSubject<bool>();
@@ -38,7 +38,7 @@ class LoginBloc extends Bloc with ValidatorMixin {
 
   static final String authenticationFailKey = 'error.authenticate';
 
-  LoginBloc() {
+  MainBloc() {
     _isLoading.sink.add(false);
   }
 
@@ -53,16 +53,14 @@ class LoginBloc extends Bloc with ValidatorMixin {
     if (validationOk) {
       UserJWT userToAuthenticate = new UserJWT(username, password);
       JWTToken token = await loginRepository.authenticate(userToAuthenticate);
-      if (token.idToken != null) {
-        FlutterSecureStorage storage = new FlutterSecureStorage();
-        await storage.delete(key: HttpUtils.keyForJWTToken);
-        await storage.write(key: HttpUtils.keyForJWTToken, value: token.idToken);
-        authenticationSucceed = true;
-        _generalValidation.sink.add(true);
-      } else {
-        authenticationSucceed = false;
-        _generalValidation.sink.addError(authenticationFailKey);
-      }
+      FlutterSecureStorage storage = new FlutterSecureStorage();
+      await storage.delete(key: HttpUtils.keyForJWTToken);
+      await storage.write(key: HttpUtils.keyForJWTToken, value: token.idToken);
+      authenticationSucceed = true;
+    }
+
+    if (!authenticationSucceed) {
+      _generalValidation.sink.addError(authenticationFailKey);
     }
 
     _isLoading.sink.add(false);

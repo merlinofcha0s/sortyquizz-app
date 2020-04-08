@@ -6,4 +6,5 @@ class QuizzRoutes {
   static final login = '/';
   static final quizz = '/quizz';
   static final register = '/register';
+  static final main = '/main';
 }

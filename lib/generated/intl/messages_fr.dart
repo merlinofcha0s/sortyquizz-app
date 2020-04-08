@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "pageLoginBar" : MessageLookupByLibrary.simpleMessage("Se connecter"),
+    "pageLoginErrorAuthentication" : MessageLookupByLibrary.simpleMessage("Un problème est survenu, veuillez vérifier vos identifiants"),
     "pageLoginLoginButton" : MessageLookupByLibrary.simpleMessage("S\'identifier"),
     "pageLoginRegisterButton" : MessageLookupByLibrary.simpleMessage("Créer un compte"),
     "pageLoginTitle" : MessageLookupByLibrary.simpleMessage("Bienvenue sur SortyQuizz"),

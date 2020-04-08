@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import '../../routes.dart';
 import 'login_bloc.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key key}) : super(key: QuizzKeys.loginScreen);
+class LoginScreen extends StatelessWidget {
+  LoginScreen({Key key}) : super(key: QuizzKeys.mainScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
             header(),
             loginForm(loginBloc),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 50),
             ),
             register(context)
           ]),
@@ -44,7 +44,7 @@ class LoginPage extends StatelessWidget {
 
   Widget loginField(LoginBloc loginBloc) {
     return StreamBuilder<String>(
-        stream: loginBloc.loginStream,
+        stream: loginBloc.usernameStream,
         builder: (context, snapshot) {
           return TextFormField(
               onChanged: loginBloc.changeLogin,
@@ -71,25 +71,19 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget loginForm(LoginBloc loginBloc) {
-    return StreamBuilder<bool>(
-        stream: loginBloc.successRegisterStream,
-        builder: (context, snapshot) {
-          return Visibility(
-            visible: !snapshot.hasData || !snapshot.data,
-            child: Form(
-              child: Wrap(runSpacing: 15, children: <Widget>[
-                loginField(loginBloc),
-                passwordField(loginBloc),
-                submit(loginBloc)
-              ]),
-            ),
-          );
-        });
+    return Form(
+      child: Wrap(runSpacing: 15, children: <Widget>[
+        loginField(loginBloc),
+        passwordField(loginBloc),
+        validationZone(loginBloc),
+        submit(loginBloc)
+      ]),
+    );
   }
 
   Widget register(BuildContext context) {
     return RaisedButton(
-      color: Colors.blue,
+      color: Colors.red,
       child: Container(
           width: MediaQuery.of(context).size.width,
           height: 50,
@@ -101,6 +95,21 @@ class LoginPage extends StatelessWidget {
           )),
       onPressed: () => Navigator.pushNamed(context, QuizzRoutes.register),
     );
+  }
+
+  Widget validationZone(LoginBloc loginBloc) {
+    return StreamBuilder<bool>(
+        stream: loginBloc.generalValidationStream,
+        builder: (context, snapshot) {
+          return Visibility(
+              visible: snapshot.hasError,
+              child: Center(
+                child: Text(
+                  generateError(snapshot, context),
+                  style: TextStyle(color: Colors.red),
+                ),
+              ));
+        });
   }
 
   Widget submit(LoginBloc loginBloc) {
@@ -127,8 +136,25 @@ class LoginPage extends StatelessWidget {
                         ),
                       );
                     })),
-            onPressed: snapshotSubmit.hasData ? loginBloc.authenticate : null,
+            onPressed: snapshotSubmit.hasData
+                ? () => onAuthenticate(loginBloc, context)
+                : null,
           );
         });
+  }
+
+  onAuthenticate(LoginBloc loginBloc, BuildContext context) async {
+    bool authenticateSuccess = await loginBloc.authenticate();
+    if (authenticateSuccess) {
+      Navigator.pushNamed(context, QuizzRoutes.main);
+    }
+  }
+
+  String generateError(AsyncSnapshot<bool> snapshot, BuildContext context) {
+    String errorTranslated = '';
+    if (snapshot.error.toString().compareTo(LoginBloc.authenticationFailKey) == 0) {
+      errorTranslated = S.of(context).pageLoginErrorAuthentication;
+    }
+    return errorTranslated;
   }
 }

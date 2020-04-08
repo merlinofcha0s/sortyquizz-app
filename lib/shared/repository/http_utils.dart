@@ -10,6 +10,7 @@ import '../../environement.dart';
 class HttpUtils {
   static String errorHeader = 'x-sortyquizzapp-error';
   static String successResult = 'success';
+  static String keyForJWTToken = 'jwt-token';
 
 
   static String encodeUTF8(String toEncode) {

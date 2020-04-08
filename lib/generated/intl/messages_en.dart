@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "pageLoginBar" : MessageLookupByLibrary.simpleMessage("Login"),
+    "pageLoginErrorAuthentication" : MessageLookupByLibrary.simpleMessage("Problem when authenticate, verify your credential"),
     "pageLoginLoginButton" : MessageLookupByLibrary.simpleMessage("Sign in"),
     "pageLoginRegisterButton" : MessageLookupByLibrary.simpleMessage("Register"),
     "pageLoginTitle" : MessageLookupByLibrary.simpleMessage("Welcome to SortyQuizz"),

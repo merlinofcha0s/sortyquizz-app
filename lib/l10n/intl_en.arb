@@ -3,6 +3,7 @@
   "pageLoginTitle": "Welcome to SortyQuizz",
   "pageLoginLoginButton": "Sign in",
   "pageLoginRegisterButton": "Register",
+  "pageLoginErrorAuthentication": "Problem when authenticate, verify your credential",
   "pageRegisterTitle": "Register",
   "pageRegisterFormLogin": "Login",
   "pageRegisterFormEmail": "Email",

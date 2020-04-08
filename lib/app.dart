@@ -1,3 +1,5 @@
+import 'package:SortyQuizz/main/main_bloc.dart';
+import 'package:SortyQuizz/main/main_screen.dart';
 import 'package:SortyQuizz/quizz/quizz_screen.dart';
 import 'package:SortyQuizz/routes.dart';
 import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
@@ -24,14 +26,18 @@ class SortyQuizzApp extends StatelessWidget {
       ),
       routes: {
         QuizzRoutes.login: (context) {
-          return BlocProvider<LoginBloc>(bloc: LoginBloc(), child: LoginPage());
+          return BlocProvider<LoginBloc>(bloc: LoginBloc(), child: LoginScreen());
         },
         QuizzRoutes.quizz: (context) {
           return QuizzScreen();
         },
         QuizzRoutes.register: (context) {
           return BlocProvider<RegisterBloc>(
-              bloc: RegisterBloc(), child: RegisterPage());
+              bloc: RegisterBloc(), child: RegisterScreen());
+        },
+        QuizzRoutes.main: (context) {
+          return BlocProvider<MainBloc>(
+              bloc: MainBloc(), child: MainScreen());
         }
       },
         localizationsDelegates: [

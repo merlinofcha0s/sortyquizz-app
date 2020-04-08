@@ -5,4 +5,5 @@ class QuizzKeys {
   static const quizzScreen = Key('__quizzScreen__');
   static const loading = Key('__loading__');
   static const registerScreen = Key('__registerScreen__');
+  static const mainScreen = Key('__mainScreen__');
 }
