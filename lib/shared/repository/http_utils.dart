@@ -4,7 +4,8 @@ import 'package:dart_json_mapper/dart_json_mapper.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
-import '../environement.dart';
+import '../../environement.dart';
+
 
 class HttpUtils {
   static String errorHeader = 'x-sortyquizzapp-error';

@@ -3,7 +3,7 @@
 // in the LICENSE file.
 
 class QuizzRoutes {
-  static final home = '/';
+  static final login = '/';
   static final quizz = '/quizz';
   static final register = '/register';
 }

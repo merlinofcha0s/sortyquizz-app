@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:SortyQuizz/bloc/bloc.dart';
-import 'package:SortyQuizz/models/answer.dart';
-import 'package:SortyQuizz/models/question.dart';
-import 'package:SortyQuizz/models/score.dart';
+import 'package:SortyQuizz/quizz/model/answer.dart';
+import 'package:SortyQuizz/quizz/model/question.dart';
+import 'package:SortyQuizz/quizz/model/score.dart';
+import 'package:SortyQuizz/shared/bloc/bloc.dart';
 import 'package:collection/collection.dart';
 
 class ResultBloc extends Bloc {

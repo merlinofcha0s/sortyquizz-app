@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:SortyQuizz/bloc/bloc_provider.dart';
-import 'package:SortyQuizz/bloc/question_bloc.dart';
-import 'package:SortyQuizz/models/answer.dart';
-import 'package:SortyQuizz/models/question.dart';
+import 'package:SortyQuizz/quizz/bloc/question_bloc.dart';
+import 'package:SortyQuizz/quizz/model/answer.dart';
+import 'package:SortyQuizz/quizz/model/question.dart';
+import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

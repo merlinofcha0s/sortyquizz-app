@@ -1,12 +1,13 @@
-import 'package:SortyQuizz/bloc/bloc_provider.dart';
-import 'package:SortyQuizz/bloc/question_bloc.dart';
-import 'package:SortyQuizz/bloc/result_bloc.dart';
-import 'package:SortyQuizz/containers/loading_indicator_widget.dart';
-import 'package:SortyQuizz/models/question.dart';
-import 'package:SortyQuizz/ui/quizz/questions/question_widget.dart';
-import 'package:SortyQuizz/ui/quizz/quizz_bar_buttons.dart';
+import 'package:SortyQuizz/quizz/bloc/question_bloc.dart';
+import 'package:SortyQuizz/quizz/bloc/result_bloc.dart';
+import 'package:SortyQuizz/quizz/model/question.dart';
+import 'package:SortyQuizz/quizz/questions/question_widget.dart';
+import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
+import 'package:SortyQuizz/shared/containers/loading_indicator_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import '../quizz_bar_buttons.dart';
 
 class QuestionsWidget extends StatelessWidget {
 

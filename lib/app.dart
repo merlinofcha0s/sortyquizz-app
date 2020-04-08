@@ -1,14 +1,15 @@
+import 'package:SortyQuizz/quizz/quizz_screen.dart';
 import 'package:SortyQuizz/routes.dart';
-import 'package:SortyQuizz/ui/account/register/RegisterScreen.dart';
+import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'bloc/bloc_provider.dart';
-import 'bloc/register_bloc.dart';
+import 'account/login/login_bloc.dart';
+import 'account/login/login_screen.dart';
+import 'account/register/register_bloc.dart';
+import 'account/register/register_screen.dart';
 import 'generated/l10n.dart';
-import 'ui/main/login_screen.dart';
-import 'ui/quizz/quizz_screen.dart';
 
 
 class SortyQuizzApp extends StatelessWidget {
@@ -22,15 +23,15 @@ class SortyQuizzApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
       ),
       routes: {
-        QuizzRoutes.home: (context) {
-          return LoginPage();
+        QuizzRoutes.login: (context) {
+          return BlocProvider<LoginBloc>(bloc: LoginBloc(), child: LoginPage());
         },
         QuizzRoutes.quizz: (context) {
           return QuizzScreen();
         },
         QuizzRoutes.register: (context) {
           return BlocProvider<RegisterBloc>(
-              bloc: RegisterBloc(), child: RegisterScreen());
+              bloc: RegisterBloc(), child: RegisterPage());
         }
       },
         localizationsDelegates: [

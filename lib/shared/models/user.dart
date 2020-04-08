@@ -17,6 +17,9 @@ class User {
 
   User(this.login, this.email, this.password, this.langKey);
 
+
+  User.forLogin(this.login, this.password);
+
   @override
   String toString() {
     return 'User{login: $login, email: $email, password: $password, langKey: $langKey}';

@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:SortyQuizz/bloc/bloc.dart';
-import 'package:SortyQuizz/mixins/validators_mixin.dart';
-import 'package:SortyQuizz/models/user.dart';
-import 'package:SortyQuizz/repository/account_repository.dart';
-import 'package:SortyQuizz/repository/http_utils.dart';
+import 'package:SortyQuizz/shared/bloc/bloc.dart';
+import 'package:SortyQuizz/shared/mixins/validators_mixin.dart';
+import 'package:SortyQuizz/shared/models/user.dart';
+import 'package:SortyQuizz/shared/repository/http_utils.dart';
 import 'package:rxdart/rxdart.dart';
+
+import 'account_repository.dart';
 
 class RegisterBloc extends Bloc with ValidatorMixin {
   final _login = BehaviorSubject<String>();

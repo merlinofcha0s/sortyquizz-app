@@ -1,5 +1,6 @@
-import 'package:SortyQuizz/models/answer.dart';
 import 'package:dart_json_mapper/dart_json_mapper.dart';
+
+import 'answer.dart';
 
 @jsonSerializable
 class Question {

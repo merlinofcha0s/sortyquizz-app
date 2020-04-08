@@ -22,7 +22,23 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "pageLoginBar" : MessageLookupByLibrary.simpleMessage("Se connecter"),
+    "pageLoginLoginButton" : MessageLookupByLibrary.simpleMessage("S\'identifier"),
     "pageLoginRegisterButton" : MessageLookupByLibrary.simpleMessage("Créer un compte"),
-    "pageLoginTitle" : MessageLookupByLibrary.simpleMessage("Bienvenue sur SortyQuizz")
+    "pageLoginTitle" : MessageLookupByLibrary.simpleMessage("Bienvenue sur SortyQuizz"),
+    "pageRegisterErrorLoginExist" : MessageLookupByLibrary.simpleMessage("Cet identifiant est déjà pris"),
+    "pageRegisterErrorMailExist" : MessageLookupByLibrary.simpleMessage("Cette adresse existe déjà"),
+    "pageRegisterErrorPasswordNotIdentical" : MessageLookupByLibrary.simpleMessage("Les mots de passe ne sont pas identiques"),
+    "pageRegisterFormConfirmPassword" : MessageLookupByLibrary.simpleMessage("Confirmer le mot de passe"),
+    "pageRegisterFormEmail" : MessageLookupByLibrary.simpleMessage("Email"),
+    "pageRegisterFormEmailHint" : MessageLookupByLibrary.simpleMessage("you@exemple.com"),
+    "pageRegisterFormLogin" : MessageLookupByLibrary.simpleMessage("Login"),
+    "pageRegisterFormPassword" : MessageLookupByLibrary.simpleMessage("Mot de passe"),
+    "pageRegisterFormSubmit" : MessageLookupByLibrary.simpleMessage("Créer un compte"),
+    "pageRegisterFormTermsConditions" : MessageLookupByLibrary.simpleMessage("J\'accepte les conditions générales d\'utilisations"),
+    "pageRegisterFormTermsConditionsNotChecked" : MessageLookupByLibrary.simpleMessage("Merci d\'accepter les conditions générales d\'utilisations"),
+    "pageRegisterSuccess" : MessageLookupByLibrary.simpleMessage("Félicitation"),
+    "pageRegisterSuccessAltImg" : MessageLookupByLibrary.simpleMessage("Votre compte a été créé avec succés"),
+    "pageRegisterSuccessSub" : MessageLookupByLibrary.simpleMessage("Votre compte a été créé avec succés"),
+    "pageRegisterTitle" : MessageLookupByLibrary.simpleMessage("Créer un compte")
   };
 }

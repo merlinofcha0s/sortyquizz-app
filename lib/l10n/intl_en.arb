@@ -1,6 +1,7 @@
 {
   "pageLoginBar": "Login",
   "pageLoginTitle": "Welcome to SortyQuizz",
+  "pageLoginLoginButton": "Sign in",
   "pageLoginRegisterButton": "Register",
   "pageRegisterTitle": "Register",
   "pageRegisterFormLogin": "Login",

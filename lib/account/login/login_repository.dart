@@ -1,10 +1,10 @@
-import 'package:SortyQuizz/models/user.dart';
-import 'package:SortyQuizz/repository/http_utils.dart';
+import 'package:SortyQuizz/shared/models/user.dart';
+import 'package:SortyQuizz/shared/repository/http_utils.dart';
 
-class AccountRepository {
-  AccountRepository();
+class LoginRepository {
+  LoginRepository();
 
-  Future<String> register(User newUser) async {
+  Future<String> authenticate(User newUser) async {
     final registerRequest =
     await HttpUtils.postRequest<User>("/register", newUser);
 

@@ -1,14 +1,14 @@
-import 'package:SortyQuizz/bloc/bloc_provider.dart';
-import 'package:SortyQuizz/bloc/register_bloc.dart';
+import 'package:SortyQuizz/account/register/register_bloc.dart';
 import 'package:SortyQuizz/generated/l10n.dart';
 import 'package:SortyQuizz/keys.dart';
+import 'package:SortyQuizz/routes.dart';
+import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../routes.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen() : super(key: QuizzKeys.registerScreen);
+class RegisterPage extends StatelessWidget {
+  RegisterPage() : super(key: QuizzKeys.registerScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +247,7 @@ class RegisterScreen extends StatelessWidget {
                       child: Center(
                           child: Text(S.of(context).pageRegisterFormLogin))),
                   onPressed: () =>
-                      Navigator.pushNamed(context, QuizzRoutes.home),
+                      Navigator.pushNamed(context, QuizzRoutes.login),
                 )
               ],
             ),

@@ -1,13 +1,10 @@
-import 'package:SortyQuizz/bloc/bloc_provider.dart';
-import 'package:SortyQuizz/bloc/question_bloc.dart';
-import 'package:SortyQuizz/bloc/result_bloc.dart';
-import 'package:SortyQuizz/keys.dart';
-import 'package:SortyQuizz/models/score.dart';
+import 'package:SortyQuizz/quizz/bloc/result_bloc.dart';
+import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
 
-import 'questions/questions_widget.dart';
+import 'bloc/question_bloc.dart';
+import 'model/score.dart';
 
 class QuizzButtonBar extends StatelessWidget {
   final QuestionBloc questionBloc;

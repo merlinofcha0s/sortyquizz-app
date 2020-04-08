@@ -1,7 +1,7 @@
+import 'package:SortyQuizz/quizz/model/answer.dart';
+import 'package:SortyQuizz/quizz/model/question.dart';
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 
-import 'models/answer.dart';
-import 'models/question.dart';
 
 void configMapper() {
   JsonMapper().useAdapter(JsonMapperAdapter(valueDecorators: {

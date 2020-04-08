@@ -46,6 +46,15 @@ class S {
     );
   }
 
+  String get pageLoginLoginButton {
+    return Intl.message(
+      'Sign in',
+      name: 'pageLoginLoginButton',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get pageLoginRegisterButton {
     return Intl.message(
       'Register',
