@@ -199,7 +199,7 @@ class RegisterScreen extends StatelessWidget {
                       return Center(
                         child: Visibility(
                           replacement: CircularProgressIndicator(value: null),
-                          visible: !snapshotLoading.data,
+                          visible: snapshotLoading.hasData && !snapshotLoading.data,
                           child: Text(
                             S.of(context).pageRegisterFormSubmit.toUpperCase(),
                             style: TextStyle(fontSize: 15),
