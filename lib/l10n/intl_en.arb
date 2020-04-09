@@ -18,5 +18,9 @@
   "pageRegisterErrorPasswordNotIdentical": "The passwords are not identical",
   "pageRegisterSuccessAltImg": "Register success",
   "pageRegisterSuccess": "Congratulation",
-  "pageRegisterSuccessSub": "You have successfuly registered"
+  "pageRegisterSuccessSub": "You have successfuly registered",
+  "pageMainProfileButton": "Your profile",
+  "pageMainEventButton": "Event",
+  "pageMainOpenPackButton": "Open pack",
+  "pageMainMarketButton": "Marketplace"
 }

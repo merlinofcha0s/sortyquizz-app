@@ -207,6 +207,42 @@ class S {
       args: [],
     );
   }
+
+  String get pageMainProfileButton {
+    return Intl.message(
+      'Your profile',
+      name: 'pageMainProfileButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageMainEventButton {
+    return Intl.message(
+      'Event',
+      name: 'pageMainEventButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageMainOpenPackButton {
+    return Intl.message(
+      'Open pack',
+      name: 'pageMainOpenPackButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageMainMarketButton {
+    return Intl.message(
+      'Marketplace',
+      name: 'pageMainMarketButton',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
