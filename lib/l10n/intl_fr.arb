@@ -22,5 +22,6 @@
   "pageMainProfileButton": "Résumé du profil",
   "pageMainEventButton": "Evénement",
   "pageMainOpenPackButton": "Ouvrir un pack",
+  "pageMainNumberPackOpen": "packs",
   "pageMainMarketButton": "Boutique"
 }

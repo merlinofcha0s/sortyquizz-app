@@ -22,5 +22,7 @@
   "pageMainProfileButton": "Your profile",
   "pageMainEventButton": "Event",
   "pageMainOpenPackButton": "Open pack",
+  "pageMainNumberPackOpen": "Packs",
   "pageMainMarketButton": "Marketplace"
+
 }

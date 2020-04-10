@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pageLoginTitle" : MessageLookupByLibrary.simpleMessage("Bienvenue sur SortyQuizz"),
     "pageMainEventButton" : MessageLookupByLibrary.simpleMessage("Evénement"),
     "pageMainMarketButton" : MessageLookupByLibrary.simpleMessage("Boutique"),
+    "pageMainNumberPackOpen" : MessageLookupByLibrary.simpleMessage("packs"),
     "pageMainOpenPackButton" : MessageLookupByLibrary.simpleMessage("Ouvrir un pack"),
     "pageMainProfileButton" : MessageLookupByLibrary.simpleMessage("Résumé du profil"),
     "pageRegisterErrorLoginExist" : MessageLookupByLibrary.simpleMessage("Cet identifiant est déjà pris"),

@@ -235,6 +235,15 @@ class S {
     );
   }
 
+  String get pageMainNumberPackOpen {
+    return Intl.message(
+      'Packs',
+      name: 'pageMainNumberPackOpen',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get pageMainMarketButton {
     return Intl.message(
       'Marketplace',
