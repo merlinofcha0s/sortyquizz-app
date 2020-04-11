@@ -252,6 +252,15 @@ class S {
       args: [],
     );
   }
+
+  String get pageOpenPackAppBar {
+    return Intl.message(
+      'Open pack',
+      name: 'pageOpenPackAppBar',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

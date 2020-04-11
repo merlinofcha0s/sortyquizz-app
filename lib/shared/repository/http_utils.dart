@@ -1,4 +1,5 @@
 import 'dart:convert' show Encoding, utf8;
+import 'dart:convert' show json;
 
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -20,10 +21,22 @@ class HttpUtils {
     FlutterSecureStorage storage = new FlutterSecureStorage();
     String jwt = await storage.read(key: HttpUtils.keyForJWTToken);
     if (jwt != null) {
-      return {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization' : 'Bearer $jwt'};
+      return {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $jwt'
+      };
     } else {
       return {'Accept': 'application/json', 'Content-Type': 'application/json'};
     }
+  }
+
+  static adaptEnumForDeserialization(String body, String keyEnum, String className) {
+    var bodyInListMap = json.decode(HttpUtils.encodeUTF8(body));
+    for (Map<String, dynamic> item in bodyInListMap) {
+      item[keyEnum] = className + '.' + item[keyEnum];
+    }
+    return bodyInListMap;
   }
 
   static Future<Response> postRequest<T>(String endpoint, T body) async {
@@ -31,14 +44,11 @@ class HttpUtils {
     final String json =
         JsonMapper.serialize(body, SerializationOptions(indent: ''));
     return await http.post(Constants.api + endpoint,
-        headers: headers,
-        body: json,
-        encoding: Encoding.getByName('utf-8'));
+        headers: headers, body: json, encoding: Encoding.getByName('utf-8'));
   }
 
   static Future<Response> getRequest(String endpoint) async {
     var headers = await HttpUtils.headers();
-    return await http.get(Constants.api + endpoint,
-        headers: headers);
+    return await http.get(Constants.api + endpoint, headers: headers);
   }
 }

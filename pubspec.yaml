@@ -14,7 +14,7 @@ description: Sorty quizz flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -26,7 +26,7 @@ dependencies:
   provider: 4.0.4
   collection: 1.14.11
   http: 0.12.0+4
-  dart_json_mapper: 1.5.8
+  dart_json_mapper: 1.5.9
   dart_json_mapper_flutter: 1.0.0
   rxdart: 0.23.1
   flutter_secure_storage: 3.3.2

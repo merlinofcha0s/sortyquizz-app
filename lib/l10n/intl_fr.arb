@@ -23,5 +23,6 @@
   "pageMainEventButton": "Evénement",
   "pageMainOpenPackButton": "Ouvrir un pack",
   "pageMainNumberPackOpen": "packs",
-  "pageMainMarketButton": "Boutique"
+  "pageMainMarketButton": "Boutique",
+  "pageOpenPackAppBar": "Ouvrir un pack"
 }

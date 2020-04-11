@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pageMainNumberPackOpen" : MessageLookupByLibrary.simpleMessage("packs"),
     "pageMainOpenPackButton" : MessageLookupByLibrary.simpleMessage("Ouvrir un pack"),
     "pageMainProfileButton" : MessageLookupByLibrary.simpleMessage("Résumé du profil"),
+    "pageOpenPackAppBar" : MessageLookupByLibrary.simpleMessage("Ouvrir un pack"),
     "pageRegisterErrorLoginExist" : MessageLookupByLibrary.simpleMessage("Cet identifiant est déjà pris"),
     "pageRegisterErrorMailExist" : MessageLookupByLibrary.simpleMessage("Cette adresse existe déjà"),
     "pageRegisterErrorPasswordNotIdentical" : MessageLookupByLibrary.simpleMessage("Les mots de passe ne sont pas identiques"),

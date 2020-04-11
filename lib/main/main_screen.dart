@@ -36,7 +36,7 @@ class MainScreen extends StatelessWidget {
                         ],
                       )),
                   onPressed: () =>
-                      Navigator.pushNamed(context, QuizzRoutes.register),
+                      Navigator.pushNamed(context, QuizzRoutes.openPack),
                 ),
                 btnMenu(context, S.of(context).pageMainMarketButton, () => Navigator.pushNamed(context, QuizzRoutes.register))
               ]),

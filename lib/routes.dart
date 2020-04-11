@@ -4,7 +4,10 @@
 
 class QuizzRoutes {
   static final login = '/';
-  static final quizz = '/quizz';
   static final register = '/register';
   static final main = '/main';
+  static final openPack = '/main/open-pack';
+  static final quizz = '/quizz';
+
+
 }
