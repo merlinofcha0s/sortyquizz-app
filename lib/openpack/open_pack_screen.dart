@@ -1,10 +1,12 @@
 import 'package:SortyQuizz/generated/l10n.dart';
 import 'package:SortyQuizz/keys.dart';
 import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
+import 'package:SortyQuizz/shared/containers/loading_indicator_widget.dart';
 import 'package:SortyQuizz/shared/models/user_pack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../routes.dart';
 import 'open_pack_bloc.dart';
 
 class OpenPackScreen extends StatelessWidget {
@@ -22,64 +24,101 @@ class OpenPackScreen extends StatelessWidget {
                   centerTitle: true,
                   title: Text(S.of(context).pageOpenPackAppBar)),
               backgroundColor: Colors.grey,
-              body: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-                  child: Column(
-                    children: <Widget>[
-                      head(),
-                      Padding(padding: EdgeInsets.only(bottom: 30.0),),
-                      packList(snapshot.data)
-                    ],
-                  )));
+              body: SingleChildScrollView(
+                child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                    child: Column(
+                      children: <Widget>[
+                        head(context),
+                        Padding(padding: EdgeInsets.only(bottom: 30.0),),
+                        packList(snapshot.data, context),
+                        Padding(padding: EdgeInsets.only(bottom: 30.0),),
+                        buyPack(context)
+                      ],
+                    )),
+              ));
         });
   }
 
-  Widget head() {
+  Widget head(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Text(
-          'Mes packs',
+          S.of(context).pageOpenPackMyPacks,
           style: TextStyle(fontSize: 20),
         ),
         Text(
-          'Filtre',
+          S.of(context).pageOpenPackFilter,
           style: TextStyle(fontSize: 20),
         ),
       ],
     );
   }
 
-  Widget packList(List<UserPack> packs) {
-    return Wrap(
-      spacing: 8.0, // gap between adjacent chips
-      runSpacing: 4.0, // gap between lines
-      children: <Widget>[for (UserPack pack in packs) packCard(pack)],
-    );
+  Widget packList(List<UserPack> packs, BuildContext context) {
+    if (packs == null) {
+      return LoadingIndicator();
+    } else {
+      return Wrap(
+        spacing: 6.0, // gap between adjacent chips
+        runSpacing: 6.0, // gap between lines
+        children: <Widget>[for (UserPack pack in packs) packCard(pack, context)],
+      );
+    }
   }
 
-  Widget packCard(UserPack pack) {
+  Widget packCard(UserPack pack, BuildContext context) {
     return Card(
       color: Colors.white,
       child: Container(
         height: 160,
-        width: 120,
+        width: 110,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(pack.themeName),
+              Text(
+                pack.themeName,
+                textAlign: TextAlign.center,
+              ),
               Text(
                 pack.packName,
                 style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.center,
               ),
-              Text(pack.packLevel, style: TextStyle(fontSize: 16)),
-              Text(pack.lifeLeft.toString() + ' vie(s)', style: TextStyle(fontSize: 16)),
+              Text(
+                S.of(context).pageOpenPackLevel + ' ' + pack.packLevel,
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                pack.lifeLeft.toString() + ' ' + S.of(context).pageOpenPackLife,
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget buyPack(BuildContext context) {
+    return RaisedButton(
+      color: Colors.white,
+      child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 80,
+          child: Center(
+            child: Text(
+              S.of(context).pageOpenPackBuyPack,
+              style: TextStyle(fontSize: 17),
+            ),
+          )),
+      onPressed: () => () => Navigator.pushNamed(context, QuizzRoutes.register),
     );
   }
 }

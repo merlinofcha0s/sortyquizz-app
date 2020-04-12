@@ -261,6 +261,51 @@ class S {
       args: [],
     );
   }
+
+  String get pageOpenPackMyPacks {
+    return Intl.message(
+      'My packs',
+      name: 'pageOpenPackMyPacks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageOpenPackFilter {
+    return Intl.message(
+      'Filter',
+      name: 'pageOpenPackFilter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageOpenPackLife {
+    return Intl.message(
+      'life(s)',
+      name: 'pageOpenPackLife',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageOpenPackLevel {
+    return Intl.message(
+      'Level',
+      name: 'pageOpenPackLevel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageOpenPackBuyPack {
+    return Intl.message(
+      'Buy a pack',
+      name: 'pageOpenPackBuyPack',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

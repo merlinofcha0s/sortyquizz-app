@@ -24,5 +24,10 @@
   "pageMainOpenPackButton": "Ouvrir un pack",
   "pageMainNumberPackOpen": "packs",
   "pageMainMarketButton": "Boutique",
-  "pageOpenPackAppBar": "Ouvrir un pack"
+  "pageOpenPackAppBar": "Ouvrir un pack",
+  "pageOpenPackMyPacks": "Mes packs",
+  "pageOpenPackFilter": "Filtre",
+  "pageOpenPackLife": "vie(s)",
+  "pageOpenPackLevel": "Niveau",
+  "pageOpenPackBuyPack": "Acheter un pack"
 }

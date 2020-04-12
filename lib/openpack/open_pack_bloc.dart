@@ -15,10 +15,13 @@ class OpenPackBloc extends Bloc with ValidatorMixin {
 
   Function(List<UserPack>) get changeOpenPack => _openPack.sink.add;
 
-  OpenPackBloc();
+  OpenPackBloc() {
+    _openPack.add(new List<UserPack>());
+  }
 
   getAllPackForConnectedUser() async {
-    List<UserPack> openPackForConnectedUser = await packRepository.getAllPackForConnectedUser();
+    List<UserPack> openPackForConnectedUser =
+        await packRepository.getAllPackForConnectedUser();
     _openPack.add(openPackForConnectedUser);
   }
 

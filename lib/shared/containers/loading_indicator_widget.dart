@@ -10,7 +10,7 @@ class LoadingIndicator extends StatelessWidget {
     return Center(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 40),
-        child: LinearProgressIndicator(value: null),
+        child: CircularProgressIndicator(value: null),
       ),
     );
   }
