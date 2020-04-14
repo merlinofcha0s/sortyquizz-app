@@ -2,8 +2,8 @@ import 'package:SortyQuizz/shared/models/user_pack.dart';
 import 'package:SortyQuizz/shared/repository/http_utils.dart';
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 
-class PackRepository {
-  PackRepository();
+class UserPackRepository {
+  UserPackRepository();
 
   Future<int> getCountOpenPackForConnectedUser() async {
     final registerRequest = await HttpUtils.getRequest("/user-packs/get-count-number-by-user");
@@ -12,7 +12,7 @@ class PackRepository {
 
   Future<List<UserPack>> getAllPackForConnectedUser() async {
     final registerRequest = await HttpUtils.getRequest("/user-packs/get-by-user");
-    var body = HttpUtils.adaptEnumForDeserialization(registerRequest.body, 'state', 'PackState');
+    var body = HttpUtils.adaptEnumForDeserialization(registerRequest.body, 'state', 'PackState', true);
     return JsonMapper.deserialize<List<UserPack>>(body);
   }
 }

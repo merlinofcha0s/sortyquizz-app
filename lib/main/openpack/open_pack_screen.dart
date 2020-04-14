@@ -1,12 +1,13 @@
 import 'package:SortyQuizz/generated/l10n.dart';
 import 'package:SortyQuizz/keys.dart';
+import 'package:SortyQuizz/main/openpack/quizz/quizz_arguments.dart';
+import 'package:SortyQuizz/routes.dart';
 import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:SortyQuizz/shared/containers/loading_indicator_widget.dart';
 import 'package:SortyQuizz/shared/models/user_pack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../routes.dart';
 import 'open_pack_bloc.dart';
 
 class OpenPackScreen extends StatelessWidget {
@@ -68,38 +69,41 @@ class OpenPackScreen extends StatelessWidget {
     }
   }
 
-  Widget packCard(UserPack pack, BuildContext context) {
-    return Card(
-      color: Colors.white,
-      child: Container(
-        height: 160,
-        width: 110,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                pack.themeName,
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                pack.packName,
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                S.of(context).pageOpenPackLevel + ' ' + pack.packLevel,
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                pack.lifeLeft.toString() + ' ' + S.of(context).pageOpenPackLife,
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-            ],
+  Widget packCard(UserPack userPack, BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, QuizzRoutes.quizz, arguments: QuizzArgument(userPack.id)),
+      child: Card(
+        color: Colors.white,
+        child: Container(
+          height: 160,
+          width: 110,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  userPack.themeName,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  userPack.packName,
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  S.of(context).pageOpenPackLevel + ' ' + userPack.packLevel,
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  userPack.lifeLeft.toString() + ' ' + S.of(context).pageOpenPackLife,
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
         ),
       ),

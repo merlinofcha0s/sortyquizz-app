@@ -7,7 +7,8 @@ class QuizzRoutes {
   static final register = '/register';
   static final main = '/main';
   static final openPack = '/main/open-pack';
-  static final quizz = '/quizz';
+  static final quizz = '/main/quizz';
+  static final quizz2 = '/quizz-2';
 
 
 }

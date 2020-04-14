@@ -4,6 +4,7 @@ import 'answer.dart';
 
 @jsonSerializable
 class Question {
+
   @JsonProperty(name: 'id')
   int id;
   @JsonProperty(name: 'question')
@@ -12,13 +13,6 @@ class Question {
   int level;
   @JsonProperty(name: 'answers')
   List<Answer> answers;
-
-  Question(this.id, this.question, this.level, this.answers);
-
-  Question copyWith(String id, String question, int level) {
-    return Question(id ?? this.id, question ?? this.question,
-        level ?? this.level, answers ?? this.answers);
-  }
 
   @override
   int get hashCode => question.hashCode ^ level.hashCode ^ id.hashCode;

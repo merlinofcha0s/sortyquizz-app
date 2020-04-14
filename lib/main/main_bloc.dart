@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 class MainBloc extends Bloc with ValidatorMixin {
   final _numberOpenPack = BehaviorSubject<int>();
 
-  final packRepository = PackRepository();
+  final packRepository = UserPackRepository();
 
   Stream<int> get numberOpenPackStream => _numberOpenPack.stream;
 

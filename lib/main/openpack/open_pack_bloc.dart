@@ -1,15 +1,14 @@
 import 'dart:async';
 
 import 'package:SortyQuizz/shared/bloc/bloc.dart';
-import 'package:SortyQuizz/shared/mixins/validators_mixin.dart';
 import 'package:SortyQuizz/shared/models/user_pack.dart';
 import 'package:SortyQuizz/shared/repository/pack_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
-class OpenPackBloc extends Bloc with ValidatorMixin {
+class OpenPackBloc extends Bloc {
   final _openPack = BehaviorSubject<List<UserPack>>();
 
-  final packRepository = PackRepository();
+  final packRepository = UserPackRepository();
 
   Stream<List<UserPack>> get openPackStream => _openPack.stream;
 
@@ -20,8 +19,7 @@ class OpenPackBloc extends Bloc with ValidatorMixin {
   }
 
   getAllPackForConnectedUser() async {
-    List<UserPack> openPackForConnectedUser =
-        await packRepository.getAllPackForConnectedUser();
+    List<UserPack> openPackForConnectedUser = await packRepository.getAllPackForConnectedUser();
     _openPack.add(openPackForConnectedUser);
   }
 

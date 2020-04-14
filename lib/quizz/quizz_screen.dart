@@ -6,8 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'bloc/question_bloc.dart';
 import 'questions/questions_widget.dart';
 
-class QuizzScreen extends StatelessWidget {
-  QuizzScreen() : super(key: QuizzKeys.quizzScreen);
+class QuizzScreen2 extends StatelessWidget {
+  QuizzScreen2() : super(key: QuizzKeys.quizzScreen);
 
   @override
   Widget build(BuildContext context) {

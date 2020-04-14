@@ -31,12 +31,18 @@ class HttpUtils {
     }
   }
 
-  static adaptEnumForDeserialization(String body, String keyEnum, String className) {
-    var bodyInListMap = json.decode(HttpUtils.encodeUTF8(body));
-    for (Map<String, dynamic> item in bodyInListMap) {
-      item[keyEnum] = className + '.' + item[keyEnum];
+   static dynamic adaptEnumForDeserialization(String body, String keyEnum, String className, bool isList) {
+    if(isList){
+      List<dynamic> bodyInListMap = json.decode(HttpUtils.encodeUTF8(body));
+      for (Map<String, dynamic> item in bodyInListMap) {
+        item[keyEnum] = className + '.' + item[keyEnum];
+      }
+      return json.encode(bodyInListMap);
+    } else {
+      Map<String, dynamic> bodyInListMap = json.decode(HttpUtils.encodeUTF8(body));
+      bodyInListMap[keyEnum] = className + '.' + bodyInListMap[keyEnum];
+      return json.encode(bodyInListMap);
     }
-    return bodyInListMap;
   }
 
   static Future<Response> postRequest<T>(String endpoint, T body) async {
