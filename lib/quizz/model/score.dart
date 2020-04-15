@@ -2,10 +2,10 @@ import 'package:flutter/widgets.dart';
 
 @immutable
 class Result {
-  final int score;
-  final int right;
-  final int wrong;
-  final int total;
+  int score;
+  int right;
+  int wrong;
+  int total;
 
   Result(this.score, this.right, this.wrong, this.total);
 
