@@ -26,6 +26,8 @@ class QuizzBloc extends Bloc {
 
   final _timer = BehaviorSubject<int>();
 
+  final _scoreTime = BehaviorSubject<int>();
+
   Queue<Question> questionsQueue = new Queue<Question>();
 
   final packRepository = PackRepository();
@@ -44,11 +46,15 @@ class QuizzBloc extends Bloc {
 
   Stream<int> get timer => _timer.stream;
 
+  Stream<int> get scoreTime => _scoreTime.stream;
+
   Stream<int> currentTimer;
 
   StreamSubscription<int> currentTimerSub;
 
-  QuizzBloc() {}
+  QuizzBloc() {
+    _scoreTime.add(0);
+  }
 
   getPackByIdByUser(int id) async {
     Pack packById = await packRepository.getPackByIdByConnectedUser(id);
@@ -73,8 +79,7 @@ class QuizzBloc extends Bloc {
     currentTimer = Stream<int>.periodic(Duration(seconds: 1), (timeLeft) => timePerQuestion - timeLeft)
         .take(timePerQuestion + 1);
 
-    currentTimerSub = currentTimer.listen((timeLeft) => processTimer(timeLeft),
-        onDone: () => endTimer());
+    currentTimerSub = currentTimer.listen((timeLeft) => processTimer(timeLeft), onDone: () => endTimer());
   }
 
   processTimer(int timeLeft) {
@@ -82,6 +87,7 @@ class QuizzBloc extends Bloc {
   }
 
   endTimer() {
+    computeTimePassAtQuestion();
     getNextQuestion();
   }
 
@@ -91,15 +97,26 @@ class QuizzBloc extends Bloc {
       nextQuestion.answers.shuffle(Random.secure());
       _nextQuestion.add(nextQuestion);
 
-      var currentQuestionNumber =
-          _startQuizz.value.questions.length - questionsQueue.length;
+      var currentQuestionNumber = _startQuizz.value.questions.length - questionsQueue.length;
       _updateQuestionNumber.add(currentQuestionNumber);
 
       if (currentQuestionNumber == _startQuizz.value.questions.length) {
-        //FINISHEDDDDD !!!!
+        finishStep1();
+      } else {
+        await startTimer();
       }
-      await startTimer();
     }
+  }
+
+  finishStep1(){
+    print('Questions utilisées : ${_updateQuestionNumber.value}');
+    print('Temps passée : ${_scoreTime.value}');
+    print('Cards gagnées : ${_updateWonCards.value}');
+  }
+
+  computeTimePassAtQuestion(){
+    // Compute time pass at question
+    _scoreTime.add((_startQuizz.value.rule.timePerQuestion - _timer.value) + _scoreTime.value);
   }
 
   chooseAnswer(Answer answer) async {
@@ -115,6 +132,9 @@ class QuizzBloc extends Bloc {
       _updateWonCards.add(resultToUpdate.right);
       _updateScore.add(resultToUpdate);
     }
+
+    computeTimePassAtQuestion();
+
     await getNextQuestion();
   }
 
@@ -127,5 +147,9 @@ class QuizzBloc extends Bloc {
         _updateQuestionNumber.close();
         _updateWonCards.close();
         _timer.close();
+        _scoreTime.close();
+        if (currentTimerSub != null) {
+          currentTimerSub.cancel();
+        }
       };
 }
