@@ -56,11 +56,11 @@ class QuizzScreen extends StatelessWidget {
     } else {
       return Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.35,
         child: Card(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
                   pack.name,
@@ -80,14 +80,24 @@ class QuizzScreen extends StatelessWidget {
                   builder: (context, snapshot) {
                     return Text(
                       'Question ' + snapshot.data.toString(),
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 28),
                     );
                   }
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                 ),
-                Text(question.question, style: TextStyle(fontSize: 15), textAlign: TextAlign.center,)
+                Text(question.question, style: TextStyle(fontSize: 15), textAlign: TextAlign.center,),
+                Padding(padding: EdgeInsets.only(top: 20),),
+                Text('Timer', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,),
+                Padding(padding: EdgeInsets.only(top: 5),),
+                StreamBuilder<int>(
+                  stream: quizzBloc.timer,
+                  builder: (context, snapshot) {
+                    int timer = snapshot.hasData ? snapshot.data : pack.rule.timePerQuestion;
+                    return Text(timer.toString(), style: TextStyle(fontSize: 15), textAlign: TextAlign.center,);
+                  }
+                )
               ],
             ),
           ),

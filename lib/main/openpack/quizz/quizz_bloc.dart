@@ -7,11 +7,11 @@ import 'package:SortyQuizz/quizz/model/question.dart';
 import 'package:SortyQuizz/quizz/model/score.dart';
 import 'package:SortyQuizz/shared/bloc/bloc.dart';
 import 'package:SortyQuizz/shared/models/pack.dart';
+import 'package:SortyQuizz/shared/models/rule.dart';
 import 'package:SortyQuizz/shared/repository/user_pack_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class QuizzBloc extends Bloc {
-
   final _startQuizz = BehaviorSubject<Pack>();
 
   final _nextQuestion = BehaviorSubject<Question>();
@@ -23,6 +23,8 @@ class QuizzBloc extends Bloc {
   final _updateWonCards = BehaviorSubject<int>();
 
   final _updateQuestionNumber = BehaviorSubject<int>();
+
+  final _timer = BehaviorSubject<int>();
 
   Queue<Question> questionsQueue = new Queue<Question>();
 
@@ -40,6 +42,8 @@ class QuizzBloc extends Bloc {
 
   Stream<int> get updateQuestionNumber => _updateQuestionNumber.stream;
 
+  Stream<int> get timer => _timer.stream;
+
   QuizzBloc() {}
 
   getPackByIdByUser(int id) async {
@@ -54,24 +58,40 @@ class QuizzBloc extends Bloc {
     getNextQuestion();
   }
 
+  startTimer() {
+    Rule rule = _startQuizz.value.rule;
+    var timePerQuestion = rule.timePerQuestion;
+
+    final timerStream = Stream<int>.periodic(Duration(seconds: 1), (timeLeft) => timePerQuestion - timeLeft).take(timePerQuestion + 1);
+    timerStream.listen((timeLeft) => processTimer(timeLeft), onDone: () => endTimer());
+  }
+
+  processTimer(int timeLeft) {
+    _timer.add(timeLeft);
+  }
+
+  endTimer() {
+    getNextQuestion();
+  }
+
   getNextQuestion() {
     if (questionsQueue.length >= 1) {
       var nextQuestion = questionsQueue.removeLast();
       nextQuestion.answers.shuffle(Random.secure());
       _nextQuestion.add(nextQuestion);
 
-      var currentQuestionNumber = _startQuizz.value.questions.length - questionsQueue.length;
+      var currentQuestionNumber =
+          _startQuizz.value.questions.length - questionsQueue.length;
       _updateQuestionNumber.add(currentQuestionNumber);
 
-      if(currentQuestionNumber == _startQuizz.value.questions.length){
+      if (currentQuestionNumber == _startQuizz.value.questions.length) {
         //FINISHEDDDDD !!!!
       }
+      startTimer();
     }
   }
 
   chooseAnswer(Answer answer) {
-    // Compute score
-    // TODO: Afficher les couleurs
     Result resultToUpdate;
     if (!_updateScore.hasValue) {
       resultToUpdate = new Result(0, 0, 0, 0);
@@ -82,6 +102,7 @@ class QuizzBloc extends Bloc {
     if (answer.isTheRightAnswer) {
       resultToUpdate.right++;
       _updateWonCards.add(resultToUpdate.right);
+      _updateScore.add(resultToUpdate);
     }
 
     getNextQuestion();
@@ -95,5 +116,6 @@ class QuizzBloc extends Bloc {
         _updateScore.close();
         _updateQuestionNumber.close();
         _updateWonCards.close();
+        _timer.close();
       };
 }
