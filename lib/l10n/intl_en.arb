@@ -29,5 +29,10 @@
   "pageOpenPackFilter": "Filter",
   "pageOpenPackLife": "life(s)",
   "pageOpenPackLevel": "Level",
-  "pageOpenPackBuyPack": "Buy a pack"
+  "pageOpenPackBuyPack": "Buy a pack",
+  "pageQuizzStep1Lvl": "lvl",
+  "pageQuizzStep1QuestionTitle": "Question",
+  "pageQuizzStep1QuestionTimer": "Timer",
+  "pageQuizzStep1WonCard": "Cards won",
+  "pageQuizzStep1CurrentQuestion": "Questions"
 }

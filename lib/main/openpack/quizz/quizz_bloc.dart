@@ -44,6 +44,10 @@ class QuizzBloc extends Bloc {
 
   Stream<int> get timer => _timer.stream;
 
+  Stream<int> currentTimer;
+
+  StreamSubscription<int> currentTimerSub;
+
   QuizzBloc() {}
 
   getPackByIdByUser(int id) async {
@@ -55,15 +59,22 @@ class QuizzBloc extends Bloc {
     questions.shuffle(Random.secure());
     questionsQueue.clear();
     questionsQueue.addAll(questions);
-    getNextQuestion();
+    await getNextQuestion();
   }
 
-  startTimer() {
+  startTimer() async {
+    if (currentTimerSub != null) {
+      currentTimerSub.cancel();
+    }
+
     Rule rule = _startQuizz.value.rule;
     var timePerQuestion = rule.timePerQuestion;
 
-    final timerStream = Stream<int>.periodic(Duration(seconds: 1), (timeLeft) => timePerQuestion - timeLeft).take(timePerQuestion + 1);
-    timerStream.listen((timeLeft) => processTimer(timeLeft), onDone: () => endTimer());
+    currentTimer = Stream<int>.periodic(Duration(seconds: 1), (timeLeft) => timePerQuestion - timeLeft)
+        .take(timePerQuestion + 1);
+
+    currentTimerSub = currentTimer.listen((timeLeft) => processTimer(timeLeft),
+        onDone: () => endTimer());
   }
 
   processTimer(int timeLeft) {
@@ -74,7 +85,7 @@ class QuizzBloc extends Bloc {
     getNextQuestion();
   }
 
-  getNextQuestion() {
+  getNextQuestion() async {
     if (questionsQueue.length >= 1) {
       var nextQuestion = questionsQueue.removeLast();
       nextQuestion.answers.shuffle(Random.secure());
@@ -87,11 +98,11 @@ class QuizzBloc extends Bloc {
       if (currentQuestionNumber == _startQuizz.value.questions.length) {
         //FINISHEDDDDD !!!!
       }
-      startTimer();
+      await startTimer();
     }
   }
 
-  chooseAnswer(Answer answer) {
+  chooseAnswer(Answer answer) async {
     Result resultToUpdate;
     if (!_updateScore.hasValue) {
       resultToUpdate = new Result(0, 0, 0, 0);
@@ -104,8 +115,7 @@ class QuizzBloc extends Bloc {
       _updateWonCards.add(resultToUpdate.right);
       _updateScore.add(resultToUpdate);
     }
-
-    getNextQuestion();
+    await getNextQuestion();
   }
 
   @override

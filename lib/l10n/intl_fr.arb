@@ -29,5 +29,10 @@
   "pageOpenPackFilter": "Filtre",
   "pageOpenPackLife": "vie(s)",
   "pageOpenPackLevel": "Niveau",
-  "pageOpenPackBuyPack": "Acheter un pack"
+  "pageOpenPackBuyPack": "Acheter un pack",
+  "pageQuizzStep1Lvl": "niv",
+  "pageQuizzStep1QuestionTitle": "Question",
+  "pageQuizzStep1QuestionTimer": "Minuteur",
+  "pageQuizzStep1WonCard": "Cartes gagnées",
+  "pageQuizzStep1CurrentQuestion": "Questions"
 }

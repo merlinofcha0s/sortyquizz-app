@@ -1,3 +1,4 @@
+import 'package:SortyQuizz/generated/l10n.dart';
 import 'package:SortyQuizz/keys.dart';
 import 'package:SortyQuizz/main/openpack/quizz/quizz_arguments.dart';
 import 'package:SortyQuizz/quizz/model/answer.dart';
@@ -15,10 +16,7 @@ class QuizzScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final QuizzArgument args = ModalRoute
-        .of(context)
-        .settings
-        .arguments;
+    final QuizzArgument args = ModalRoute.of(context).settings.arguments;
     final quizzBloc = BlocProvider.of<QuizzBloc>(context);
     quizzBloc.getPackByIdByUser(args.userPackId);
     return StreamBuilder<Pack>(
@@ -27,7 +25,7 @@ class QuizzScreen extends StatelessWidget {
           return Scaffold(
             backgroundColor: Colors.white70,
             body: body(context, snapshot.data, quizzBloc),
-            bottomNavigationBar: bottom(snapshot.data, quizzBloc),
+            bottomNavigationBar: bottom(snapshot.data, quizzBloc, context),
           );
         });
   }
@@ -69,7 +67,7 @@ class QuizzScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 5),
                 ),
-                Text(pack.themeName + ' - lvl' + pack.level.toString()),
+                Text(pack.themeName + ' - ' + S.of(context).pageQuizzStep1Lvl + pack.level.toString()),
                 Container(
                     width: MediaQuery.of(context).size.width * 0.20,
                     child: Divider(
@@ -79,7 +77,7 @@ class QuizzScreen extends StatelessWidget {
                   stream: quizzBloc.updateQuestionNumber,
                   builder: (context, snapshot) {
                     return Text(
-                      'Question ' + snapshot.data.toString(),
+                      S.of(context).pageQuizzStep1QuestionTitle + snapshot.data.toString(),
                       style: TextStyle(fontSize: 28),
                     );
                   }
@@ -89,7 +87,7 @@ class QuizzScreen extends StatelessWidget {
                 ),
                 Text(question.question, style: TextStyle(fontSize: 15), textAlign: TextAlign.center,),
                 Padding(padding: EdgeInsets.only(top: 20),),
-                Text('Timer', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,),
+                Text(S.of(context).pageQuizzStep1QuestionTimer, style: TextStyle(fontSize: 17), textAlign: TextAlign.center,),
                 Padding(padding: EdgeInsets.only(top: 5),),
                 StreamBuilder<int>(
                   stream: quizzBloc.timer,
@@ -134,7 +132,7 @@ class QuizzScreen extends StatelessWidget {
     );
   }
 
-  Widget bottom(Pack pack, QuizzBloc quizzBloc) {
+  Widget bottom(Pack pack, QuizzBloc quizzBloc, BuildContext context) {
     if(pack == null){
       return LoadingIndicator();
     } else {
@@ -151,7 +149,7 @@ class QuizzScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text('Cartes gagnées'),
+                      Text(S.of(context).pageQuizzStep1WonCard),
                       Text(nbCardWon.toString() + '/' +
                           pack.rule.nbMinCardToWin.toString()),
                     ],
@@ -166,7 +164,7 @@ class QuizzScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text('Questions'),
+                      Text(S.of(context).pageQuizzStep1CurrentQuestion),
                       Text(questionNumber.toString() + '/' +
                           pack.rule.nbMaxQuestions.toString()),
                     ],

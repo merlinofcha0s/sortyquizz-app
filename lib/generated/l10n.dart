@@ -306,6 +306,51 @@ class S {
       args: [],
     );
   }
+
+  String get pageQuizzStep1Lvl {
+    return Intl.message(
+      'lvl',
+      name: 'pageQuizzStep1Lvl',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageQuizzStep1QuestionTitle {
+    return Intl.message(
+      'Question',
+      name: 'pageQuizzStep1QuestionTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageQuizzStep1QuestionTimer {
+    return Intl.message(
+      'Timer',
+      name: 'pageQuizzStep1QuestionTimer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageQuizzStep1WonCard {
+    return Intl.message(
+      'Cards won',
+      name: 'pageQuizzStep1WonCard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageQuizzStep1CurrentQuestion {
+    return Intl.message(
+      'Questions',
+      name: 'pageQuizzStep1CurrentQuestion',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
