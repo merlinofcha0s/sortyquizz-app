@@ -9,7 +9,7 @@ import 'package:SortyQuizz/quizz/model/score.dart';
 import 'package:SortyQuizz/shared/bloc/bloc.dart';
 import 'package:SortyQuizz/shared/models/pack.dart';
 import 'package:SortyQuizz/shared/models/rule.dart';
-import 'package:SortyQuizz/shared/repository/user_pack_repository.dart';
+import 'package:SortyQuizz/shared/repository/pack_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class QuizzBloc extends Bloc {

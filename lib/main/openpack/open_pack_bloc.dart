@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:SortyQuizz/shared/bloc/bloc.dart';
 import 'package:SortyQuizz/shared/models/user_pack.dart';
-import 'package:SortyQuizz/shared/repository/pack_repository.dart';
+import 'package:SortyQuizz/shared/repository/user_pack_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class OpenPackBloc extends Bloc {

@@ -47,10 +47,8 @@ class HttpUtils {
 
   static Future<Response> postRequest<T>(String endpoint, T body) async {
     var headers = await HttpUtils.headers();
-    final String json =
-        JsonMapper.serialize(body, SerializationOptions(indent: ''));
-    return await http.post(Constants.api + endpoint,
-        headers: headers, body: json, encoding: Encoding.getByName('utf-8'));
+    final String json = JsonMapper.serialize(body, SerializationOptions(indent: ''));
+    return await http.post(Constants.api + endpoint, headers: headers, body: json, encoding: Encoding.getByName('utf-8'));
   }
 
   static Future<Response> getRequest(String endpoint) async {

@@ -37,18 +37,8 @@ class UserPack {
   @JsonProperty(name: 'packLevel')
   String packLevel;
 
-  UserPack(
-      this.id,
-      this.state,
-      this.lifeLeft,
-      this.nbQuestionsToSucceed,
-      this.timeAtQuizzStep,
-      this.timeAtSortingStep,
-      this.profileId,
-      this.packId,
-      this.themeName,
-      this.packName,
-      this.packLevel);
+
+  UserPack();
 
   @override
   String toString() {

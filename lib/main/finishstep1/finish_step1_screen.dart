@@ -69,7 +69,6 @@ class FinishStep1Screen extends StatelessWidget {
                       style: TextStyle(fontSize: 17),))),
             onPressed: () => Navigator.pushNamed(context, QuizzRoutes.login),
           )
-
         ],
       ),
     );
