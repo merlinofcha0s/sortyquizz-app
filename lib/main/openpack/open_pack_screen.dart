@@ -33,11 +33,10 @@ class OpenPackScreen extends StatelessWidget {
                         head(context),
                         Padding(padding: EdgeInsets.only(bottom: 30.0),),
                         packList(snapshot.data, context),
-                        Padding(padding: EdgeInsets.only(bottom: 30.0),),
-                        buyPack(context)
                       ],
                     )),
-              ));
+              )
+          , floatingActionButton: buyPack(context),);
         });
   }
 
@@ -111,17 +110,9 @@ class OpenPackScreen extends StatelessWidget {
   }
 
   Widget buyPack(BuildContext context) {
-    return RaisedButton(
-      color: Colors.white,
-      child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: 80,
-          child: Center(
-            child: Text(
-              S.of(context).pageOpenPackBuyPack,
-              style: TextStyle(fontSize: 17),
-            ),
-          )),
+    return FloatingActionButton.extended(
+      label: Text(S.of(context).pageOpenPackBuyPack),
+      icon: Icon(Icons.add_shopping_cart),
       onPressed: () => () => Navigator.pushNamed(context, QuizzRoutes.register),
     );
   }
