@@ -34,5 +34,10 @@
   "pageQuizzStep1QuestionTitle": "Question",
   "pageQuizzStep1QuestionTimer": "Minuteur",
   "pageQuizzStep1WonCard": "Cartes gagnées",
-  "pageQuizzStep1CurrentQuestion": "Questions"
+  "pageQuizzStep1CurrentQuestion": "Questions",
+  "pageFinishStep1Title": "Félicitations",
+  "pageFinishStep1SubTitle": "Vous avez gagné les {numberCardsWon} cartes à classer",
+  "pageFinishStep1UsedQuestion": "Questions utilisées",
+  "pageFinishStep1UsedTime": "Temps passé",
+  "pageFinishStep1StartStep2": " Démarrer le classement"
 }

@@ -7,4 +7,5 @@ class QuizzKeys {
   static const registerScreen = Key('__registerScreen__');
   static const mainScreen = Key('__mainScreen__');
   static const openPackScreen = Key('__openPackScreen__');
+  static const finishStep1Screen = Key('__finishStep1Screen__');
 }

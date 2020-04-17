@@ -34,5 +34,11 @@
   "pageQuizzStep1QuestionTitle": "Question",
   "pageQuizzStep1QuestionTimer": "Timer",
   "pageQuizzStep1WonCard": "Cards won",
-  "pageQuizzStep1CurrentQuestion": "Questions"
+  "pageQuizzStep1CurrentQuestion": "Questions",
+  "pageFinishStep1Title": "Congratulations",
+  "pageFinishStep1SubTitle": "You have win {numberCardsWon} cards",
+  "pageFinishStep1UsedQuestion": "Questions consumed",
+  "pageFinishStep1UsedTime": "Time consumed",
+  "pageFinishStep1StartStep2": "Start sorting"
+
 }

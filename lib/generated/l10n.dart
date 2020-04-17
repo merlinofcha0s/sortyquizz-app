@@ -351,6 +351,51 @@ class S {
       args: [],
     );
   }
+
+  String get pageFinishStep1Title {
+    return Intl.message(
+      'Congratulations',
+      name: 'pageFinishStep1Title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String pageFinishStep1SubTitle(Object numberCardsWon) {
+    return Intl.message(
+      'You have win $numberCardsWon cards',
+      name: 'pageFinishStep1SubTitle',
+      desc: '',
+      args: [numberCardsWon],
+    );
+  }
+
+  String get pageFinishStep1UsedQuestion {
+    return Intl.message(
+      'Questions consumed',
+      name: 'pageFinishStep1UsedQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep1UsedTime {
+    return Intl.message(
+      'Time consumed',
+      name: 'pageFinishStep1UsedTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep1StartStep2 {
+    return Intl.message(
+      'Start sorting',
+      name: 'pageFinishStep1StartStep2',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

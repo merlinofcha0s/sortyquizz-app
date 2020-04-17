@@ -19,8 +19,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
+  static m0(numberCardsWon) => "Vous avez gagné les ${numberCardsWon} cartes à classer";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "pageFinishStep1StartStep2" : MessageLookupByLibrary.simpleMessage(" Démarrer le classement"),
+    "pageFinishStep1SubTitle" : m0,
+    "pageFinishStep1Title" : MessageLookupByLibrary.simpleMessage("Félicitations"),
+    "pageFinishStep1UsedQuestion" : MessageLookupByLibrary.simpleMessage("Questions utilisées"),
+    "pageFinishStep1UsedTime" : MessageLookupByLibrary.simpleMessage("Temps passé"),
     "pageLoginBar" : MessageLookupByLibrary.simpleMessage("Se connecter"),
     "pageLoginErrorAuthentication" : MessageLookupByLibrary.simpleMessage("Un problème est survenu, veuillez vérifier vos identifiants"),
     "pageLoginLoginButton" : MessageLookupByLibrary.simpleMessage("S\'identifier"),

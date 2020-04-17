@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:SortyQuizz/main/finishstep1/finish_step1_arguments.dart';
 import 'package:SortyQuizz/quizz/model/answer.dart';
 import 'package:SortyQuizz/quizz/model/question.dart';
 import 'package:SortyQuizz/quizz/model/score.dart';
@@ -100,26 +101,25 @@ class QuizzBloc extends Bloc {
       var currentQuestionNumber = _startQuizz.value.questions.length - questionsQueue.length;
       _updateQuestionNumber.add(currentQuestionNumber);
 
-      if (currentQuestionNumber == _startQuizz.value.questions.length) {
-        finishStep1();
-      } else {
-        await startTimer();
-      }
+      await startTimer();
     }
   }
 
-  finishStep1(){
-    print('Questions utilisées : ${_updateQuestionNumber.value}');
-    print('Temps passée : ${_scoreTime.value}');
-    print('Cards gagnées : ${_updateWonCards.value}');
+  bool hasNextQuestion(){
+    var currentQuestionNumber = _startQuizz.value.questions.length - questionsQueue.length;
+    return currentQuestionNumber != _startQuizz.value.questions.length;
   }
 
-  computeTimePassAtQuestion(){
+  FinishStep1Argument finishStep1() {
+    return FinishStep1Argument(_updateQuestionNumber.value, _scoreTime.value, _updateWonCards.value, _startQuizz.value);
+  }
+
+  computeTimePassAtQuestion() {
     // Compute time pass at question
     _scoreTime.add((_startQuizz.value.rule.timePerQuestion - _timer.value) + _scoreTime.value);
   }
 
-  chooseAnswer(Answer answer) async {
+  validateAnswer(Answer answer) async {
     Result resultToUpdate;
     if (!_updateScore.hasValue) {
       resultToUpdate = new Result(0, 0, 0, 0);
@@ -134,8 +134,6 @@ class QuizzBloc extends Bloc {
     }
 
     computeTimePassAtQuestion();
-
-    await getNextQuestion();
   }
 
   @override

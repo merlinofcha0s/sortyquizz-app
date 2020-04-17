@@ -1,8 +1,9 @@
 import 'package:SortyQuizz/generated/l10n.dart';
 import 'package:SortyQuizz/keys.dart';
-import 'package:SortyQuizz/main/openpack/quizz/quizz_arguments.dart';
+import 'package:SortyQuizz/main/quizz/quizz_arguments.dart';
 import 'package:SortyQuizz/quizz/model/answer.dart';
 import 'package:SortyQuizz/quizz/model/question.dart';
+import 'package:SortyQuizz/routes.dart';
 import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:SortyQuizz/shared/containers/loading_indicator_widget.dart';
 import 'package:SortyQuizz/shared/models/pack.dart';
@@ -41,7 +42,7 @@ class QuizzScreen extends StatelessWidget {
                 children: <Widget>[
                   questionBloc(context, pack, snapshotQuestion.data, quizzBloc),
                   Padding(padding: EdgeInsets.only(top: 20),),
-                  answersBloc(snapshotQuestion.data.answers, quizzBloc)
+                  answersBloc(snapshotQuestion.data.answers, quizzBloc, context)
                 ],
               ),
             );
@@ -107,19 +108,19 @@ class QuizzScreen extends StatelessWidget {
     }
   }
 
-  Widget answersBloc(List<Answer> answers, QuizzBloc quizzBloc) {
+  Widget answersBloc(List<Answer> answers, QuizzBloc quizzBloc, BuildContext context) {
     return Wrap(
       runSpacing: 8,
       spacing: 8,
       children: <Widget>[
-        for (Answer answer in answers) answerCard(answer, quizzBloc)
+        for (Answer answer in answers) answerCard(answer, quizzBloc, context)
       ],
     );
   }
 
-  Widget answerCard(Answer answer, QuizzBloc quizzBloc) {
+  Widget answerCard(Answer answer, QuizzBloc quizzBloc, BuildContext context) {
     return GestureDetector(
-      onTap: () => quizzBloc.chooseAnswer(answer),
+      onTap: () => onChooseAnswer(quizzBloc, answer, context),
       child: Container(
         width: 160,
         height: 120,
@@ -135,8 +136,18 @@ class QuizzScreen extends StatelessWidget {
     );
   }
 
+  onChooseAnswer(QuizzBloc quizzBloc, Answer answer, BuildContext context) async {
+    await quizzBloc.validateAnswer(answer);
+    if(quizzBloc.hasNextQuestion()) {
+      await quizzBloc.getNextQuestion();
+    } else {
+      var finishStep1Arg = quizzBloc.finishStep1();
+      await Navigator.pushNamed(context, QuizzRoutes.finishStep1, arguments: finishStep1Arg);
+    }
+  }
+
   Widget bottom(Pack pack, QuizzBloc quizzBloc, BuildContext context) {
-    if(pack == null){
+    if(pack == null) {
       return LoadingIndicator();
     } else {
       return Padding(

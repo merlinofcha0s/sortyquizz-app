@@ -1,6 +1,6 @@
 import 'package:SortyQuizz/generated/l10n.dart';
 import 'package:SortyQuizz/keys.dart';
-import 'package:SortyQuizz/main/openpack/quizz/quizz_arguments.dart';
+import 'package:SortyQuizz/main/quizz/quizz_arguments.dart';
 import 'package:SortyQuizz/routes.dart';
 import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:SortyQuizz/shared/containers/loading_indicator_widget.dart';
