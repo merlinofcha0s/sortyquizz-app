@@ -6,7 +6,6 @@ import 'package:SortyQuizz/quizz/model/question.dart';
 import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:SortyQuizz/shared/containers/loading_indicator_widget.dart';
 import 'package:SortyQuizz/shared/models/pack.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'quizz_bloc.dart';
@@ -22,10 +21,12 @@ class QuizzScreen extends StatelessWidget {
     return StreamBuilder<Pack>(
         stream: quizzBloc.startQuizzStream,
         builder: (context, snapshot) {
-          return Scaffold(
-            backgroundColor: Colors.white70,
-            body: body(context, snapshot.data, quizzBloc),
-            bottomNavigationBar: bottom(snapshot.data, quizzBloc, context),
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: Colors.white70,
+              body: body(context, snapshot.data, quizzBloc),
+              bottomNavigationBar: bottom(snapshot.data, quizzBloc, context),
+            ),
           );
         });
   }
@@ -35,12 +36,14 @@ class QuizzScreen extends StatelessWidget {
         stream: quizzBloc.nextQuestionStream,
         builder: (context, snapshotQuestion) {
           if (snapshotQuestion.hasData) {
-            return Column(
-              children: <Widget>[
-                questionBloc(context, pack, snapshotQuestion.data, quizzBloc),
-                Padding(padding: EdgeInsets.only(top: 20),),
-                answersBloc(snapshotQuestion.data.answers, quizzBloc)
-              ],
+            return SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  questionBloc(context, pack, snapshotQuestion.data, quizzBloc),
+                  Padding(padding: EdgeInsets.only(top: 20),),
+                  answersBloc(snapshotQuestion.data.answers, quizzBloc)
+                ],
+              ),
             );
           } else {
             return LoadingIndicator();
