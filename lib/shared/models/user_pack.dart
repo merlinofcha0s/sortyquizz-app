@@ -7,7 +7,7 @@ class UserPack {
   @JsonProperty(name: 'id')
   int id;
 
-  @JsonProperty(name: 'state', enumValues: PackState.values)
+  @JsonProperty(name: 'state', enumValues: PackState.values, ignoreIfNull: true)
   PackState state;
 
   @JsonProperty(name: 'lifeLeft')

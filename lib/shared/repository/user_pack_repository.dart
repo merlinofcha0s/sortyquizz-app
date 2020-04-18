@@ -11,13 +11,12 @@ class UserPackRepository {
   }
 
   Future<List<UserPack>> getAllPackForConnectedUser() async {
-    final registerRequest = await HttpUtils.getRequest("/user-packs/get-by-user");
-    var body = HttpUtils.adaptEnumForDeserialization(registerRequest.body, 'state', 'PackState', true);
-    return JsonMapper.deserialize<List<UserPack>>(body);
+    final allPackRequest = await HttpUtils.getRequest("/user-packs/get-by-user");
+    return JsonMapper.deserialize<List<UserPack>>(HttpUtils.encodeUTF8(allPackRequest.body));
   }
 
   Future<bool> completeUserPackForStep1(UserPack userPack) async {
     final completeStep1Request = await HttpUtils.postRequest<UserPack>("/user-packs/complete-step-1", userPack);
-    return JsonMapper.deserialize<bool>(completeStep1Request.body);
+    return completeStep1Request.statusCode == 200 ? true : false;
   }
 }

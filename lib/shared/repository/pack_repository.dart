@@ -7,7 +7,6 @@ class PackRepository {
 
   Future<Pack> getPackByIdByConnectedUser(int userPackId) async {
     final packByUserPackIdRequest = await HttpUtils.getRequest('/packs/get-by-userpackid-and-user/$userPackId');
-    var body = HttpUtils.adaptEnumForDeserialization(packByUserPackIdRequest.body, 'type', 'PackType', false);
-    return JsonMapper.deserialize<Pack>(body);
+    return JsonMapper.deserialize<Pack>(HttpUtils.encodeUTF8(packByUserPackIdRequest.body));
   }
 }

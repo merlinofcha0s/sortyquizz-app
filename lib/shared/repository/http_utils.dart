@@ -1,5 +1,4 @@
 import 'dart:convert' show Encoding, utf8;
-import 'dart:convert' show json;
 
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -28,20 +27,6 @@ class HttpUtils {
       };
     } else {
       return {'Accept': 'application/json', 'Content-Type': 'application/json'};
-    }
-  }
-
-   static dynamic adaptEnumForDeserialization(String body, String keyEnum, String className, bool isList) {
-    if(isList){
-      List<dynamic> bodyInListMap = json.decode(HttpUtils.encodeUTF8(body));
-      for (Map<String, dynamic> item in bodyInListMap) {
-        item[keyEnum] = className + '.' + item[keyEnum];
-      }
-      return json.encode(bodyInListMap);
-    } else {
-      Map<String, dynamic> bodyInListMap = json.decode(HttpUtils.encodeUTF8(body));
-      bodyInListMap[keyEnum] = className + '.' + bodyInListMap[keyEnum];
-      return json.encode(bodyInListMap);
     }
   }
 
