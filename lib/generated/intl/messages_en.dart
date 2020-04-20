@@ -19,13 +19,23 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static m0(numberCardsWon) => "You have win ${numberCardsWon} cards";
+  static m0(numberOfLifeLeft) => "You have ${numberOfLifeLeft} life(s) left";
+
+  static m1(numberCardsWon) => "You have win ${numberCardsWon} cards";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "pageFinishStep1AbortPack" : MessageLookupByLibrary.simpleMessage("Abort"),
+    "pageFinishStep1AbortPackSubtitle" : MessageLookupByLibrary.simpleMessage("If you abort now you\'ll loose all the life left in the pack."),
+    "pageFinishStep1ActionLifeLeft" : m0,
+    "pageFinishStep1ActionLooseWithoutLife" : MessageLookupByLibrary.simpleMessage("Buy a life for xx po"),
+    "pageFinishStep1LooseWithoutLife" : MessageLookupByLibrary.simpleMessage("You don\'t have life left..."),
+    "pageFinishStep1RestartPackStep1" : MessageLookupByLibrary.simpleMessage("Restart this pack"),
     "pageFinishStep1StartStep2" : MessageLookupByLibrary.simpleMessage("Start sorting"),
-    "pageFinishStep1SubTitle" : m0,
-    "pageFinishStep1Title" : MessageLookupByLibrary.simpleMessage("Congratulations"),
+    "pageFinishStep1SubTitleFail" : MessageLookupByLibrary.simpleMessage("You didn\'t get enough cards"),
+    "pageFinishStep1SubTitleSuccess" : m1,
+    "pageFinishStep1TitleFail" : MessageLookupByLibrary.simpleMessage("You loose..."),
+    "pageFinishStep1TitleSucceed" : MessageLookupByLibrary.simpleMessage("Congratulations"),
     "pageFinishStep1UsedQuestion" : MessageLookupByLibrary.simpleMessage("Questions consumed"),
     "pageFinishStep1UsedTime" : MessageLookupByLibrary.simpleMessage("Time consumed"),
     "pageLoginBar" : MessageLookupByLibrary.simpleMessage("Login"),

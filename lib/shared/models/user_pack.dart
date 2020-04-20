@@ -1,3 +1,4 @@
+import 'package:SortyQuizz/shared/models/pack.dart';
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 
 import 'pack_state.dart';
@@ -37,6 +38,8 @@ class UserPack {
   @JsonProperty(name: 'packLevel')
   String packLevel;
 
+  @JsonProperty(name: 'pack')
+  Pack pack;
 
   UserPack();
 

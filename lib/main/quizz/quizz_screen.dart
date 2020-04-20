@@ -6,7 +6,7 @@ import 'package:SortyQuizz/quizz/model/question.dart';
 import 'package:SortyQuizz/routes.dart';
 import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:SortyQuizz/shared/containers/loading_indicator_widget.dart';
-import 'package:SortyQuizz/shared/models/pack.dart';
+import 'package:SortyQuizz/shared/models/user_pack.dart';
 import 'package:flutter/material.dart';
 
 import 'quizz_bloc.dart';
@@ -18,8 +18,8 @@ class QuizzScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final QuizzArgument args = ModalRoute.of(context).settings.arguments;
     final quizzBloc = BlocProvider.of<QuizzBloc>(context);
-    quizzBloc.getPackByIdByUser(args.userPackId);
-    return StreamBuilder<Pack>(
+    quizzBloc.getUserPackByIdByUser(args.userPackId);
+    return StreamBuilder<UserPack>(
         stream: quizzBloc.startQuizzStream,
         builder: (context, snapshot) {
           return SafeArea(
@@ -32,7 +32,7 @@ class QuizzScreen extends StatelessWidget {
         });
   }
 
-  Widget body(BuildContext context, Pack pack, QuizzBloc quizzBloc) {
+  Widget body(BuildContext context, UserPack userPack, QuizzBloc quizzBloc) {
     return StreamBuilder<Question>(
         stream: quizzBloc.nextQuestionStream,
         builder: (context, snapshotQuestion) {
@@ -40,7 +40,7 @@ class QuizzScreen extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  questionBloc(context, pack, snapshotQuestion.data, quizzBloc),
+                  questionBloc(context, userPack, snapshotQuestion.data, quizzBloc),
                   Padding(padding: EdgeInsets.only(top: 20),),
                   answersBloc(snapshotQuestion.data.answers, quizzBloc, context)
                 ],
@@ -52,7 +52,7 @@ class QuizzScreen extends StatelessWidget {
         });
   }
 
-  Widget questionBloc(BuildContext context, Pack pack, Question question, QuizzBloc quizzBloc) {
+  Widget questionBloc(BuildContext context, UserPack userPack, Question question, QuizzBloc quizzBloc) {
     if (question == null) {
       return LoadingIndicator();
     } else {
@@ -65,13 +65,13 @@ class QuizzScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  pack.name,
+                  userPack.pack.name,
                   style: TextStyle(fontSize: 20),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 5),
                 ),
-                Text(pack.themeName + ' - ' + S.of(context).pageQuizzStep1Lvl + pack.level.toString()),
+                Text(userPack.themeName + ' - ' + S.of(context).pageQuizzStep1Lvl + userPack.pack.level.toString()),
                 Container(
                     width: MediaQuery.of(context).size.width * 0.20,
                     child: Divider(
@@ -96,7 +96,7 @@ class QuizzScreen extends StatelessWidget {
                 StreamBuilder<int>(
                   stream: quizzBloc.timer,
                   builder: (context, snapshot) {
-                    int timer = snapshot.hasData ? snapshot.data : pack.rule.timePerQuestion;
+                    int timer = snapshot.hasData ? snapshot.data : userPack.pack.rule.timePerQuestion;
                     return Text(timer.toString(), style: TextStyle(fontSize: 15), textAlign: TextAlign.center,);
                   }
                 )
@@ -146,8 +146,8 @@ class QuizzScreen extends StatelessWidget {
     }
   }
 
-  Widget bottom(Pack pack, QuizzBloc quizzBloc, BuildContext context) {
-    if(pack == null) {
+  Widget bottom(UserPack userpack, QuizzBloc quizzBloc, BuildContext context) {
+    if(userpack == null) {
       return LoadingIndicator();
     } else {
       return Padding(
@@ -165,7 +165,7 @@ class QuizzScreen extends StatelessWidget {
                     children: <Widget>[
                       Text(S.of(context).pageQuizzStep1WonCard),
                       Text(nbCardWon.toString() + '/' +
-                          pack.rule.nbMinCardToWin.toString()),
+                          userpack.pack.rule.nbMinCardToWin.toString()),
                     ],
                   );
                 }
@@ -180,7 +180,7 @@ class QuizzScreen extends StatelessWidget {
                     children: <Widget>[
                       Text(S.of(context).pageQuizzStep1CurrentQuestion),
                       Text(questionNumber.toString() + '/' +
-                          pack.rule.nbMaxQuestions.toString()),
+                          userpack.pack.rule.nbMaxQuestions.toString()),
                     ],
                   );
                 }

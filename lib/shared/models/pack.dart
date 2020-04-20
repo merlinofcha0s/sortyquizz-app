@@ -30,6 +30,9 @@ class Pack {
   @JsonProperty(name: 'themeName')
   String themeName;
 
+  @JsonProperty(name: 'lifeLeft')
+  int lifeLeft;
+
   @JsonProperty(name: 'rule')
   Rule rule;
 

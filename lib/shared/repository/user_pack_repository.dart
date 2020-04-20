@@ -19,4 +19,19 @@ class UserPackRepository {
     final completeStep1Request = await HttpUtils.postRequest<UserPack>("/user-packs/complete-step-1", userPack);
     return completeStep1Request.statusCode == 200 ? true : false;
   }
+
+  Future<bool> looseWithLifeStep1(int userPackId) async {
+    final looseRequest = await HttpUtils.postRequest<int>("/user-packs/loose-step-1-with-life", userPackId);
+    return looseRequest.statusCode == 200 ? true : false;
+  }
+
+  Future<bool> abortPack(int userPackId) async {
+    final looseRequest = await HttpUtils.postRequest<int>("/user-packs/abort", userPackId);
+    return looseRequest.statusCode == 200 ? true : false;
+  }
+
+  Future<UserPack> getByIdAndConnectedUser(int userPackId) async {
+    final userPackSelectedRequest = await HttpUtils.getRequest("/user-packs/get-by-id-and-user/$userPackId");
+    return JsonMapper.deserialize<UserPack>(HttpUtils.encodeUTF8(userPackSelectedRequest.body));
+  }
 }

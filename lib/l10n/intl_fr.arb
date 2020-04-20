@@ -35,9 +35,17 @@
   "pageQuizzStep1QuestionTimer": "Minuteur",
   "pageQuizzStep1WonCard": "Cartes gagnées",
   "pageQuizzStep1CurrentQuestion": "Questions",
-  "pageFinishStep1Title": "Félicitations",
+  "pageFinishStep1TitleSucceed": "Félicitations",
+  "pageFinishStep1TitleFail": "Perdu...",
   "pageFinishStep1SubTitle": "Vous avez gagné les {numberCardsWon} cartes à classer",
+  "pageFinishStep1SubTitleFail": "Vous n'avez pas récupéré assez de carte pour continuer",
   "pageFinishStep1UsedQuestion": "Questions utilisées",
   "pageFinishStep1UsedTime": "Temps passé",
-  "pageFinishStep1StartStep2": " Démarrer le classement"
+  "pageFinishStep1StartStep2": " Démarrer le classement",
+  "pageFinishStep1RestartPackStep1": "Recommencer ce pack",
+  "pageFinishStep1ActionLifeLeft": "Il vous reste {numberOfLifeLeft} vie(s)",
+  "pageFinishStep1AbortPack": "Abandonner",
+  "pageFinishStep1AbortPackSubtitle": "Attention si vous abandonnez maintenant, vous perdrez toutes vos vies du pack.",
+  "pageFinishStep1ActionLooseWithoutLife": "Acheter une vie pour xx po",
+  "pageFinishStep1LooseWithoutLife": "Vous n'avez plus de vie..."
 }

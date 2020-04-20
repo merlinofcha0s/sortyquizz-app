@@ -352,21 +352,39 @@ class S {
     );
   }
 
-  String get pageFinishStep1Title {
+  String get pageFinishStep1TitleSucceed {
     return Intl.message(
       'Congratulations',
-      name: 'pageFinishStep1Title',
+      name: 'pageFinishStep1TitleSucceed',
       desc: '',
       args: [],
     );
   }
 
-  String pageFinishStep1SubTitle(Object numberCardsWon) {
+  String get pageFinishStep1TitleFail {
+    return Intl.message(
+      'You loose...',
+      name: 'pageFinishStep1TitleFail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String pageFinishStep1SubTitleSuccess(Object numberCardsWon) {
     return Intl.message(
       'You have win $numberCardsWon cards',
-      name: 'pageFinishStep1SubTitle',
+      name: 'pageFinishStep1SubTitleSuccess',
       desc: '',
       args: [numberCardsWon],
+    );
+  }
+
+  String get pageFinishStep1SubTitleFail {
+    return Intl.message(
+      'You didn\'t get enough cards',
+      name: 'pageFinishStep1SubTitleFail',
+      desc: '',
+      args: [],
     );
   }
 
@@ -392,6 +410,60 @@ class S {
     return Intl.message(
       'Start sorting',
       name: 'pageFinishStep1StartStep2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep1RestartPackStep1 {
+    return Intl.message(
+      'Restart this pack',
+      name: 'pageFinishStep1RestartPackStep1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String pageFinishStep1ActionLifeLeft(Object numberOfLifeLeft) {
+    return Intl.message(
+      'You have $numberOfLifeLeft life(s) left',
+      name: 'pageFinishStep1ActionLifeLeft',
+      desc: '',
+      args: [numberOfLifeLeft],
+    );
+  }
+
+  String get pageFinishStep1AbortPack {
+    return Intl.message(
+      'Abort',
+      name: 'pageFinishStep1AbortPack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep1AbortPackSubtitle {
+    return Intl.message(
+      'If you abort now you\'ll loose all the life left in the pack.',
+      name: 'pageFinishStep1AbortPackSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep1ActionLooseWithoutLife {
+    return Intl.message(
+      'Buy a life for xx po',
+      name: 'pageFinishStep1ActionLooseWithoutLife',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep1LooseWithoutLife {
+    return Intl.message(
+      'You don\'t have life left...',
+      name: 'pageFinishStep1LooseWithoutLife',
       desc: '',
       args: [],
     );

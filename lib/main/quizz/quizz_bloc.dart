@@ -7,13 +7,13 @@ import 'package:SortyQuizz/quizz/model/answer.dart';
 import 'package:SortyQuizz/quizz/model/question.dart';
 import 'package:SortyQuizz/quizz/model/score.dart';
 import 'package:SortyQuizz/shared/bloc/bloc.dart';
-import 'package:SortyQuizz/shared/models/pack.dart';
 import 'package:SortyQuizz/shared/models/rule.dart';
-import 'package:SortyQuizz/shared/repository/pack_repository.dart';
+import 'package:SortyQuizz/shared/models/user_pack.dart';
+import 'package:SortyQuizz/shared/repository/user_pack_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class QuizzBloc extends Bloc {
-  final _startQuizz = BehaviorSubject<Pack>();
+  final _startQuizz = BehaviorSubject<UserPack>();
 
   final _nextQuestion = BehaviorSubject<Question>();
 
@@ -31,9 +31,9 @@ class QuizzBloc extends Bloc {
 
   Queue<Question> questionsQueue = new Queue<Question>();
 
-  final packRepository = PackRepository();
+  final userPackRepository = UserPackRepository();
 
-  Stream<Pack> get startQuizzStream => _startQuizz.stream;
+  Stream<UserPack> get startQuizzStream => _startQuizz.stream;
 
   Stream<Question> get nextQuestionStream => _nextQuestion.stream;
 
@@ -57,12 +57,12 @@ class QuizzBloc extends Bloc {
     _scoreTime.add(0);
   }
 
-  getPackByIdByUser(int id) async {
-    Pack packById = await packRepository.getPackByIdByConnectedUser(id);
-    _startQuizz.add(packById);
+  getUserPackByIdByUser(int id) async {
+    UserPack userPackById = await userPackRepository.getByIdAndConnectedUser(id);
+    _startQuizz.add(userPackById);
 
     //Prepare all the questions
-    List<Question> questions = packById.questions;
+    List<Question> questions = userPackById.pack.questions;
     questions.shuffle(Random.secure());
     questionsQueue.clear();
     questionsQueue.addAll(questions);
@@ -74,7 +74,7 @@ class QuizzBloc extends Bloc {
       currentTimerSub.cancel();
     }
 
-    Rule rule = _startQuizz.value.rule;
+    Rule rule = _startQuizz.value.pack.rule;
     var timePerQuestion = rule.timePerQuestion;
 
     currentTimer = Stream<int>.periodic(Duration(seconds: 1), (timeLeft) => timePerQuestion - timeLeft)
@@ -98,7 +98,7 @@ class QuizzBloc extends Bloc {
       nextQuestion.answers.shuffle(Random.secure());
       _nextQuestion.add(nextQuestion);
 
-      var currentQuestionNumber = _startQuizz.value.questions.length - questionsQueue.length;
+      var currentQuestionNumber = _startQuizz.value.pack.questions.length - questionsQueue.length;
       _updateQuestionNumber.add(currentQuestionNumber);
 
       await startTimer();
@@ -106,8 +106,8 @@ class QuizzBloc extends Bloc {
   }
 
   bool hasNextQuestion(){
-    var currentQuestionNumber = _startQuizz.value.questions.length - questionsQueue.length;
-    return currentQuestionNumber != _startQuizz.value.questions.length;
+    var currentQuestionNumber = _startQuizz.value.pack.questions.length - questionsQueue.length;
+    return currentQuestionNumber != _startQuizz.value.pack.questions.length;
   }
 
   FinishStep1Argument finishStep1() {
@@ -116,7 +116,7 @@ class QuizzBloc extends Bloc {
 
   computeTimePassAtQuestion() {
     // Compute time pass at question
-    _scoreTime.add((_startQuizz.value.rule.timePerQuestion - _timer.value) + _scoreTime.value);
+    _scoreTime.add((_startQuizz.value.pack.rule.timePerQuestion - _timer.value) + _scoreTime.value);
   }
 
   validateAnswer(Answer answer) async {

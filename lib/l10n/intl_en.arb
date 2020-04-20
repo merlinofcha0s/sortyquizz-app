@@ -35,10 +35,17 @@
   "pageQuizzStep1QuestionTimer": "Timer",
   "pageQuizzStep1WonCard": "Cards won",
   "pageQuizzStep1CurrentQuestion": "Questions",
-  "pageFinishStep1Title": "Congratulations",
-  "pageFinishStep1SubTitle": "You have win {numberCardsWon} cards",
+  "pageFinishStep1TitleSucceed": "Congratulations",
+  "pageFinishStep1TitleFail": "You loose...",
+  "pageFinishStep1SubTitleSuccess": "You have win {numberCardsWon} cards",
+  "pageFinishStep1SubTitleFail": "You didn't get enough cards",
   "pageFinishStep1UsedQuestion": "Questions consumed",
   "pageFinishStep1UsedTime": "Time consumed",
-  "pageFinishStep1StartStep2": "Start sorting"
-
+  "pageFinishStep1StartStep2": "Start sorting",
+  "pageFinishStep1RestartPackStep1": "Restart this pack",
+  "pageFinishStep1ActionLifeLeft": "You have {numberOfLifeLeft} life(s) left",
+  "pageFinishStep1AbortPack": "Abort",
+  "pageFinishStep1AbortPackSubtitle": "If you abort now you'll loose all the life left in the pack.",
+  "pageFinishStep1ActionLooseWithoutLife": "Buy a life for xx po",
+  "pageFinishStep1LooseWithoutLife": "You don't have life left..."
 }
