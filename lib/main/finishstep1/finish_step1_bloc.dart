@@ -22,9 +22,9 @@ class FinishStep1Bloc extends Bloc {
     userPack.nbQuestionsToSucceed = finishStep1Argument.usedQuestions;
     userPack.timeAtQuizzStep = finishStep1Argument.passedTime;
 
-    if(finishStep1Argument.wonCards < finishStep1Argument.userPack.pack.rule.nbMinCardToWin && finishStep1Argument.userPack.pack.lifeLeft > 0) {
+    if(finishStep1Argument.wonCards < finishStep1Argument.userPack.pack.rule.nbMinCardToWin && finishStep1Argument.userPack.lifeLeft > 0) {
       _result.add(ResultStep1.FAIL_WITH_LIFE);
-    } else if (finishStep1Argument.wonCards < finishStep1Argument.userPack.pack.rule.nbMinCardToWin && finishStep1Argument.userPack.pack.lifeLeft == 0){
+    } else if (finishStep1Argument.wonCards < finishStep1Argument.userPack.pack.rule.nbMinCardToWin && finishStep1Argument.userPack.lifeLeft == 0){
       _result.add(ResultStep1.FAIL_WITHOUT_LIFE);
     } else {
       _result.add(ResultStep1.SUCCEED);

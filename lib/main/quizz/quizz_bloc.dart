@@ -66,6 +66,7 @@ class QuizzBloc extends Bloc {
     questions.shuffle(Random.secure());
     questionsQueue.clear();
     questionsQueue.addAll(questions);
+    _updateWonCards.add(0);
     await getNextQuestion();
   }
 

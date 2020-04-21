@@ -70,9 +70,9 @@ class OpenPackScreen extends StatelessWidget {
 
   Widget packCard(UserPack userPack, BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, QuizzRoutes.quizz, arguments: QuizzArgument(userPack.id)),
+      onTap: () => onTapCard(userPack, context),
       child: Card(
-        color: Colors.white,
+        color: userPack.lifeLeft > 0 ? Colors.white : Colors.red,
         child: Container(
           height: 160,
           width: 110,
@@ -107,6 +107,12 @@ class OpenPackScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  onTapCard(UserPack userPack, BuildContext context) {
+    if(userPack.lifeLeft > 0){
+      Navigator.pushNamed(context, QuizzRoutes.quizz, arguments: QuizzArgument(userPack.id));
+    }
   }
 
   Widget buyPack(BuildContext context) {
