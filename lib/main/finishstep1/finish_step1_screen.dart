@@ -91,15 +91,15 @@ class FinishStep1Screen extends StatelessWidget {
     if(resultStep1 == ResultStep1.SUCCEED) {
       result = Text(S.of(context).pageFinishStep1SubTitleSuccess(numberOfWonCards), style: TextStyle(fontSize: 20),);
     } else {
-      result = Text(S.of(context).pageFinishStep1SubTitleFail, style: TextStyle(fontSize: 20),);
+      result = Text(S.of(context).pageFinishStep1SubTitleFail, style: TextStyle(fontSize: 20), textAlign: TextAlign.center,);
     }
     return result;
   }
 
   Widget nextAction(BuildContext context, ResultStep1 resultStep1, FinishStep1Argument args, FinishStep1Bloc finishStep1Bloc, UserPack userpack) {
-    if(resultStep1 == ResultStep1.SUCCEED){
+    if (resultStep1 == ResultStep1.SUCCEED) {
       return buttonForNextAction(S.of(context).pageFinishStep1StartStep2, () => Navigator.pushNamed(context, QuizzRoutes.login), context);
-    } else if(resultStep1 == ResultStep1.FAIL_WITH_LIFE) {
+    } else if (resultStep1 == ResultStep1.FAIL_WITH_LIFE) {
       return Column(
         children: <Widget>[
           buttonForNextAction(S.of(context).pageFinishStep1RestartPackStep1, () => onRestartPack(context, finishStep1Bloc, userpack.id), context),
