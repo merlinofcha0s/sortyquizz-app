@@ -22,14 +22,21 @@ class QuizzScreen extends StatelessWidget {
     return StreamBuilder<UserPack>(
         stream: quizzBloc.startQuizzStream,
         builder: (context, snapshot) {
-          return SafeArea(
-            child: Scaffold(
-              backgroundColor: Colors.white70,
-              body: body(context, snapshot.data, quizzBloc),
-              bottomNavigationBar: bottom(snapshot.data, quizzBloc, context),
+          return WillPopScope(
+            onWillPop: onBack,
+            child: SafeArea(
+              child: Scaffold(
+                backgroundColor: Colors.white70,
+                body: body(context, snapshot.data, quizzBloc),
+                bottomNavigationBar: bottom(snapshot.data, quizzBloc, context),
+              ),
             ),
           );
         });
+  }
+
+  Future<bool> onBack() async {
+    return false;
   }
 
   Widget body(BuildContext context, UserPack userPack, QuizzBloc quizzBloc) {

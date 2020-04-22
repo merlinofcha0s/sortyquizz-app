@@ -22,15 +22,23 @@ class FinishStep1Screen extends StatelessWidget {
     return StreamBuilder<ResultStep1>(
       stream: finishStep1Bloc.resultStream,
       builder: (context, snapshot) {
-        return Scaffold(
-          appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: title(args, context)),
-          backgroundColor: Colors.white70,
-          body: body(context, args, snapshot.data, finishStep1Bloc),
+        return WillPopScope(
+          onWillPop: () => onBackPressed(context),
+          child: Scaffold(
+            appBar: AppBar(
+                automaticallyImplyLeading: false,
+                title: title(args, context)),
+            backgroundColor: Colors.white70,
+            body: body(context, args, snapshot.data, finishStep1Bloc),
+          ),
         );
       }
     );
+  }
+
+  Future<bool> onBackPressed(BuildContext context) async {
+    await Navigator.pushNamed(context, QuizzRoutes.openPack);
+    return false;
   }
 
   Widget title(FinishStep1Argument args, BuildContext context) {
