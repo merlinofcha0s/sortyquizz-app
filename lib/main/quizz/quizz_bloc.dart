@@ -29,6 +29,8 @@ class QuizzBloc extends Bloc {
 
   final _scoreTime = BehaviorSubject<int>();
 
+  final _answers = BehaviorSubject<List<Answer>>();
+
   Queue<Question> questionsQueue = new Queue<Question>();
 
   final userPackRepository = UserPackRepository();
@@ -39,22 +41,27 @@ class QuizzBloc extends Bloc {
 
   Stream<Answer> get chooseAnswerStream => _chooseAnswer.stream;
 
-  Stream<Result> get updateScore => _updateScore.stream;
+  Stream<Result> get updateScoreStream => _updateScore.stream;
 
-  Stream<int> get updateWonCards => _updateWonCards.stream;
+  Stream<int> get updateWonCardsStream => _updateWonCards.stream;
 
-  Stream<int> get updateQuestionNumber => _updateQuestionNumber.stream;
+  Stream<int> get updateQuestionNumberStream => _updateQuestionNumber.stream;
 
-  Stream<int> get timer => _timer.stream;
+  Stream<int> get timerStream => _timer.stream;
 
-  Stream<int> get scoreTime => _scoreTime.stream;
+  Stream<int> get scoreTimeStream => _scoreTime.stream;
+
+  Stream<List<Answer>> get answersStream => _answers.stream;
 
   Stream<int> currentTimer;
 
   StreamSubscription<int> currentTimerSub;
 
+  bool lockAnswer = false;
+
   QuizzBloc() {
     _scoreTime.add(0);
+    _answers.add(new List<Answer>());
   }
 
   getUserPackByIdByUser(int id) async {
@@ -71,9 +78,7 @@ class QuizzBloc extends Bloc {
   }
 
   startTimer() async {
-    if (currentTimerSub != null) {
-      currentTimerSub.cancel();
-    }
+    stopTimer();
 
     Rule rule = _startQuizz.value.pack.rule;
     var timePerQuestion = rule.timePerQuestion;
@@ -84,13 +89,19 @@ class QuizzBloc extends Bloc {
     currentTimerSub = currentTimer.listen((timeLeft) => processTimer(timeLeft), onDone: () => endTimer());
   }
 
+  stopTimer(){
+    if (currentTimerSub != null) {
+      currentTimerSub.cancel();
+    }
+  }
+
   processTimer(int timeLeft) {
     _timer.add(timeLeft);
   }
 
-  endTimer() {
+  endTimer() async {
     computeTimePassAtQuestion();
-    getNextQuestion();
+    await getNextQuestion();
   }
 
   getNextQuestion() async {
@@ -98,11 +109,13 @@ class QuizzBloc extends Bloc {
       var nextQuestion = questionsQueue.removeLast();
       nextQuestion.answers.shuffle(Random.secure());
       _nextQuestion.add(nextQuestion);
+      _answers.add(nextQuestion.answers);
 
       var currentQuestionNumber = _startQuizz.value.pack.questions.length - questionsQueue.length;
       _updateQuestionNumber.add(currentQuestionNumber);
 
       await startTimer();
+      lockAnswer = false;
     }
   }
 
@@ -121,6 +134,9 @@ class QuizzBloc extends Bloc {
   }
 
   validateAnswer(Answer answer) async {
+    answer.hasBeenChoose = true;
+    lockAnswer = true;
+    _answers.add(_answers.value);
     Result resultToUpdate;
     if (!_updateScore.hasValue) {
       resultToUpdate = new Result(0, 0, 0, 0);
@@ -135,6 +151,11 @@ class QuizzBloc extends Bloc {
     }
 
     computeTimePassAtQuestion();
+    stopTimer();
+  }
+
+  Future<bool> waitFor(int secondToWait) {
+    return new Future<bool>.delayed(Duration(seconds: secondToWait), () => true);
   }
 
   @override
@@ -147,6 +168,7 @@ class QuizzBloc extends Bloc {
         _updateWonCards.close();
         _timer.close();
         _scoreTime.close();
+        _answers.close();
         if (currentTimerSub != null) {
           currentTimerSub.cancel();
         }

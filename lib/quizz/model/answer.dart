@@ -21,6 +21,8 @@ class Answer {
   @JsonProperty(name: 'question')
   String question;
 
+  bool hasBeenChoose = false;
+
   Answer(this.answer, this.order);
 
   @override

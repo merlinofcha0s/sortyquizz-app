@@ -42,7 +42,7 @@ class QuizzScreen extends StatelessWidget {
                 children: <Widget>[
                   questionBloc(context, userPack, snapshotQuestion.data, quizzBloc),
                   Padding(padding: EdgeInsets.only(top: 20),),
-                  answersBloc(snapshotQuestion.data.answers, quizzBloc, context)
+                  answersBloc(quizzBloc, context)
                 ],
               ),
             );
@@ -78,7 +78,7 @@ class QuizzScreen extends StatelessWidget {
                       thickness: 1,
                     )),
                 StreamBuilder<int>(
-                  stream: quizzBloc.updateQuestionNumber,
+                  stream: quizzBloc.updateQuestionNumberStream,
                   builder: (context, snapshot) {
                     return Text(
                       S.of(context).pageQuizzStep1QuestionTitle + snapshot.data.toString(),
@@ -94,7 +94,7 @@ class QuizzScreen extends StatelessWidget {
                 Text(S.of(context).pageQuizzStep1QuestionTimer, style: TextStyle(fontSize: 17), textAlign: TextAlign.center,),
                 Padding(padding: EdgeInsets.only(top: 5),),
                 StreamBuilder<int>(
-                  stream: quizzBloc.timer,
+                  stream: quizzBloc.timerStream,
                   builder: (context, snapshot) {
                     int timer = snapshot.hasData ? snapshot.data : userPack.pack.rule.timePerQuestion;
                     return Text(timer.toString(), style: TextStyle(fontSize: 15), textAlign: TextAlign.center,);
@@ -108,13 +108,22 @@ class QuizzScreen extends StatelessWidget {
     }
   }
 
-  Widget answersBloc(List<Answer> answers, QuizzBloc quizzBloc, BuildContext context) {
-    return Wrap(
-      runSpacing: 8,
-      spacing: 8,
-      children: <Widget>[
-        for (Answer answer in answers) answerCard(answer, quizzBloc, context)
-      ],
+  Widget answersBloc(QuizzBloc quizzBloc, BuildContext context) {
+    return StreamBuilder<List<Answer>>(
+      stream: quizzBloc.answersStream,
+      builder: (context, snapshot) {
+        if(snapshot.hasData){
+          return Wrap(
+            runSpacing: 8,
+            spacing: 8,
+            children: <Widget>[
+              for (Answer answer in snapshot.data) answerCard(answer, quizzBloc, context)
+            ],
+          );
+        } else {
+          return LoadingIndicator();
+        }
+      }
     );
   }
 
@@ -125,6 +134,7 @@ class QuizzScreen extends StatelessWidget {
         width: 160,
         height: 120,
         child: Card(
+          color: displayRightOrWrongAnswer(answer),
           elevation: 0.6,
           shape: RoundedRectangleBorder(
             side: BorderSide(color: Colors.white),
@@ -136,13 +146,26 @@ class QuizzScreen extends StatelessWidget {
     );
   }
 
-  onChooseAnswer(QuizzBloc quizzBloc, Answer answer, BuildContext context) async {
-    await quizzBloc.validateAnswer(answer);
-    if(quizzBloc.hasNextQuestion()) {
-      await quizzBloc.getNextQuestion();
+  Color displayRightOrWrongAnswer(Answer answer){
+    if(answer.hasBeenChoose && answer.isTheRightAnswer){
+      return Colors.green;
+    } else if (answer.hasBeenChoose && !answer.isTheRightAnswer){
+      return Colors.red;
     } else {
-      var finishStep1Arg = quizzBloc.finishStep1();
-      await Navigator.pushNamed(context, QuizzRoutes.finishStep1, arguments: finishStep1Arg);
+      return Colors.white;
+    }
+  }
+
+  onChooseAnswer(QuizzBloc quizzBloc, Answer answer, BuildContext context) async {
+    if(!quizzBloc.lockAnswer) {
+      await quizzBloc.validateAnswer(answer);
+      bool ok = await quizzBloc.waitFor(2);
+      if(quizzBloc.hasNextQuestion() && ok) {
+        await quizzBloc.getNextQuestion();
+      } else {
+        var finishStep1Arg = quizzBloc.finishStep1();
+        await Navigator.pushNamed(context, QuizzRoutes.finishStep1, arguments: finishStep1Arg);
+      }
     }
   }
 
@@ -156,7 +179,7 @@ class QuizzScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             StreamBuilder<int>(
-                stream: quizzBloc.updateWonCards,
+                stream: quizzBloc.updateWonCardsStream,
                 builder: (context, snapshot) {
                   var nbCardWon = snapshot.hasData ? snapshot.data : 0;
                   return Column(
@@ -171,7 +194,7 @@ class QuizzScreen extends StatelessWidget {
                 }
             ),
             StreamBuilder<int>(
-                stream: quizzBloc.updateQuestionNumber,
+                stream: quizzBloc.updateQuestionNumberStream,
                 builder: (context, snapshot) {
                   var questionNumber = snapshot.hasData ? snapshot.data : 0;
                   return Column(
