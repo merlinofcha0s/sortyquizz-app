@@ -1,3 +1,4 @@
+import 'package:SortyQuizz/main/finishstep1/result_step1_type.dart';
 import 'package:SortyQuizz/quizz/model/answer.dart';
 import 'package:SortyQuizz/quizz/model/question.dart';
 import 'package:SortyQuizz/shared/models/card.dart';
@@ -26,6 +27,7 @@ void configMapper() {
     PackType: EnumConverter(PackType.values),
     ValueType: EnumConverter(ValueType.values),
     SortingType: EnumConverter(SortingType.values),
+    ResultStep1 : EnumConverter(ResultStep1.values),
   }));
 }
 

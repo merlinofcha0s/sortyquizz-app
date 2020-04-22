@@ -23,7 +23,7 @@ class FinishStep1Screen extends StatelessWidget {
       stream: finishStep1Bloc.resultStream,
       builder: (context, snapshot) {
         return WillPopScope(
-          onWillPop: () => onBackPressed(context),
+          onWillPop: () => onBackPressed(),
           child: Scaffold(
             appBar: AppBar(
                 automaticallyImplyLeading: false,
@@ -36,8 +36,7 @@ class FinishStep1Screen extends StatelessWidget {
     );
   }
 
-  Future<bool> onBackPressed(BuildContext context) async {
-    await Navigator.pushNamed(context, QuizzRoutes.openPack);
+  Future<bool> onBackPressed() async {
     return false;
   }
 
@@ -120,14 +119,13 @@ class FinishStep1Screen extends StatelessWidget {
         children: <Widget>[
           Text(S.of(context).pageFinishStep1LooseWithoutLife, style: TextStyle(fontSize: 17),),
           Padding(padding: const EdgeInsets.all(5.0),),
-          buttonForNextAction(S.of(context).pageFinishStep1ActionLooseWithoutLife, () => onRestartPack(context, finishStep1Bloc, userpack.id), context)
+          buttonForNextAction(S.of(context).pageFinishStep1ActionLooseWithoutLife, () => Navigator.pushNamed(context, QuizzRoutes.openPack), context)
         ],
       );
     }
   }
 
   onRestartPack(BuildContext context, FinishStep1Bloc finishStep1Bloc, int userpackId) async {
-    await finishStep1Bloc.restartPack(userpackId);
     Navigator.pushNamed(context, QuizzRoutes.quizz, arguments: QuizzArgument(userpackId));
   }
 

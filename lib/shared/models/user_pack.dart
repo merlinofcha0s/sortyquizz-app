@@ -1,3 +1,4 @@
+import 'package:SortyQuizz/main/finishstep1/result_step1_type.dart';
 import 'package:SortyQuizz/shared/models/pack.dart';
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 
@@ -40,6 +41,9 @@ class UserPack {
 
   @JsonProperty(name: 'pack')
   Pack pack;
+
+  @JsonProperty(name: 'resultStep1')
+  ResultStep1 resultStep1;
 
   UserPack();
 
