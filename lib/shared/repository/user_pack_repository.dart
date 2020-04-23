@@ -15,9 +15,9 @@ class UserPackRepository {
     return JsonMapper.deserialize<List<UserPack>>(HttpUtils.encodeUTF8(allPackRequest.body));
   }
 
-  Future<bool> completeUserPackForStep1(UserPack userPack) async {
+  Future<UserPack> completeUserPackForStep1(UserPack userPack) async {
     final completeStep1Request = await HttpUtils.postRequest<UserPack>("/user-packs/complete-step-1", userPack);
-    return completeStep1Request.statusCode == 200 ? true : false;
+    return JsonMapper.deserialize<UserPack>(HttpUtils.encodeUTF8(completeStep1Request.body));
   }
 
   Future<bool> looseWithLifeStep1(int userPackId) async {

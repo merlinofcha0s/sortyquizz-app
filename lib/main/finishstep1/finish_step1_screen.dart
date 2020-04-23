@@ -18,7 +18,7 @@ class FinishStep1Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     final FinishStep1Argument args = ModalRoute.of(context).settings.arguments;
     final finishStep1Bloc = BlocProvider.of<FinishStep1Bloc>(context);
-    finishStep1Bloc.recordScore(args);
+    finishStep1Bloc.loadState(args);
     return StreamBuilder<ResultStep1>(
       stream: finishStep1Bloc.resultStream,
       builder: (context, snapshot) {

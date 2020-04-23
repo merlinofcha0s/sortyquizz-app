@@ -20,24 +20,32 @@ class OpenPackScreen extends StatelessWidget {
     return StreamBuilder<List<UserPack>>(
         stream: openPackBloc.openPackStream,
         builder: (context, snapshot) {
-          return Scaffold(
-              appBar: AppBar(
-                  centerTitle: true,
-                  title: Text(S.of(context).pageOpenPackAppBar)),
-              backgroundColor: Colors.grey,
-              body: SingleChildScrollView(
-                child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                    child: Column(
-                      children: <Widget>[
-                        head(context),
-                        Padding(padding: EdgeInsets.only(bottom: 30.0),),
-                        packList(snapshot.data, context),
-                      ],
-                    )),
-              )
-          , floatingActionButton: buyPack(context),);
+          return WillPopScope(
+            onWillPop: () => onBackPressed(context),
+            child: Scaffold(
+                appBar: AppBar(
+                    centerTitle: true,
+                    title: Text(S.of(context).pageOpenPackAppBar)),
+                backgroundColor: Colors.grey,
+                body: SingleChildScrollView(
+                  child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                      child: Column(
+                        children: <Widget>[
+                          head(context),
+                          Padding(padding: EdgeInsets.only(bottom: 30.0),),
+                          packList(snapshot.data, context),
+                        ],
+                      )),
+                )
+            , floatingActionButton: buyPack(context),),
+          );
         });
+  }
+
+  Future<bool> onBackPressed(BuildContext context) async {
+    await Navigator.pushNamed(context, QuizzRoutes.main);
+    return false;
   }
 
   Widget head(BuildContext context) {

@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:SortyQuizz/main/finishstep1/finish_step1_arguments.dart';
+import 'package:SortyQuizz/main/finishstep1/result_step1_type.dart';
 import 'package:SortyQuizz/quizz/model/answer.dart';
 import 'package:SortyQuizz/quizz/model/question.dart';
 import 'package:SortyQuizz/quizz/model/score.dart';
@@ -62,6 +63,7 @@ class QuizzBloc extends Bloc {
   QuizzBloc() {
     _scoreTime.add(0);
     _answers.add(new List<Answer>());
+    _timer.add(0);
   }
 
   getUserPackByIdByUser(int id) async {
@@ -124,8 +126,27 @@ class QuizzBloc extends Bloc {
     return currentQuestionNumber != _startQuizz.value.pack.questions.length;
   }
 
-  FinishStep1Argument finishStep1() {
-    return FinishStep1Argument(_updateQuestionNumber.value, _scoreTime.value, _updateWonCards.value, _startQuizz.value);
+  Future<FinishStep1Argument> finishStep1() async {
+    FinishStep1Argument finishStep1Argument = FinishStep1Argument(_updateQuestionNumber.value, _scoreTime.value, _updateWonCards.value, _startQuizz.value);
+
+    UserPack userPack = new UserPack();
+    userPack.packId = finishStep1Argument.userPack.pack.id;
+    userPack.nbQuestionsToSucceed = finishStep1Argument.usedQuestions;
+    userPack.timeAtQuizzStep = finishStep1Argument.passedTime;
+
+    if (finishStep1Argument.wonCards < finishStep1Argument.userPack.pack.rule.nbMinCardToWin && finishStep1Argument.userPack.lifeLeft - 1 > 0) {
+      userPack.resultStep1 = ResultStep1.FAIL_WITH_LIFE;
+    } else if (finishStep1Argument.wonCards < finishStep1Argument.userPack.pack.rule.nbMinCardToWin && finishStep1Argument.userPack.lifeLeft - 1 <= 0) {
+      userPack.resultStep1 = ResultStep1.FAIL_WITHOUT_LIFE;
+    } else {
+      userPack.resultStep1 = ResultStep1.SUCCEED;
+    }
+
+    var userPackUpdated = await userPackRepository.completeUserPackForStep1(userPack);
+    userPackUpdated.resultStep1 = userPack.resultStep1;
+    finishStep1Argument.userPack = userPackUpdated;
+
+    return finishStep1Argument;
   }
 
   computeTimePassAtQuestion() {
@@ -133,7 +154,7 @@ class QuizzBloc extends Bloc {
     _scoreTime.add((_startQuizz.value.pack.rule.timePerQuestion - _timer.value) + _scoreTime.value);
   }
 
-  validateAnswer(Answer answer) async {
+  validateAnswer(Answer answer) {
     answer.hasBeenChoose = true;
     lockAnswer = true;
     _answers.add(_answers.value);

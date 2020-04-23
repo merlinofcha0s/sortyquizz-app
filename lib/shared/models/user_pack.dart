@@ -42,7 +42,7 @@ class UserPack {
   @JsonProperty(name: 'pack')
   Pack pack;
 
-  @JsonProperty(name: 'resultStep1')
+  @JsonProperty(name: 'resultStep1', enumValues: ResultStep1.values)
   ResultStep1 resultStep1;
 
   UserPack();

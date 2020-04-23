@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:SortyQuizz/main/finishstep1/finish_step1_arguments.dart';
 import 'package:SortyQuizz/main/finishstep1/result_step1_type.dart';
 import 'package:SortyQuizz/shared/bloc/bloc.dart';
-import 'package:SortyQuizz/shared/models/user_pack.dart';
 import 'package:SortyQuizz/shared/repository/user_pack_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -16,24 +15,8 @@ class FinishStep1Bloc extends Bloc {
 
   FinishStep1Bloc();
 
-  recordScore(FinishStep1Argument finishStep1Argument) async {
-    UserPack userPack = new UserPack();
-    userPack.packId = finishStep1Argument.userPack.pack.id;
-    userPack.nbQuestionsToSucceed = finishStep1Argument.usedQuestions;
-    userPack.timeAtQuizzStep = finishStep1Argument.passedTime;
-
-    if(finishStep1Argument.wonCards < finishStep1Argument.userPack.pack.rule.nbMinCardToWin && finishStep1Argument.userPack.lifeLeft - 1 > 0) {
-      userPack.resultStep1 = ResultStep1.FAIL_WITH_LIFE;
-      _result.add(ResultStep1.FAIL_WITH_LIFE);
-    } else if (finishStep1Argument.wonCards < finishStep1Argument.userPack.pack.rule.nbMinCardToWin && finishStep1Argument.userPack.lifeLeft <= 0) {
-      userPack.resultStep1 = ResultStep1.FAIL_WITHOUT_LIFE;
-      _result.add(ResultStep1.FAIL_WITHOUT_LIFE);
-    } else {
-      userPack.resultStep1 = ResultStep1.SUCCEED;
-      _result.add(ResultStep1.SUCCEED);
-    }
-
-    await userPackRepository.completeUserPackForStep1(userPack);
+  loadState(FinishStep1Argument finishStep1Argument) async {
+    _result.add(finishStep1Argument.userPack.resultStep1);
   }
 
   abortPack(int userPack) async {

@@ -1,5 +1,6 @@
 import 'package:SortyQuizz/generated/l10n.dart';
 import 'package:SortyQuizz/keys.dart';
+import 'package:SortyQuizz/main/finishstep1/finish_step1_arguments.dart';
 import 'package:SortyQuizz/main/quizz/quizz_arguments.dart';
 import 'package:SortyQuizz/quizz/model/answer.dart';
 import 'package:SortyQuizz/quizz/model/question.dart';
@@ -165,12 +166,12 @@ class QuizzScreen extends StatelessWidget {
 
   onChooseAnswer(QuizzBloc quizzBloc, Answer answer, BuildContext context) async {
     if(!quizzBloc.lockAnswer) {
-      await quizzBloc.validateAnswer(answer);
+      quizzBloc.validateAnswer(answer);
       bool ok = await quizzBloc.waitFor(2);
       if(quizzBloc.hasNextQuestion() && ok) {
         await quizzBloc.getNextQuestion();
       } else {
-        var finishStep1Arg = quizzBloc.finishStep1();
+        FinishStep1Argument finishStep1Arg = await quizzBloc.finishStep1();
         await Navigator.pushNamed(context, QuizzRoutes.finishStep1, arguments: finishStep1Arg);
       }
     }
