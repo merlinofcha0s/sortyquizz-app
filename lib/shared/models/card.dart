@@ -3,7 +3,7 @@ import 'package:SortyQuizz/shared/models/value_type.dart';
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 
 @jsonSerializable
-class Card {
+class CardDTO {
   @JsonProperty(name: 'id')
   int id;
 
@@ -13,13 +13,13 @@ class Card {
   @JsonProperty(name: 'valueToSort')
   String valueToSort;
 
-  @JsonProperty(name: 'valueType', enumValues: ValueType.values)
+  @JsonProperty(name: 'valueType', enumValues: ValueType.values, ignoreIfNull: true)
   ValueType valueType;
 
   @JsonProperty(name: 'pictureContentType')
   String pictureContentType;
 
-  @JsonProperty(name: 'sortingType', enumValues: SortingType.values)
+  @JsonProperty(name: 'sortingType', enumValues: SortingType.values, ignoreIfNull: true)
   SortingType sortingType;
 
   @JsonProperty(name: 'order')
@@ -35,7 +35,7 @@ class Card {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Card && runtimeType == other.runtimeType && id == other.id;
+      other is CardDTO && runtimeType == other.runtimeType && id == other.id;
 
   @override
   int get hashCode => id.hashCode;

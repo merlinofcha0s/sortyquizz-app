@@ -54,8 +54,6 @@ class QuizzBloc extends Bloc {
 
   Stream<List<Answer>> get answersStream => _answers.stream;
 
-  Stream<int> currentTimer;
-
   StreamSubscription<int> currentTimerSub;
 
   bool lockAnswer = false;
@@ -85,20 +83,16 @@ class QuizzBloc extends Bloc {
     Rule rule = _startQuizz.value.pack.rule;
     var timePerQuestion = rule.timePerQuestion;
 
-    currentTimer = Stream<int>.periodic(Duration(seconds: 1), (timeLeft) => timePerQuestion - timeLeft)
+    Stream<int> currentTimer = Stream<int>.periodic(Duration(seconds: 1), (timeLeft) => timePerQuestion - timeLeft)
         .take(timePerQuestion + 1);
 
-    currentTimerSub = currentTimer.listen((timeLeft) => processTimer(timeLeft), onDone: () => endTimer());
+    currentTimerSub = currentTimer.listen((timeLeft) => _timer.add(timeLeft), onDone: () => endTimer());
   }
 
-  stopTimer(){
+  stopTimer() {
     if (currentTimerSub != null) {
       currentTimerSub.cancel();
     }
-  }
-
-  processTimer(int timeLeft) {
-    _timer.add(timeLeft);
   }
 
   endTimer() async {
@@ -127,26 +121,26 @@ class QuizzBloc extends Bloc {
   }
 
   Future<FinishStep1Argument> finishStep1() async {
-    FinishStep1Argument finishStep1Argument = FinishStep1Argument(_updateQuestionNumber.value, _scoreTime.value, _updateWonCards.value, _startQuizz.value);
+    FinishStep1Argument finishStepArgument = FinishStep1Argument(_updateQuestionNumber.value, _scoreTime.value, _updateWonCards.value, _startQuizz.value);
 
     UserPack userPack = new UserPack();
-    userPack.packId = finishStep1Argument.userPack.pack.id;
-    userPack.nbQuestionsToSucceed = finishStep1Argument.usedQuestions;
-    userPack.timeAtQuizzStep = finishStep1Argument.passedTime;
+    userPack.packId = finishStepArgument.userPack.pack.id;
+    userPack.nbQuestionsToSucceed = finishStepArgument.usedQuestions;
+    userPack.timeAtQuizzStep = finishStepArgument.passedTime;
 
-    if (finishStep1Argument.wonCards < finishStep1Argument.userPack.pack.rule.nbMinCardToWin && finishStep1Argument.userPack.lifeLeft - 1 > 0) {
-      userPack.resultStep1 = ResultStep1.FAIL_WITH_LIFE;
-    } else if (finishStep1Argument.wonCards < finishStep1Argument.userPack.pack.rule.nbMinCardToWin && finishStep1Argument.userPack.lifeLeft - 1 <= 0) {
-      userPack.resultStep1 = ResultStep1.FAIL_WITHOUT_LIFE;
+    if (finishStepArgument.wonCards < finishStepArgument.userPack.pack.rule.nbMinCardToWin && finishStepArgument.userPack.lifeLeft - 1 > 0) {
+      userPack.resultStep = ResultStep.FAIL_WITH_LIFE;
+    } else if (finishStepArgument.wonCards < finishStepArgument.userPack.pack.rule.nbMinCardToWin && finishStepArgument.userPack.lifeLeft - 1 <= 0) {
+      userPack.resultStep = ResultStep.FAIL_WITHOUT_LIFE;
     } else {
-      userPack.resultStep1 = ResultStep1.SUCCEED;
+      userPack.resultStep = ResultStep.SUCCEED;
     }
 
     var userPackUpdated = await userPackRepository.completeUserPackForStep1(userPack);
-    userPackUpdated.resultStep1 = userPack.resultStep1;
-    finishStep1Argument.userPack = userPackUpdated;
+    userPackUpdated.resultStep = userPack.resultStep;
+    finishStepArgument.userPack = userPackUpdated;
 
-    return finishStep1Argument;
+    return finishStepArgument;
   }
 
   computeTimePassAtQuestion() {

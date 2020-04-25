@@ -7,16 +7,16 @@ import 'package:SortyQuizz/shared/repository/user_pack_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FinishStep1Bloc extends Bloc {
-  final _result = BehaviorSubject<ResultStep1>();
+  final _result = BehaviorSubject<ResultStep>();
 
-  Stream<ResultStep1> get resultStream => _result.stream;
+  Stream<ResultStep> get resultStream => _result.stream;
 
   final userPackRepository = UserPackRepository();
 
   FinishStep1Bloc();
 
   loadState(FinishStep1Argument finishStep1Argument) async {
-    _result.add(finishStep1Argument.userPack.resultStep1);
+    _result.add(finishStep1Argument.userPack.resultStep);
   }
 
   abortPack(int userPack) async {

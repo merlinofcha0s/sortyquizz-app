@@ -6,6 +6,7 @@ import 'package:SortyQuizz/main/quizz/quizz_arguments.dart';
 import 'package:SortyQuizz/routes.dart';
 import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:SortyQuizz/shared/models/user_pack.dart';
+import 'package:SortyQuizz/shared/widget/header_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class FinishStep1Screen extends StatelessWidget {
     final FinishStep1Argument args = ModalRoute.of(context).settings.arguments;
     final finishStep1Bloc = BlocProvider.of<FinishStep1Bloc>(context);
     finishStep1Bloc.loadState(args);
-    return StreamBuilder<ResultStep1>(
+    return StreamBuilder<ResultStep>(
       stream: finishStep1Bloc.resultStream,
       builder: (context, snapshot) {
         return WillPopScope(
@@ -27,7 +28,7 @@ class FinishStep1Screen extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
                 automaticallyImplyLeading: false,
-                title: title(args, context)),
+                title: SortyHeader(args.userPack)),
             backgroundColor: Colors.white70,
             body: body(context, args, snapshot.data, finishStep1Bloc),
           ),
@@ -40,24 +41,7 @@ class FinishStep1Screen extends StatelessWidget {
     return false;
   }
 
-  Widget title(FinishStep1Argument args, BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(args.userPack.pack.name),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(args.userPack.pack.themeName),
-            Text(' - '),
-            Text(S.of(context).pageQuizzStep1Lvl + ' ' + args.userPack.pack.level.toString()),
-          ],
-        ),
-      ],
-    );
-  }
-
-  body(BuildContext context, FinishStep1Argument args, ResultStep1 resultStep1, FinishStep1Bloc finishStep1Bloc) {
+  body(BuildContext context, FinishStep1Argument args, ResultStep resultStep1, FinishStep1Bloc finishStep1Bloc) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -82,9 +66,9 @@ class FinishStep1Screen extends StatelessWidget {
     );
   }
 
-  Widget bodyTitle(ResultStep1 resultStep1, BuildContext context) {
+  Widget bodyTitle(ResultStep resultStep1, BuildContext context) {
     Widget result;
-    if(resultStep1 == ResultStep1.SUCCEED) {
+    if(resultStep1 == ResultStep.SUCCEED) {
       result = Text(S.of(context).pageFinishStep1TitleSucceed, style: TextStyle(fontSize: 30),);
     } else {
       result = Text(S.of(context).pageFinishStep1TitleFail, style: TextStyle(fontSize: 30),);
@@ -93,9 +77,9 @@ class FinishStep1Screen extends StatelessWidget {
     return result;
   }
 
-  Widget bodySubtitle(ResultStep1 resultStep1, BuildContext context, int numberOfWonCards) {
+  Widget bodySubtitle(ResultStep resultStep1, BuildContext context, int numberOfWonCards) {
     Widget result;
-    if(resultStep1 == ResultStep1.SUCCEED) {
+    if(resultStep1 == ResultStep.SUCCEED) {
       result = Text(S.of(context).pageFinishStep1SubTitleSuccess(numberOfWonCards), style: TextStyle(fontSize: 20),);
     } else {
       result = Text(S.of(context).pageFinishStep1SubTitleFail, style: TextStyle(fontSize: 20), textAlign: TextAlign.center,);
@@ -103,10 +87,11 @@ class FinishStep1Screen extends StatelessWidget {
     return result;
   }
 
-  Widget nextAction(BuildContext context, ResultStep1 resultStep1, FinishStep1Argument args, FinishStep1Bloc finishStep1Bloc, UserPack userpack) {
-    if (resultStep1 == ResultStep1.SUCCEED) {
-      return buttonForNextAction(S.of(context).pageFinishStep1StartStep2, () => Navigator.pushNamed(context, QuizzRoutes.login), context);
-    } else if (resultStep1 == ResultStep1.FAIL_WITH_LIFE) {
+  Widget nextAction(BuildContext context, ResultStep resultStep1, FinishStep1Argument args, FinishStep1Bloc finishStep1Bloc, UserPack userpack) {
+    if (resultStep1 == ResultStep.SUCCEED) {
+      return buttonForNextAction(S.of(context).pageFinishStep1StartStep2,
+              () => Navigator.pushNamed(context, QuizzRoutes.sortCard, arguments: userpack), context);
+    } else if (resultStep1 == ResultStep.FAIL_WITH_LIFE) {
       return Column(
         children: <Widget>[
           buttonForNextAction(S.of(context).pageFinishStep1RestartPackStep1, () => onRestartPack(context, finishStep1Bloc, userpack.id), context),
@@ -129,9 +114,9 @@ class FinishStep1Screen extends StatelessWidget {
     Navigator.pushNamed(context, QuizzRoutes.quizz, arguments: QuizzArgument(userpackId));
   }
 
-  Widget abort(BuildContext context, ResultStep1 resultStep1, FinishStep1Bloc finishStep1Bloc, UserPack userPack) {
+  Widget abort(BuildContext context, ResultStep resultStep1, FinishStep1Bloc finishStep1Bloc, UserPack userPack) {
     return Visibility(
-      visible: resultStep1 != ResultStep1.SUCCEED,
+      visible: resultStep1 != ResultStep.SUCCEED,
       child: Padding(
         padding: const EdgeInsets.only(top: 30.0),
         child: Column(
@@ -145,14 +130,14 @@ class FinishStep1Screen extends StatelessWidget {
               onPressed: () => onAbort(context, resultStep1, finishStep1Bloc, userPack.id),
             ),
             Padding(padding: EdgeInsets.only(top: 8),),
-            Visibility(visible: resultStep1 == ResultStep1.FAIL_WITH_LIFE, child: Text(S.of(context).pageFinishStep1AbortPackSubtitle, textAlign: TextAlign.center,))
+            Visibility(visible: resultStep1 == ResultStep.FAIL_WITH_LIFE, child: Text(S.of(context).pageFinishStep1AbortPackSubtitle, textAlign: TextAlign.center,))
           ],
         ),
       ),
     );
   }
 
-  onAbort(BuildContext context, ResultStep1 resultStep1, FinishStep1Bloc finishStep1Bloc, int userPackId) async {
+  onAbort(BuildContext context, ResultStep resultStep1, FinishStep1Bloc finishStep1Bloc, int userPackId) async {
     await finishStep1Bloc.abortPack(userPackId);
     Navigator.pushNamed(context, QuizzRoutes.openPack);
   }

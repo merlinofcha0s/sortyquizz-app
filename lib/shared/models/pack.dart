@@ -37,5 +37,5 @@ class Pack {
   List<Question> questions = new List<Question>();
 
   @JsonProperty(name: 'cards')
-  List<Card> cards = new List<Card>();
+  List<CardDTO> cards = new List<CardDTO>();
 }

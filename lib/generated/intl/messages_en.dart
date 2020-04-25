@@ -73,6 +73,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "pageRegisterSuccess" : MessageLookupByLibrary.simpleMessage("Congratulation"),
     "pageRegisterSuccessAltImg" : MessageLookupByLibrary.simpleMessage("Register success"),
     "pageRegisterSuccessSub" : MessageLookupByLibrary.simpleMessage("You have successfuly registered"),
-    "pageRegisterTitle" : MessageLookupByLibrary.simpleMessage("Register")
+    "pageRegisterTitle" : MessageLookupByLibrary.simpleMessage("Register"),
+    "pageSortCardTimer" : MessageLookupByLibrary.simpleMessage("Timer"),
+    "pageSortCardValidate" : MessageLookupByLibrary.simpleMessage("Validate")
   };
 }

@@ -9,6 +9,8 @@ class QuizzRoutes {
   static final openPack = '/main/open-pack';
   static final quizz = '/main/quizz';
   static final finishStep1 = '/main/quizz/finish-step-1';
+  static final sortCard = '/main/quizz/sort-card';
+  static final finishStep2 = '/main/quizz/finish-step-2';
   static final quizz2 = '/quizz-2';
 
 

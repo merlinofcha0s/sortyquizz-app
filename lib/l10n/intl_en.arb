@@ -47,5 +47,7 @@
   "pageFinishStep1AbortPack": "Abort",
   "pageFinishStep1AbortPackSubtitle": "If you abort now you'll loose all the life left in the pack.",
   "pageFinishStep1ActionLooseWithoutLife": "Buy a life for xx po",
-  "pageFinishStep1LooseWithoutLife": "You don't have life left..."
+  "pageFinishStep1LooseWithoutLife": "You don't have life left...",
+  "pageSortCardValidate": "Validate",
+  "pageSortCardTimer": "Timer"
 }

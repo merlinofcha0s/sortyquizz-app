@@ -18,8 +18,8 @@ void configMapper() {
     typeOf<Set<Answer>>(): (value) => value.cast<Answer>(),
     typeOf<List<UserPack>>(): (value) => value.cast<UserPack>(),
     typeOf<Set<UserPack>>(): (value) => value.cast<UserPack>(),
-    typeOf<List<Card>>(): (value) => value.cast<Card>(),
-    typeOf<Set<Card>>(): (value) => value.cast<Card>(),
+    typeOf<List<CardDTO>>(): (value) => value.cast<CardDTO>(),
+    typeOf<Set<CardDTO>>(): (value) => value.cast<CardDTO>(),
     typeOf<List<Pack>>(): (value) => value.cast<Pack>(),
     typeOf<Set<Pack>>(): (value) => value.cast<Pack>()
   }, converters: {
@@ -27,7 +27,7 @@ void configMapper() {
     PackType: EnumConverter(PackType.values),
     ValueType: EnumConverter(ValueType.values),
     SortingType: EnumConverter(SortingType.values),
-    ResultStep1 : EnumConverter(ResultStep1.values),
+    ResultStep : EnumConverter(ResultStep.values),
   }));
 }
 
@@ -40,9 +40,11 @@ class EnumConverter implements ICustomConverter<dynamic> {
 
   @override
   dynamic fromJSON(jsonValue, [JsonProperty jsonProperty]) {
-    var found = compareTO.any((item) => item.toString().split('.').last == jsonValue);
+    String jsonValueString = jsonValue.toString().replaceAll('"', '');
+
+    var found = compareTO.any((item) => item.toString().split('.').last == jsonValueString);
     if (found) {
-      return compareTO.firstWhere((v) => jsonValue == v.toString().split('.').last, orElse: () => null);
+      return compareTO.firstWhere((v) => jsonValueString == v.toString().split('.').last, orElse: () => null);
     } else {
       return null;
     }
@@ -50,7 +52,6 @@ class EnumConverter implements ICustomConverter<dynamic> {
 
   @override
   String toJSON(dynamic object, [JsonProperty jsonProperty]) {
-    print(object.toString());
     if(object != null){
       return object.toString().split('.').last;
     } else {

@@ -468,6 +468,24 @@ class S {
       args: [],
     );
   }
+
+  String get pageSortCardValidate {
+    return Intl.message(
+      'Validate',
+      name: 'pageSortCardValidate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageSortCardTimer {
+    return Intl.message(
+      'Timer',
+      name: 'pageSortCardTimer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

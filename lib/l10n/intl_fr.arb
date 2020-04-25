@@ -47,5 +47,7 @@
   "pageFinishStep1AbortPack": "Abandonner",
   "pageFinishStep1AbortPackSubtitle": "Attention si vous abandonnez maintenant, vous perdrez toutes vos vies du pack.",
   "pageFinishStep1ActionLooseWithoutLife": "Acheter une vie pour xx po",
-  "pageFinishStep1LooseWithoutLife": "Vous n'avez plus de vie..."
+  "pageFinishStep1LooseWithoutLife": "Vous n'avez plus de vie...",
+  "pageSortCardValidate": "Valider",
+  "pageSortCardTimer": "Timer"
 }

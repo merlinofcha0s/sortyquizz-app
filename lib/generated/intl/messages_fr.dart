@@ -70,6 +70,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "pageRegisterSuccess" : MessageLookupByLibrary.simpleMessage("Félicitation"),
     "pageRegisterSuccessAltImg" : MessageLookupByLibrary.simpleMessage("Votre compte a été créé avec succés"),
     "pageRegisterSuccessSub" : MessageLookupByLibrary.simpleMessage("Votre compte a été créé avec succés"),
-    "pageRegisterTitle" : MessageLookupByLibrary.simpleMessage("Créer un compte")
+    "pageRegisterTitle" : MessageLookupByLibrary.simpleMessage("Créer un compte"),
+    "pageSortCardTimer" : MessageLookupByLibrary.simpleMessage("Timer"),
+    "pageSortCardValidate" : MessageLookupByLibrary.simpleMessage("Valider")
   };
 }
