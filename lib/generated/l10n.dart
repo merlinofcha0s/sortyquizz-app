@@ -486,6 +486,105 @@ class S {
       args: [],
     );
   }
+
+  String get pageFinishStep2TitleSuccess {
+    return Intl.message(
+      'Congratulations',
+      name: 'pageFinishStep2TitleSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep2SubTitleSuccess {
+    return Intl.message(
+      'Your final score is',
+      name: 'pageFinishStep2SubTitleSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String pageFinishStep2SubTitleLifeUsedSuccess(Object numberlifeUsed) {
+    return Intl.message(
+      'Number of life used : $numberlifeUsed',
+      name: 'pageFinishStep2SubTitleLifeUsedSuccess',
+      desc: '',
+      args: [numberlifeUsed],
+    );
+  }
+
+  String get pageFinishStep2TitleFail {
+    return Intl.message(
+      'Fail',
+      name: 'pageFinishStep2TitleFail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep2SubTitleFail {
+    return Intl.message(
+      'Your sorting is incorrect',
+      name: 'pageFinishStep2SubTitleFail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep2StepSortTitle {
+    return Intl.message(
+      'Sorting step',
+      name: 'pageFinishStep2StepSortTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep2StepSortNumberOfCards {
+    return Intl.message(
+      'Number of cards',
+      name: 'pageFinishStep2StepSortNumberOfCards',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep2StepSortTime {
+    return Intl.message(
+      'Time',
+      name: 'pageFinishStep2StepSortTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pageFinishStep2StepQuizzTitle {
+    return Intl.message(
+      'Quizz step',
+      name: 'pageFinishStep2StepQuizzTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String pageFinishStep2Rank(Object rank) {
+    return Intl.message(
+      'You are $rank on this pack',
+      name: 'pageFinishStep2Rank',
+      desc: '',
+      args: [rank],
+    );
+  }
+
+  String get pageFinishStep2WinXP {
+    return Intl.message(
+      'You win',
+      name: 'pageFinishStep2WinXP',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -49,5 +49,16 @@
   "pageFinishStep1ActionLooseWithoutLife": "Buy a life for xx po",
   "pageFinishStep1LooseWithoutLife": "You don't have life left...",
   "pageSortCardValidate": "Validate",
-  "pageSortCardTimer": "Timer"
+  "pageSortCardTimer": "Timer",
+  "pageFinishStep2TitleSuccess": "Congratulations",
+  "pageFinishStep2SubTitleSuccess": "Your final score is",
+  "pageFinishStep2SubTitleLifeUsedSuccess": "Number of life used : {numberlifeUsed}",
+  "pageFinishStep2TitleFail": "Fail",
+  "pageFinishStep2SubTitleFail": "Your sorting is incorrect",
+  "pageFinishStep2StepSortTitle": "Sorting step",
+  "pageFinishStep2StepSortNumberOfCards": "Number of cards",
+  "pageFinishStep2StepSortTime": "Time",
+  "pageFinishStep2StepQuizzTitle": "Quizz step",
+  "pageFinishStep2Rank": "You are {rank} on this pack",
+  "pageFinishStep2WinXP": "You win"
 }

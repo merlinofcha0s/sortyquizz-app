@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
-import 'package:SortyQuizz/main/finishstep1/finish_step1_arguments.dart';
-import 'package:SortyQuizz/main/finishstep1/result_step1_type.dart';
+import 'package:SortyQuizz/main/finishstep1/finish_step1_model.dart';
 import 'package:SortyQuizz/quizz/model/answer.dart';
 import 'package:SortyQuizz/quizz/model/question.dart';
 import 'package:SortyQuizz/quizz/model/score.dart';
 import 'package:SortyQuizz/shared/bloc/bloc.dart';
+import 'package:SortyQuizz/shared/models/result_step1_type.dart';
 import 'package:SortyQuizz/shared/models/rule.dart';
 import 'package:SortyQuizz/shared/models/user_pack.dart';
 import 'package:SortyQuizz/shared/repository/user_pack_repository.dart';
@@ -120,8 +120,8 @@ class QuizzBloc extends Bloc {
     return currentQuestionNumber != _startQuizz.value.pack.questions.length;
   }
 
-  Future<FinishStep1Argument> finishStep1() async {
-    FinishStep1Argument finishStepArgument = FinishStep1Argument(_updateQuestionNumber.value, _scoreTime.value, _updateWonCards.value, _startQuizz.value);
+  Future<FinishStep1DTO> finishStep1() async {
+    FinishStep1DTO finishStepArgument = FinishStep1DTO(_updateQuestionNumber.value, _scoreTime.value, _updateWonCards.value, _startQuizz.value);
 
     UserPack userPack = new UserPack();
     userPack.packId = finishStepArgument.userPack.pack.id;

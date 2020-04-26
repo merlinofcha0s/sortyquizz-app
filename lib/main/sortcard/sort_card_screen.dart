@@ -1,5 +1,6 @@
 import 'package:SortyQuizz/generated/l10n.dart';
 import 'package:SortyQuizz/main/sortcard/sort_card_bloc.dart';
+import 'package:SortyQuizz/routes.dart';
 import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:SortyQuizz/shared/containers/loading_indicator_widget.dart';
 import 'package:SortyQuizz/shared/models/card.dart';
@@ -140,6 +141,6 @@ class SortCardScreen extends StatelessWidget {
 
   validate(SortCardBloc sortCardBloc, BuildContext context) async {
     UserPack userPackRefreshed = await sortCardBloc.validateSorting();
-//    Navigator.pushNamed(context, QuizzRoutes.finishStep2, arguments: resultStep);
+    Navigator.pushNamed(context, QuizzRoutes.finishStep2, arguments: userPackRefreshed);
   }
 }

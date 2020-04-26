@@ -21,6 +21,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m0(numberOfLifeLeft) => "Il vous reste ${numberOfLifeLeft} vie(s)";
 
+  static m2(rank) => "Vous êtes ${rank} au classement";
+
+  static m3(numberlifeUsed) => "Nombre de vie(s) utilisée(s) : ${numberlifeUsed}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "pageFinishStep1AbortPack" : MessageLookupByLibrary.simpleMessage("Abandonner"),
@@ -35,6 +39,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "pageFinishStep1TitleSucceed" : MessageLookupByLibrary.simpleMessage("Félicitations"),
     "pageFinishStep1UsedQuestion" : MessageLookupByLibrary.simpleMessage("Questions utilisées"),
     "pageFinishStep1UsedTime" : MessageLookupByLibrary.simpleMessage("Temps passé"),
+    "pageFinishStep2Rank" : m2,
+    "pageFinishStep2StepQuizzTitle" : MessageLookupByLibrary.simpleMessage("Etape quizz"),
+    "pageFinishStep2StepSortNumberOfCards" : MessageLookupByLibrary.simpleMessage("Nombre de cartes"),
+    "pageFinishStep2StepSortTime" : MessageLookupByLibrary.simpleMessage("Temps"),
+    "pageFinishStep2StepSortTitle" : MessageLookupByLibrary.simpleMessage("Etape classement"),
+    "pageFinishStep2SubTitleFail" : MessageLookupByLibrary.simpleMessage("Votre classement est incorrect"),
+    "pageFinishStep2SubTitleLifeUsedSuccess" : m3,
+    "pageFinishStep2SubTitleSuccess" : MessageLookupByLibrary.simpleMessage("Votre score final est"),
+    "pageFinishStep2TitleFail" : MessageLookupByLibrary.simpleMessage("Perdu"),
+    "pageFinishStep2TitleSuccess" : MessageLookupByLibrary.simpleMessage("Félicitations"),
+    "pageFinishStep2WinXP" : MessageLookupByLibrary.simpleMessage("Vous gagnez"),
     "pageLoginBar" : MessageLookupByLibrary.simpleMessage("Se connecter"),
     "pageLoginErrorAuthentication" : MessageLookupByLibrary.simpleMessage("Un problème est survenu, veuillez vérifier vos identifiants"),
     "pageLoginLoginButton" : MessageLookupByLibrary.simpleMessage("S\'identifier"),

@@ -49,5 +49,16 @@
   "pageFinishStep1ActionLooseWithoutLife": "Acheter une vie pour xx po",
   "pageFinishStep1LooseWithoutLife": "Vous n'avez plus de vie...",
   "pageSortCardValidate": "Valider",
-  "pageSortCardTimer": "Timer"
+  "pageSortCardTimer": "Timer",
+  "pageFinishStep2TitleSuccess": "Félicitations",
+  "pageFinishStep2SubTitleSuccess": "Votre score final est",
+  "pageFinishStep2SubTitleLifeUsedSuccess": "Nombre de vie(s) utilisée(s) : {numberlifeUsed}",
+  "pageFinishStep2TitleFail": "Perdu",
+  "pageFinishStep2SubTitleFail": "Votre classement est incorrect",
+  "pageFinishStep2StepSortTitle": "Etape classement",
+  "pageFinishStep2StepSortNumberOfCards": "Nombre de cartes",
+  "pageFinishStep2StepSortTime": "Temps",
+  "pageFinishStep2StepQuizzTitle": "Etape quizz",
+  "pageFinishStep2Rank": "Vous êtes {rank} au classement",
+  "pageFinishStep2WinXP": "Vous gagnez"
 }

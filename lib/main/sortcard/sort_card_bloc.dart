@@ -83,8 +83,6 @@ class SortCardBloc extends Bloc {
     _cards.close();
     _timer.close();
     _currentUserPack.close();
-    if (currentTimerSub != null) {
-      currentTimerSub.cancel();
-    }
+    stopTimer();
   }
 }

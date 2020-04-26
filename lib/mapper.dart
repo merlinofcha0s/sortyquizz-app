@@ -1,10 +1,10 @@
-import 'package:SortyQuizz/main/finishstep1/result_step1_type.dart';
 import 'package:SortyQuizz/quizz/model/answer.dart';
 import 'package:SortyQuizz/quizz/model/question.dart';
 import 'package:SortyQuizz/shared/models/card.dart';
 import 'package:SortyQuizz/shared/models/pack.dart';
 import 'package:SortyQuizz/shared/models/pack_state.dart';
 import 'package:SortyQuizz/shared/models/pack_type.dart';
+import 'package:SortyQuizz/shared/models/result_step1_type.dart';
 import 'package:SortyQuizz/shared/models/sorting_type.dart';
 import 'package:SortyQuizz/shared/models/user_pack.dart';
 import 'package:SortyQuizz/shared/models/value_type.dart';
@@ -41,13 +41,13 @@ class EnumConverter implements ICustomConverter<dynamic> {
   @override
   dynamic fromJSON(jsonValue, [JsonProperty jsonProperty]) {
     String jsonValueString = jsonValue.toString().replaceAll('"', '');
-
-    var found = compareTO.any((item) => item.toString().split('.').last == jsonValueString);
-    if (found) {
-      return compareTO.firstWhere((v) => jsonValueString == v.toString().split('.').last, orElse: () => null);
+    var result;
+    if (jsonValueString.indexOf('.') != - 1) {
+      result = compareTO.firstWhere((v) => jsonValueString == v.toString(), orElse: () => null);
     } else {
-      return null;
+      result =  compareTO.firstWhere((v) => jsonValueString == v.toString().split('.').last, orElse: () => null);
     }
+    return result;
   }
 
   @override

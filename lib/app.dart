@@ -1,5 +1,7 @@
 import 'package:SortyQuizz/main/finishstep1/finish_step1_bloc.dart';
 import 'package:SortyQuizz/main/finishstep1/finish_step1_screen.dart';
+import 'package:SortyQuizz/main/finishstep2/finish_step2_bloc.dart';
+import 'package:SortyQuizz/main/finishstep2/finish_step2_screen.dart';
 import 'package:SortyQuizz/main/main_bloc.dart';
 import 'package:SortyQuizz/main/main_screen.dart';
 import 'package:SortyQuizz/main/openpack/open_pack_bloc.dart';
@@ -59,6 +61,10 @@ class SortyQuizzApp extends StatelessWidget {
         QuizzRoutes.sortCard: (context) {
           return BlocProvider<SortCardBloc>(
               bloc: SortCardBloc(), child: SortCardScreen());
+        },
+        QuizzRoutes.finishStep2: (context) {
+          return BlocProvider<FinishStep2Bloc>(
+              bloc: FinishStep2Bloc(), child: FinishStep2Screen());
         },
         QuizzRoutes.quizz2: (context) {
           return QuizzScreen2();

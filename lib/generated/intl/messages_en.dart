@@ -23,6 +23,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m1(numberCardsWon) => "You have win ${numberCardsWon} cards";
 
+  static m2(rank) => "You are ${rank} on this pack";
+
+  static m3(numberlifeUsed) => "Number of life used : ${numberlifeUsed}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "pageFinishStep1AbortPack" : MessageLookupByLibrary.simpleMessage("Abort"),
@@ -38,6 +42,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "pageFinishStep1TitleSucceed" : MessageLookupByLibrary.simpleMessage("Congratulations"),
     "pageFinishStep1UsedQuestion" : MessageLookupByLibrary.simpleMessage("Questions consumed"),
     "pageFinishStep1UsedTime" : MessageLookupByLibrary.simpleMessage("Time consumed"),
+    "pageFinishStep2Rank" : m2,
+    "pageFinishStep2StepQuizzTitle" : MessageLookupByLibrary.simpleMessage("Quizz step"),
+    "pageFinishStep2StepSortNumberOfCards" : MessageLookupByLibrary.simpleMessage("Number of cards"),
+    "pageFinishStep2StepSortTime" : MessageLookupByLibrary.simpleMessage("Time"),
+    "pageFinishStep2StepSortTitle" : MessageLookupByLibrary.simpleMessage("Sorting step"),
+    "pageFinishStep2SubTitleFail" : MessageLookupByLibrary.simpleMessage("Your sorting is incorrect"),
+    "pageFinishStep2SubTitleLifeUsedSuccess" : m3,
+    "pageFinishStep2SubTitleSuccess" : MessageLookupByLibrary.simpleMessage("Your final score is"),
+    "pageFinishStep2TitleFail" : MessageLookupByLibrary.simpleMessage("Fail"),
+    "pageFinishStep2TitleSuccess" : MessageLookupByLibrary.simpleMessage("Congratulations"),
+    "pageFinishStep2WinXP" : MessageLookupByLibrary.simpleMessage("You win"),
     "pageLoginBar" : MessageLookupByLibrary.simpleMessage("Login"),
     "pageLoginErrorAuthentication" : MessageLookupByLibrary.simpleMessage("Problem when authenticate, verify your credential"),
     "pageLoginLoginButton" : MessageLookupByLibrary.simpleMessage("Sign in"),

@@ -1,5 +1,5 @@
-import 'package:SortyQuizz/main/finishstep1/result_step1_type.dart';
 import 'package:SortyQuizz/shared/models/pack.dart';
+import 'package:SortyQuizz/shared/models/result_step1_type.dart';
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 
 import 'pack_state.dart';
