@@ -4,6 +4,7 @@ import 'package:SortyQuizz/main/quizz/quizz_arguments.dart';
 import 'package:SortyQuizz/routes.dart';
 import 'package:SortyQuizz/shared/bloc/bloc_provider.dart';
 import 'package:SortyQuizz/shared/containers/loading_indicator_widget.dart';
+import 'package:SortyQuizz/shared/models/pack_state.dart';
 import 'package:SortyQuizz/shared/models/user_pack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,7 @@ class OpenPackScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTapCard(userPack, context),
       child: Card(
-        color: userPack.lifeLeft > 0 ? Colors.white : Colors.red,
+        color: computePackColor(userPack),
         child: Container(
           height: 160,
           width: 110,
@@ -115,6 +116,16 @@ class OpenPackScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color computePackColor(UserPack userPack){
+    if(userPack.state == PackState.COMPLETED){
+      return Colors.green;
+    } else if (userPack.lifeLeft > 0){
+      return Colors.white;
+    } else {
+      return Colors.red;
+    }
   }
 
   onTapCard(UserPack userPack, BuildContext context) {

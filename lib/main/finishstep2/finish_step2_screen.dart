@@ -120,7 +120,7 @@ class FinishStep2Screen extends StatelessWidget {
                 height: 30,
                 child: Center(
                     child: Text('Ok', style: TextStyle(fontSize: 17),))),
-            onPressed: () => {},
+            onPressed: () => onSuccessPack(context),
           )
         ],
       ),
@@ -247,8 +247,11 @@ class FinishStep2Screen extends StatelessWidget {
   }
 
   onAbort(BuildContext context, FinishStep2Bloc finishStep2Bloc, int userPackId) async {
-//    await finishStep1Bloc.abortPack(userPackId);
+    await finishStep2Bloc.abortPack(userPackId);
     Navigator.pushNamed(context, QuizzRoutes.openPack);
   }
 
+  onSuccessPack(BuildContext context) {
+    Navigator.pushNamed(context, QuizzRoutes.openPack);
+  }
 }
