@@ -59,6 +59,6 @@
   "pageFinishStep2StepSortNumberOfCards": "Number of cards",
   "pageFinishStep2StepSortTime": "Time",
   "pageFinishStep2StepQuizzTitle": "Quizz step",
-  "pageFinishStep2Rank": "You are {rank} on this pack",
+  "pageFinishStep2Rank": "You are {rank}st on this pack",
   "pageFinishStep2WinXP": "You win"
 }

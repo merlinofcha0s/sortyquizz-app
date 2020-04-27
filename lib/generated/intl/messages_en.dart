@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m1(numberCardsWon) => "You have win ${numberCardsWon} cards";
 
-  static m2(rank) => "You are ${rank} on this pack";
+  static m2(rank) => "You are ${rank}st on this pack";
 
   static m3(numberlifeUsed) => "Number of life used : ${numberlifeUsed}";
 

@@ -21,7 +21,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m0(numberOfLifeLeft) => "Il vous reste ${numberOfLifeLeft} vie(s)";
 
-  static m2(rank) => "Vous êtes ${rank} au classement";
+  static m1(numberCardsWon) => "Vous avez gagné les ${numberCardsWon} cartes à classer";
+
+  static m2(rank) => "Vous êtes ${rank}er au classement";
 
   static m3(numberlifeUsed) => "Nombre de vie(s) utilisée(s) : ${numberlifeUsed}";
 
@@ -35,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pageFinishStep1RestartPackStep1" : MessageLookupByLibrary.simpleMessage("Recommencer ce pack"),
     "pageFinishStep1StartStep2" : MessageLookupByLibrary.simpleMessage(" Démarrer le classement"),
     "pageFinishStep1SubTitleFail" : MessageLookupByLibrary.simpleMessage("Vous n\'avez pas récupéré assez de carte pour continuer"),
+    "pageFinishStep1SubTitleSuccess" : m1,
     "pageFinishStep1TitleFail" : MessageLookupByLibrary.simpleMessage("Perdu..."),
     "pageFinishStep1TitleSucceed" : MessageLookupByLibrary.simpleMessage("Félicitations"),
     "pageFinishStep1UsedQuestion" : MessageLookupByLibrary.simpleMessage("Questions utilisées"),

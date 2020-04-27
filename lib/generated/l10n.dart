@@ -570,7 +570,7 @@ class S {
 
   String pageFinishStep2Rank(Object rank) {
     return Intl.message(
-      'You are $rank on this pack',
+      'You are ${rank}st on this pack',
       name: 'pageFinishStep2Rank',
       desc: '',
       args: [rank],

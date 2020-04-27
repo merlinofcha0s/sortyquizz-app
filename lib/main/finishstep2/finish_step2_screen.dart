@@ -48,26 +48,17 @@ class FinishStep2Screen extends StatelessWidget {
   }
 
   body(BuildContext context, FinishStep2Bloc finishStep2Bloc, UserPack userPack) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              bodyTitle(userPack.resultStep, context),
-              Padding(padding: const EdgeInsets.all(5.0),),
-              bodySubtitle(userPack.resultStep, context, 1),
-              Padding(padding: const EdgeInsets.all(5.0),),
-              statsForSuccess(context, userPack),
-              nextAction(context, userPack),
-              abort(context, finishStep2Bloc, userPack)
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        bodyTitle(userPack.resultStep, context),
+        Padding(padding: const EdgeInsets.all(5.0),),
+        bodySubtitle(userPack.resultStep, context, 1),
+        Padding(padding: const EdgeInsets.all(5.0),),
+        statsForSuccess(context, userPack),
+        nextAction(context, userPack),
+        abort(context, finishStep2Bloc, userPack)
+      ],
     );
   }
 
@@ -77,18 +68,18 @@ class FinishStep2Screen extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Container(width: 80, child: Text(S.of(context).pageFinishStep2StepSortTitle)),
+              Container(width: 80, child: Text(S.of(context).pageFinishStep2StepSortTitle, textAlign: TextAlign.center,)),
               card(context, S.of(context).pageFinishStep2StepSortNumberOfCards, userPack.pack.cards.length.toString()),
               card(context, S.of(context).pageFinishStep2StepSortTime, '${userPack.timeAtSortingStep}s')
             ],
           ),
           Padding(padding: const EdgeInsets.all(5.0),),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Container(width: 80,child: Text(S.of(context).pageFinishStep2StepQuizzTitle)),
+              Container(width: 80,child: Text(S.of(context).pageFinishStep2StepQuizzTitle, textAlign: TextAlign.center,)),
               card(context, S.of(context).pageFinishStep1UsedQuestion, userPack.nbQuestionsToSucceed.toString() + ' / ' + userPack.pack.rule.nbMaxQuestions.toString()),
               card(context, S.of(context).pageFinishStep1UsedTime, userPack.timeAtQuizzStep.toString() + 's')
             ],

@@ -37,7 +37,7 @@
   "pageQuizzStep1CurrentQuestion": "Questions",
   "pageFinishStep1TitleSucceed": "Félicitations",
   "pageFinishStep1TitleFail": "Perdu...",
-  "pageFinishStep1SubTitle": "Vous avez gagné les {numberCardsWon} cartes à classer",
+  "pageFinishStep1SubTitleSuccess": "Vous avez gagné les {numberCardsWon} cartes à classer",
   "pageFinishStep1SubTitleFail": "Vous n'avez pas récupéré assez de carte pour continuer",
   "pageFinishStep1UsedQuestion": "Questions utilisées",
   "pageFinishStep1UsedTime": "Temps passé",
@@ -59,6 +59,6 @@
   "pageFinishStep2StepSortNumberOfCards": "Nombre de cartes",
   "pageFinishStep2StepSortTime": "Temps",
   "pageFinishStep2StepQuizzTitle": "Etape quizz",
-  "pageFinishStep2Rank": "Vous êtes {rank} au classement",
+  "pageFinishStep2Rank": "Vous êtes {rank}er au classement",
   "pageFinishStep2WinXP": "Vous gagnez"
 }
