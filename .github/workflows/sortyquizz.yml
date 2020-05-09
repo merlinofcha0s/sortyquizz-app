@@ -11,11 +11,17 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    container:
-      image: cirrusci/flutter:stable
-
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1.3.0
+      with:
+        java-version: '11.x'
+        java-package: jdk
+        architecture: x64
+    - uses: subosito/flutter-action@v1.3.2
+      with:
+        flutter-version: '1.17.0'
+        channel: 'stable'
     - name: Install dependencies
       run: flutter pub get
     - name: Run JSON Reflector
