@@ -161,7 +161,9 @@ class QuizzBloc extends Bloc {
 
     if (answer.isTheRightAnswer) {
       resultToUpdate.right++;
-      _updateWonCards.add(resultToUpdate.right);
+      if (_startQuizz.value.pack.rule.nbMinCardToWin > _updateWonCards.value) {
+        _updateWonCards.add(resultToUpdate.right);
+      }
       _updateScore.add(resultToUpdate);
     }
 
